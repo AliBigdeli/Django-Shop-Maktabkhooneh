@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: db
+    image: postgres:15-alpine
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    expose:
+      - 5432
+    restart: always
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./dockerfiles/dev/django/Dockerfile
+    volumes: 
+      - ./core:/usr/src/app
+    working_dir: /usr/src/app
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=True
+    restart: always
+    depends_on:
+      - db
+      
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      - '5000:80'
+      - '25:25'
+      - '143:143'
+    volumes:
+        - smtp4dev-data:/smtp4dev
+    environment:
+      - ServerOptions__HostName=smtp4dev
+
+volumes:
+  smtp4dev-data:
