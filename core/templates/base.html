@@ -1,0 +1,592 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>{% block title %} {% endblock title %}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="{% static 'css/vendor.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/font/bootstrap-icons.css' %}">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
+    {% block extra_css %} {% endblock extra_css %}
+
+    {% block extra_css_no_compress %} {% endblock extra_css_no_compress %}
+</head>
+
+
+<body>
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-light">
+        <div class="container">
+            <nav class="js-mega-menu navbar-nav-wrap">
+                <!-- Default Logo -->
+                <a class="navbar-brand" href="/index.html" aria-label="Front">
+                    <img class="navbar-brand-logo" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
+                </a>
+                <!-- End Default Logo -->
+
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-default">
+                        <i class="bi-list"></i>
+                    </span>
+                    <span class="navbar-toggler-toggled">
+                        <i class="bi-x"></i>
+                    </span>
+                </button>
+                <!-- End Toggler -->
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/index.html">صفحه اصلی</a>
+                        </li>
+
+                        <!-- Dropdown -->
+                        <li class="hs-has-sub-menu nav-item">
+                            <a id="listingsDropdown" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">لیست محصولات</a>
+                            <div class="hs-sub-menu dropdown-menu" aria-labelledby="listingsDropdown"
+                                style="min-width: 14rem;">
+                                <a class="dropdown-item " href="/products-list.html">فهرست</a>
+                                <a class="dropdown-item " href="/products-grid.html">فهرست (شبکه)</a>
+                            </div>
+                        </li>
+                        <!-- End Dropdown -->
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="/product-overview.html">بررسی اجمالی محصولات</a>
+                        </li>
+
+                        <!-- Pages -->
+                        <li class="hs-has-mega-menu nav-item" data-hs-mega-menu-item-options='{
+                    "desktop": {
+                      "position": "right",
+                      "maxWidth": "27rem"
+                    }
+                  }'>
+                            <a id="pagesMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle "
+                                aria-current="page" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">صفحات</a>
+
+                            <!-- Mega Menu -->
+                            <div class="hs-mega-menu dropdown-menu" aria-labelledby="pagesMegaMenu"
+                                style="min-width: 27rem;">
+                                <div class="navbar-dropdown-menu-inner">
+                                    <span class="dropdown-header">عناصر</span>
+
+                                    <div class="row">
+                                        <div class="col-sm mb-3 mb-sm-0">
+                                            <a class="dropdown-item " href="/categories.html">دسته بندی ها</a>
+                                            <a class="dropdown-item " href="/categories-sidebar.html">نوار کناری دسته
+                                                ها</a>
+                                            <a class="dropdown-item " href="/empty-cart.html">سبد خالی</a>
+                                        </div>
+                                        <!-- End Col -->
+
+                                        <div class="col-sm">
+                                            <a class="dropdown-item " href="/cart.html">سبد خرید</a>
+                                            <a class="dropdown-item " href="/checkout.html">بررسی</a>
+                                            <a class="dropdown-item " href="/order-completed.html">سفارش تکمیل شد</a>
+                                        </div>
+                                        <!-- End Col -->
+                                    </div>
+                                    <!-- End Row -->
+                                </div>
+
+                                <!-- Mega Menu Banner -->
+                                <div class="navbar-dropdown-menu-shop-banner">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <img class="navbar-dropdown-menu-shop-banner-img"
+                                                src="{% static 'img/mockups/img4.png' %}" alt="Image Description">
+                                        </div>
+
+                                        <div class="flex-grow-1 p-4">
+                                            <span class="h4 d-block text-primary">برنده تی شرت</span>
+                                            <p>یکی از تی شرت های برند Front ما را برنده شوید.</p>
+                                            <a class="btn btn-sm btn-soft-primary btn-transition"
+                                                href="/index.html">بیشتر بدانید <i
+                                                    class="bi-chevron-left small"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Mega Menu Banner -->
+                            </div>
+                            <!-- End Mega Menu -->
+                        </li>
+                        <!-- End Pages -->
+
+                        <li class="nav-item">
+                            <!-- Search -->
+                            <button class="btn btn-ghost-secondary btn-icon" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasNavbarSearch" aria-controls="offcanvasNavbarSearch">
+                                <i class="bi-search"></i>
+                            </button>
+                            <!-- End Search -->
+
+                            <!-- Shopping Cart -->
+                            <button type="button" class="btn btn-ghost-secondary btn-icon" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarShoppingCart"
+                                aria-controls="offcanvasNavbarShoppingCart">
+                                <i class="bi-basket"></i>
+                                <span class="cart-item-count ">3</span>
+                            </button>
+                            <!-- End Shopping Cart -->
+
+                            <a class="btn btn-primary btn-transition" href="./page-login-simple.html">ورود</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Collapse -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== END HEADER ========== -->
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">{% block content %}{% endblock content %}</main>
+
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="border-top">
+        <div class="container">
+            <div class="row justify-content-lg-between content-space-t-2 content-space-b-lg-2">
+                <div class="col-lg-3 mb-5">
+                    <div class="d-flex align-items-start flex-column h-100">
+                        <!-- Logo -->
+                        <a class="w-100 mb-3 mb-lg-auto" href="/index.html" aria-label="Front">
+                            <img class="brand" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
+                        </a>
+                        <!-- End Logo -->
+
+                        <p class="text-muted small mb-0">&copy; Maryam Farajian 2023 Front RTL</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-4 col-lg-3 ms-lg-auto mb-5 mb-lg-0">
+                    <h5>حساب</h5>
+
+                    <!-- List -->
+                    <ul class="list-unstyled list-py-1">
+                        <li><a class="link-sm text-secondary" href="#">سفارش دادن</a></li>
+                        <li><a class="link-sm text-secondary" href="#">گزینه های حمل و نقل</a></li>
+                        <li><a class="link-sm text-secondary" href="#">پیگیری یک بسته</a></li>
+                        <li><a class="link-sm text-secondary" href="#">در دسترس بودن کشور</a></li>
+                    </ul>
+                    <!-- End List -->
+                </div>
+                <!-- End Col -->
+
+                <div class="col-6 col-md-4 col-lg-3 mb-5 mb-lg-0">
+                    <h5>شرکت</h5>
+
+                    <!-- List -->
+                    <ul class="list-unstyled list-py-1">
+                        <li><a class="link-sm text-secondary" href="#">تامین مالی</a></li>
+                        <li><a class="link-sm text-secondary" href="#">بازیافت</a></li>
+                        <li><a class="link-sm text-secondary" href="#">سیاست بازگشت</a></li>
+                    </ul>
+                    <!-- End List -->
+                </div>
+                <!-- End Col -->
+
+                <div class="col-md-4 col-lg-2 mb-5 mb-lg-0">
+                    <h5 class="mb-3">منابع</h5>
+
+                    <!-- List -->
+                    <ul class="list-unstyled list-py-1">
+                        <li><a class="link-sm link-secondary" href="#"><i class="bi-question-circle-fill me-1"></i>
+                                کمک</a></li>
+                        <li><a class="link-sm link-secondary" href="#"><i class="bi-person-circle me-1"></i> حساب
+                                شما</a></li>
+                    </ul>
+                    <!-- End List -->
+
+                    <!-- Button Group -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-white btn-sm dropdown-toggle" id="footerSelectLanguage"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
+                            <span class="d-flex align-items-center">
+                                <img class="avatar avatar-xss avatar-circle ms-2"
+                                    src="{% static 'vendor/flag-icon-css/flags/1x1/us.svg' %}" alt="Image description"
+                                    width="16" />
+                                <span>انگلیسی (US)</span>
+                            </span>
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="footerSelectLanguage">
+                            <a class="dropdown-item d-flex align-items-center active" href="#">
+                                <img class="avatar avatar-xss avatar-circle ms-2"
+                                    src="{% static 'vendor/flag-icon-css/flags/1x1/us.svg' %}" alt="Image description"
+                                    width="16" />
+                                <span>انگلیسی</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <img class="avatar avatar-xss avatar-circle ms-2"
+                                    src="{% static 'vendor/flag-icon-css/flags/1x1/de.svg' %}" alt="Image description"
+                                    width="16" />
+                                <span>آلمانی</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <img class="avatar avatar-xss avatar-circle ms-2"
+                                    src="{% static 'vendor/flag-icon-css/flags/1x1/es.svg' %}" alt="Image description"
+                                    width="16" />
+                                <span>اسپانیایی</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <img class="avatar avatar-xss avatar-circle ms-2"
+                                    src="{% static 'vendor/flag-icon-css/flags/1x1/cn.svg' %}" alt="Image description"
+                                    width="16" />
+                                <span>چینی</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End Button Group -->
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
+
+            <hr class="my-0">
+
+            <div class="row align-items-sm-center content-space-1">
+                <div class="col-sm mb-4 mb-sm-0">
+                    <!-- Socials -->
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
+                                <i class="bi-facebook"></i>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
+                                <i class="bi-google"></i>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
+                                <i class="bi-twitter"></i>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
+                                <i class="bi-github"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End Socials -->
+                </div>
+
+                <div class="col-sm-auto">
+                    <!-- List -->
+                    <ul class="list-inline list-separator">
+                        <li class="list-inline-item">
+                            <a class="link-sm link-secondary" href="/page-privacy.html">حریم خصوصی و خط مشی</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="link-sm link-secondary" href="/page-terms.html">مقررات و شرایط</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="link-sm link-secondary" href="/#">مشاغل</a>
+                        </li>
+                    </ul>
+                    <!-- End List -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ========== END FOOTER ========== -->
+
+    <!-- ========== SECONDARY CONTENTS ========== -->
+    <!-- Sign Up -->
+
+    <!-- Go To -->
+    <a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;" data-hs-go-to-options='{
+       "offsetTop": 700,
+       "position": {
+         "init": {
+           "right": "2rem"
+         },
+         "show": {
+           "bottom": "2rem"
+         },
+         "hide": {
+           "bottom": "-2rem"
+         }
+       }
+     }'>
+        <i class="bi-chevron-up"></i>
+    </a>
+
+    <!-- Offcanvas Search -->
+    <div class="offcanvas offcanvas-top offcanvas-navbar-search bg-light" tabindex="-1" id="offcanvasNavbarSearch">
+        <div class="offcanvas-body">
+            <div class="container">
+                <div class="w-lg-75 mx-lg-auto">
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+
+                    <div class="mb-7">
+                        <!-- Form -->
+                        <form>
+                            <!-- Input Card -->
+                            <div class="input-card">
+                                <div class="input-card-form">
+                                    <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات"
+                                        aria-label="جستجو محصولات">
+                                </div>
+                                <button type="button" class="btn btn-primary btn-lg">جستجو کردن</button>
+                            </div>
+                            <!-- End Input Card -->
+                        </form>
+                        <!-- End Form -->
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Search -->
+    <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbarShoppingCart">
+        <div class="offcanvas-header justify-content-between border-0 pb-0 ">
+            <span> 3 کالا</span>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <div class="">
+                <!-- Product -->
+                <div class="border-bottom  mb-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="avatar avatar-lg ms-3">
+                                <img class="avatar-img" src="{% static 'img/320x320/img2.jpg' %}" alt="Image Description">
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <a class="h5" href="./product-overview.html">کوله پشتی ملی اصل</a>
+
+                            <div class="d-grid py-3">
+                                <div class="text-body py-1">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <span class="h6">تعداد:</span>
+                                        <div class="quantity">
+                                            <div class="input-group input-group-sm quantity-selector px-5">
+                                                <button type="button" class="btn btn-sm btn-icon btn-outline-primary">
+                                                    <i class="bi-plus"></i>
+                                                </button>
+                                                <input type="number" class="form-control" value="2" min="1" max="10">
+                                                <button type="button" class="btn btn-sm btn-icon btn-outline-danger">
+                                                    <i class="bi-dash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="text-body py-1">
+                                    <div class="d-flex justify-content-start  align-items-center">
+                                        <span class="h6">قیمت:</span>
+                                        <span class="px-5">150000 تومان</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Product -->
+                <!-- Product -->
+                <div class="border-bottom  mb-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="avatar avatar-lg ms-3">
+                                <img class="avatar-img" src="{% static 'img/320x320/img3.jpg' %}" alt="Image Description">
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <a class="h5" href="./product-overview.html">تیشرت مشکی</a>
+
+                            <div class="d-grid py-3">
+                                <div class="text-body py-1">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <span class="h6">تعداد:</span>
+                                        <div class="quantity">
+                                            <div class="input-group input-group-sm quantity-selector px-5">
+                                                <button type="button" class="btn btn-sm btn-icon btn-outline-primary">
+                                                    <i class="bi-plus"></i>
+                                                </button>
+                                                <input type="number" class="form-control" value="1" min="1" max="10">
+                                                <button type="button" class="btn btn-sm btn-icon btn-outline-danger">
+                                                    <i class="bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="text-body py-1">
+                                    <div class="d-flex justify-content-start  align-items-center">
+                                        <span class="h6">قیمت:</span>
+                                        <span class="px-5">100000 تومان</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Product -->
+
+            </div>
+
+            <div class="d-grid">
+                <p class="text-center">قیمت نهایی: 35000 تومان</p>
+                <a class="btn btn-primary btn-lg" href="/cart.html">سبد خرید</a>
+            </div>
+
+        </div>
+    </div>
+    <!-- ========== END SECONDARY CONTENTS ========== -->
+
+    <!-- JS Implementing Plugins -->
+    <script src="{% static 'js/vendor.min.js' %}"></script>
+
+    <!-- JS Front -->
+    <script src="{% static 'js/theme.min.js' %}"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+        (function () {
+            // INITIALIZATION OF MEGA MENU
+            // =======================================================
+            new HSMegaMenu('.js-mega-menu', {
+                desktop: {
+                    position: 'left'
+                }
+            })
+
+
+            // INITIALIZATION OF SHOW ANIMATIONS
+            // =======================================================
+            new HSShowAnimation('.js-animation-link')
+
+
+            // INITIALIZATION OF BOOTSTRAP VALIDATION
+            // =======================================================
+            HSBsValidation.init('.js-validate', {
+                onSubmit: data => {
+                    data.event.preventDefault()
+                    alert('Submited')
+                }
+            })
+
+
+            // INITIALIZATION OF BOOTSTRAP DROPDOWN
+            // =======================================================
+            HSBsDropdown.init()
+
+
+            // INITIALIZATION OF GO TO
+            // =======================================================
+            new HSGoTo('.js-go-to')
+
+
+            // INITIALIZATION OF SWIPER
+            // =======================================================
+            var sliderThumbs = new Swiper('.js-swiper-shop-hero-thumbs', {
+                watchSlidesVisibility: true,
+                watchSlidesProgress: true,
+                history: false,
+                slidesPerView: 3,
+                spaceBetween: 15,
+                on: {
+                    beforeInit: (swiper) => {
+                        const css = `.swiper-slide-thumb-active .swiper-thumb-progress .swiper-thumb-progress-path {
+                  opacity: 1;
+                  -webkit-animation: ${swiper.originalParams.autoplay.delay}ms linear 0ms forwards swiperThumbProgressDash;
+                  animation: ${swiper.originalParams.autoplay.delay}ms linear 0ms forwards swiperThumbProgressDash;
+              }`
+                        style = document.createElement('style')
+                        document.head.appendChild(style)
+                        style.type = 'text/css'
+                        style.appendChild(document.createTextNode(css));
+
+                        swiper.el.querySelectorAll('.js-swiper-thumb-progress')
+                            .forEach(slide => {
+                                slide.insertAdjacentHTML('beforeend', '<span class="swiper-thumb-progress"><svg version="1.1" viewBox="0 0 160 160"><path class="swiper-thumb-progress-path" d="M 79.98452083651917 4.000001576345426 A 76 76 0 1 1 79.89443752470656 4.0000733121155605 Z"></path></svg></span>')
+                            })
+                    },
+                },
+            });
+
+            var swiper = new Swiper('.js-swiper-shop-classic-hero', {
+                autoplay: true,
+                loop: true,
+                navigation: {
+                    nextEl: '.js-swiper-shop-classic-hero-button-next',
+                    prevEl: '.js-swiper-shop-classic-hero-button-prev',
+                },
+                thumbs: {
+                    swiper: sliderThumbs
+                }
+            });
+
+
+            // INITIALIZATION OF COUNTDOWN
+            // =======================================================
+            const oneYearFromNow = new Date()
+
+            document.querySelectorAll('.js-countdown').forEach(item => {
+                const days = item.querySelector('.js-cd-days'),
+                    hours = item.querySelector('.js-cd-hours'),
+                    minutes = item.querySelector('.js-cd-minutes'),
+                    seconds = item.querySelector('.js-cd-seconds')
+
+                countdown(oneYearFromNow.setFullYear(
+                    oneYearFromNow.getFullYear() + 1),
+                    ts => {
+                        days.innerHTML = ts.days
+                        hours.innerHTML = ts.hours
+                        minutes.innerHTML = ts.minutes
+                        seconds.innerHTML = ts.seconds
+                    },
+                    countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS
+                )
+            })
+        })()
+    </script>
+
+    {% block extra_js %} {% endblock extra_js %}
+
+    {% block extra_js_no_compress %} {% endblock extra_js_no_compress %}
+</body>
+
+</html>
