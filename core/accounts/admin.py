@@ -15,6 +15,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = ("id","email", "is_superuser", "is_active", "is_verified")
     list_filter = ("email", "is_superuser", "is_active", "is_verified")
     searching_fields = ("email",)
+    ordering = ("email",)
     fieldsets = (
         (
             "Authentication",
