@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container content-space-3 content-space-t-lg-4 content-space-b-lg-3">
+    <div class="flex-grow-1 mx-auto" style="max-width: 28rem;">
+        <!-- Heading -->
+        <div class="text-center mb-5 mb-md-7">
+            <h1 class="h2">فرم ورود</h1>
+            <p>برای مدیریت حساب خود وارد شوید.</p>
+        </div>
+        <!-- End Heading -->
+
+        <!-- Form -->
+        <form action="{% url 'accounts:login' %}" method="POST">
+            {% csrf_token %}
+            <!-- Form -->
+            <div class="mb-4">
+                <label class="form-label" for="signupSimpleLoginEmail">ایمیل شما</label>
+                <input type="email" class="form-control form-control-lg text-center" name="username"
+                    id="signupSimpleLoginEmail" placeholder="email@site.com" aria-label="email@site.com" required>
+                <span class="invalid-feedback">لطفا یک آدرس ایمیل معتبر وارد کنید.</span>
+            </div>
+            <!-- End Form -->
+
+            <!-- Form -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="form-label" for="signupSimpleLoginPassword">کلمه عبور</label>
+
+                </div>
+
+                <div class="input-group input-group-merge">
+                    <input type="password" class="js-toggle-password form-control form-control-lg text-center"
+                        name="password" id="signupSimpleLoginPassword" placeholder="8+ characters required"
+                        aria-label="8+ characters required" required>
+                    <a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;">
+                        <i id="changePassIcon" class="bi-eye"></i>
+                    </a>
+                </div>
+
+                <span class="invalid-feedback">لطفا یک گذر واژه معتبر وارد کنید.</span>
+            </div>
+            <!-- End Form -->
+
+            <div class="d-grid mb-3">
+                <a class="form-label-link" href="./page-reset-password-simple.html">رمز عبور را فراموش کرده اید؟</a>
+                <button type="submit" class="btn btn-primary btn-lg">ورود</button>
+            </div>
+
+            <div class="text-center">
+                <p>حساب کاربری ندارید؟ <a class="link" href="./page-signup-simple.html">اینجا ثبت نام کنید</a></p>
+            </div>
+        </form>
+        <!-- End Form -->
+    </div>
+</div>
+{% endblock content %}
