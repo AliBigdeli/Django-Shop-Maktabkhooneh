@@ -31,8 +31,8 @@
                 </div>
 
                 <div class="input-group input-group-merge">
-                    <input type="password" class="js-toggle-password form-control form-control-lg text-center"
-                        name="password" id="signupSimpleLoginPassword" placeholder="8+ characters required"
+                    <input type="password" class=" form-control form-control-lg text-center" name="password"
+                        id="signupSimpleLoginPassword" placeholder="8+ characters required"
                         aria-label="8+ characters required" required>
                     <a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;">
                         <i id="changePassIcon" class="bi-eye"></i>
@@ -52,7 +52,18 @@
                 <p>حساب کاربری ندارید؟ <a class="link" href="./page-signup-simple.html">اینجا ثبت نام کنید</a></p>
             </div>
         </form>
+
         <!-- End Form -->
     </div>
 </div>
+
 {% endblock content %}
+
+
+{% block extra_js %}
+<script>
+    // INITIALIZATION OF TOGGLE PASSWORD
+    // =======================================================
+    new HSTogglePassword('.js-toggle-password')
+</script>
+{% endblock extra_js %}
