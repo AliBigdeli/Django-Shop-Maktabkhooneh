@@ -31,7 +31,10 @@
 
 <body>
     <!-- ========== HEADER ========== -->
-    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-light">
+    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-absolute-top navbar-light navbar-show-hide" data-hs-header-options='{
+        "fixMoment": 1000,
+        "fixEffect": "slide"
+      }'>
         <div class="container">
             <nav class="js-mega-menu navbar-nav-wrap">
                 <!-- Default Logo -->
@@ -507,8 +510,10 @@
     <!-- JS Plugins Init. -->
     <script>
         (function () {
-            // INITIALIZATION OF MEGA MENU
+            // INITIALIZATION OF HEADER
             // =======================================================
+            new HSHeader('#header').init()
+
             new HSMegaMenu('.js-mega-menu', {
                 desktop: {
                     position: 'left'
@@ -523,12 +528,12 @@
 
             // INITIALIZATION OF BOOTSTRAP VALIDATION
             // =======================================================
-            HSBsValidation.init('.js-validate', {
-                onSubmit: data => {
-                    data.event.preventDefault()
-                    alert('Submited')
-                }
-            })
+            // HSBsValidation.init('.js-validate', {
+            //     onSubmit: data => {
+            //         data.event.preventDefault()
+            //         alert('Submited')
+            //     }
+            // })
 
 
             // INITIALIZATION OF BOOTSTRAP DROPDOWN
