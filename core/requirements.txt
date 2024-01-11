@@ -6,3 +6,5 @@ psycopg-binary==3.1.12
 python-decouple==3.8
 sqlparse==0.4.4
 typing_extensions==4.8.0
+pillow==10.2.0
+faker==22.1.0

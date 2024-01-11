@@ -1,0 +1,820 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Hero -->
+<div class="container content-space-t-2 content-space-t-sm-3">
+    <div class="row">
+        <div class="col-md-7 mb-7 mb-md-0">
+            <div class="pe-md-4">
+                <div class="card-pinned">
+                    <!-- Swiper Main Slider -->
+                    <div class="js-swiper-shop-product swiper">
+                        <div class="swiper-wrapper">
+                            <!-- Slide -->
+                            <div class="swiper-slide">
+                                <div class="card card-bordered shadow-none">
+                                    <img class="card-img" src="{{object.image.url}}" alt="Image Description">
+                                </div>
+                            </div>
+                            <!-- End Slide -->
+
+                    
+                        </div>
+
+                        <!-- Arrows -->
+                        <div class="js-swiper-shop-product-button-next swiper-button-next"></div>
+                        <div class="js-swiper-shop-product-button-prev swiper-button-prev"></div>
+                    </div>
+                    <!-- End Swiper Main Slider -->
+
+                    <!-- Swiper Thumb Slider -->
+                    <div class="position-absolute bottom-0 end-0 start-0 zi-1 p-4">
+                        <div class="js-swiper-shop-product-thumb swiper" style="max-width: 15rem;">
+                            <div class="swiper-wrapper">
+                                <!-- Slide -->
+                                <div class="swiper-slide">
+                                    <a class="avatar avatar-circle" href="javascript:;">
+                                        <img class="avatar-img" src="{{object.image.url}}"
+                                            alt="Image Description">
+                                    </a>
+                                </div>
+                                <!-- End Slide -->
+
+                              
+                                <!-- End Slide -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Swiper Thumb Slider -->
+                </div>
+            </div>
+        </div>
+        <!-- End Col -->
+
+        <div class="col-md-5">
+            <!-- Rating -->
+            <a class="d-flex gap-1 mb-4" href="#reviewSection">
+                <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                <span class="ms-1">287 نظر</span>
+            </a>
+            <!-- End Rating -->
+
+            <!-- Heading -->
+            <div class="mb-5">
+                <h1 class="h2">{{object.title}}</h1>
+                <p>{{object.brief_description}}</p>
+            </div>
+            <!-- End Heading -->
+
+            <!-- Price -->
+            <div class="mb-5">
+                <span class="d-block mb-2">قیمت کل:</span>
+                {% if object.is_discounted %}
+                <div class="d-flex align-items-center">
+                    <h3 class="mb-0">{{object.get_show_price}} تومان</h3>
+                    <span class="ms-2"><del>{{object.get_show_raw_price}} تومان</del></span>
+                </div>
+                {% else %}
+                <div class="d-flex align-items-center">
+                    <h3 class="mb-0">{{object.get_show_price}} تومان</h3>
+                </div>
+                {% endif %}
+            </div>
+            <!-- End Price -->
+
+            <!-- Quantity -->
+            <div class="quantity-counter mb-3">
+                <div class="js-quantity-counter row align-items-center">
+                    <div class="col">
+                        <span class="d-block small">تعداد را انتخاب کنید</span>
+                        <input class="js-result form-control form-control-quantity-counter" type="text" value="1">
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-auto">
+                        <a class="js-minus btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                            href="javascript:;">
+                            <svg width="8" height="2" viewBox="0 0 8 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0 1C0 0.723858 0.223858 0.5 0.5 0.5H7.5C7.77614 0.5 8 0.723858 8 1C8 1.27614 7.77614 1.5 7.5 1.5H0.5C0.223858 1.5 0 1.27614 0 1Z"
+                                    fill="currentColor" />
+                            </svg>
+                        </a>
+                        <a class="js-plus btn btn-outline-secondary btn-xs btn-icon rounded-circle" href="javascript:;">
+                            <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4 0C4.27614 0 4.5 0.223858 4.5 0.5V3.5H7.5C7.77614 3.5 8 3.72386 8 4C8 4.27614 7.77614 4.5 7.5 4.5H4.5V7.5C4.5 7.77614 4.27614 8 4 8C3.72386 8 3.5 7.77614 3.5 7.5V4.5H0.5C0.223858 4.5 0 4.27614 0 4C0 3.72386 0.223858 3.5 0.5 3.5H3.5V0.5C3.5 0.223858 3.72386 0 4 0Z"
+                                    fill="currentColor" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- End Col -->
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Quantity -->
+
+            <!-- Accordion -->
+            <div class="accordion mb-5" id="shopCartAccordion">
+                <!-- Collapse -->
+                <div class="accordion-item">
+                    <a class="accordion-button collapsed" href="#" role="button" data-bs-toggle="collapse"
+                        data-bs-target="#shopCartAccordionCollapseOne" aria-expanded="false"
+                        aria-controls="shopCartAccordionCollapseOne">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <span class="svg-icon svg-icon-sm text-primary">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20 8H16C15.4 8 15 8.4 15 9V16H10V17C10 17.6 10.4 18 11 18H16C16 16.9 16.9 16 18 16C19.1 16 20 16.9 20 18H21C21.6 18 22 17.6 22 17V13L20 8Z"
+                                            fill="#035A4B" />
+                                        <path opacity="0.3"
+                                            d="M20 18C20 19.1 19.1 20 18 20C16.9 20 16 19.1 16 18C16 16.9 16.9 16 18 16C19.1 16 20 16.9 20 18ZM15 4C15 3.4 14.6 3 14 3H3C2.4 3 2 3.4 2 4V13C2 13.6 2.4 14 3 14H15V4ZM6 16C4.9 16 4 16.9 4 18C4 19.1 4.9 20 6 20C7.1 20 8 19.1 8 18C8 16.9 7.1 16 6 16Z"
+                                            fill="#035A4B" />
+                                    </svg>
+
+                                </span>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                ارسال رایگان
+                            </div>
+                        </div>
+                    </a>
+
+                    <div id="shopCartAccordionCollapseOne" class="accordion-collapse collapse"
+                        data-bs-parent="#shopCartAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">ما ارسال رایگان را در هر نقطه از ایالات متحده ارائه می دهیم، یک تیم ماهر
+                                تحویل جعبه ها را به دفتر شما می آورد.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Collapse -->
+
+                <!-- Collapse -->
+                <div class="accordion-item">
+                    <a class="accordion-button collapsed" href="#" role="button" data-bs-toggle="collapse"
+                        data-bs-target="#shopCartAccordionCollapseTwo" aria-expanded="false"
+                        aria-controls="shopCartAccordionCollapseTwo">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <span class="svg-icon svg-icon-sm text-primary">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="3" y="3" width="18" height="18" rx="9" fill="#035A4B" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M8.42647 12H7.23529C7.23529 14.6315 9.36852 16.7647 12 16.7647C14.6315 16.7647 16.7647 14.6315 16.7647 12C16.7647 9.36853 14.6315 7.23529 12 7.23529C10.8231 7.23529 9.71618 7.66521 8.8607 8.4153L8.70962 8.30952C8.37305 8.07385 7.91166 8.3222 7.92302 8.73291L7.96298 10.178C7.97224 10.5127 8.30136 10.7439 8.61932 10.639L9.99538 10.1855C10.3863 10.0566 10.4628 9.53709 10.1256 9.30103L9.8755 9.12587C10.4798 8.6783 11.2189 8.42647 12 8.42647C13.9736 8.42647 15.5735 10.0264 15.5735 12C15.5735 13.9736 13.9736 15.5735 12 15.5735C10.0264 15.5735 8.42647 13.9736 8.42647 12Z"
+                                            fill="#035A4B" />
+                                    </svg>
+
+                                </span>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                30 روز بازگشت
+                            </div>
+                        </div>
+                    </a>
+
+                    <div id="shopCartAccordionCollapseTwo" class="accordion-collapse collapse"
+                        data-bs-parent="#shopCartAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">اگر راضی نیستید، آن را برای بازپرداخت کامل بازگردانید. ما از جداسازی قطعات و
+                                حمل و نقل برگشت مراقبت خواهیم کرد.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Collapse -->
+            </div>
+            <!-- End Accordion -->
+
+            <div class="d-grid mb-4">
+                <button type="button" class="btn btn-primary btntransition">افزودن به سبد خرید</button>
+            </div>
+
+            <!-- Media -->
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <div class="svg-icon svg-icon-sm text-primary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M22.1671 18.1421C22.4827 18.4577 23.0222 18.2331 23.0206 17.7868L23.0039 13.1053V5.52632C23.0039 4.13107 21.8729 3 20.4776 3H8.68815C7.2929 3 6.16183 4.13107 6.16183 5.52632V9H13C14.6568 9 16 10.3431 16 12V15.6316H19.6565L22.1671 18.1421Z"
+                                fill="#035A4B" />
+                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+                                d="M1.98508 18V13C1.98508 11.8954 2.88051 11 3.98508 11H11.9851C13.0896 11 13.9851 11.8954 13.9851 13V18C13.9851 19.1046 13.0896 20 11.9851 20H4.10081L2.85695 21.1905C2.53895 21.4949 2.01123 21.2695 2.01123 20.8293V18.3243C1.99402 18.2187 1.98508 18.1104 1.98508 18ZM5.99999 14.5C5.99999 14.2239 6.22385 14 6.49999 14H11.5C11.7761 14 12 14.2239 12 14.5C12 14.7761 11.7761 15 11.5 15H6.49999C6.22385 15 5.99999 14.7761 5.99999 14.5ZM9.49999 16C9.22385 16 8.99999 16.2239 8.99999 16.5C8.99999 16.7761 9.22385 17 9.49999 17H11.5C11.7761 17 12 16.7761 12 16.5C12 16.2239 11.7761 16 11.5 16H9.49999Z"
+                                fill="#035A4B" />
+                        </svg>
+
+                    </div>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <span class="small me-1">نیاز به پشتیبانی دارید؟</span>
+                    <a class="link small" href="#">ارسال تیکت</a>
+                </div>
+            </div>
+            <!-- End Media -->
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Hero -->
+
+<!-- Content -->
+<div class="container content-space-t-2 content-space-md-3">
+    <div class="row">
+       {{object.description|safe}}
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Content -->
+
+<!-- Card Grid -->
+<div class="container content-space-2 content-space-lg-3">
+    <!-- Title -->
+    <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+        <h2>فقط برای شما</h2>
+    </div>
+    <!-- End Title -->
+
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        <div class="col mb-4">
+            <!-- Card -->
+            <div class="card card-bordered shadow-none text-center h-100">
+                <div class="card-pinned">
+                    <img class="card-img-top" src="{% static '/img/300x180/img3.jpg' %}" alt="Image Description">
+
+                    <div class="card-pinned-top-start">
+                        <span class="badge bg-success rounded-pill">جدید</span>
+                    </div>
+
+                    <div class="card-pinned-top-end">
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                            <i class="bi-heart"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-1">
+                        <a class="link-sm link-secondary" href="#">تجهیزات جانبی</a>
+                    </div>
+                    <a class="text-body" href="/product-overview.html">کوله پشتی هرشل به رنگ آبی تیره</a>
+                    <p class="card-text text-dark">$56.99</p>
+                </div>
+
+                <div class="card-footer pt-0">
+                    <!-- Rating -->
+                    <a class="d-inline-flex align-items-center mb-3" href="#">
+                        <div class="d-flex gap-1 ms-2">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                        </div>
+                        <span class="small">0</span>
+                    </a>
+                    <!-- End Rating -->
+
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">افزودن به سبد
+                        خرید</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Col -->
+
+        <div class="col mb-4">
+            <!-- Card -->
+            <div class="card card-bordered shadow-none text-center h-100">
+                <div class="card-pinned">
+                    <img class="card-img-top" src="{% static '/img/300x180/img1.jpg' %}" alt="Image Description">
+
+                    <div class="card-pinned-top-end">
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                            <i class="bi-heart"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-1">
+                        <a class="link-sm link-secondary" href="#">تن پوش</a>
+                    </div>
+                    <a class="text-body" href="/product-overview.html">Front hoodie</a>
+                    <p class="card-text text-dark">$91.88</p>
+                </div>
+
+                <div class="card-footer pt-0">
+                    <!-- Rating -->
+                    <a class="d-inline-flex align-items-center mb-3" href="#">
+                        <div class="d-flex gap-1 ms-2">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                        </div>
+                        <span class="small">40</span>
+                    </a>
+                    <!-- End Rating -->
+
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">Add to cart</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Col -->
+
+        <div class="col mb-4">
+            <!-- Card -->
+            <div class="card card-bordered shadow-none text-center h-100">
+                <div class="card-pinned">
+                    <img class="card-img-top" src="{% static '/img/300x180/img4.jpg' %}" alt="Image Description">
+
+                    <div class="card-pinned-top-start">
+                        <span class="badge bg-danger rounded-pill">اتمام موجودی</span>
+                    </div>
+
+                    <div class="card-pinned-top-end">
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                            <i class="bi-heart"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-1">
+                        <a class="link-sm link-secondary" href="#">تجهیزات جانبی</a>
+                    </div>
+                    <a class="text-body" href="/product-overview.html">کوله پشتی هرشل به رنگ خاکستری</a>
+                    <p class="card-text text-dark">$29.99 <span class="text-body ms-1"><del>$33.99</del></span></p>
+                </div>
+
+                <div class="card-footer pt-0">
+                    <!-- Rating -->
+                    <a class="d-inline-flex align-items-center mb-3" href="#">
+                        <div class="d-flex gap-1 ms-2">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                        </div>
+                        <span class="small">125</span>
+                    </a>
+                    <!-- End Rating -->
+
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">افزودن به سبد
+                        خرید</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Col -->
+
+        <div class="col mb-4">
+            <!-- Card -->
+            <div class="card card-bordered shadow-none text-center h-100">
+                <div class="card-pinned">
+                    <img class="card-img-top" src="{% static '/img/300x180/img6.jpg' %}" alt="Image Description">
+
+                    <div class="card-pinned-top-end">
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                            <i class="bi-heart"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-1">
+                        <a class="link-sm link-secondary" href="#">تن پوش</a>
+                    </div>
+                    <a class="text-body" href="/product-overview.html">تیشرت آدیکالر جلوی اورجینال با لوگوی سه تایی</a>
+                    <p class="card-text text-dark">$38.00</p>
+                </div>
+
+                <div class="card-footer pt-0">
+                    <!-- Rating -->
+                    <a class="d-inline-flex align-items-center mb-3" href="#">
+                        <div class="d-flex gap-1 ms-2">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                        </div>
+                        <span class="small">9</span>
+                    </a>
+                    <!-- End Rating -->
+
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">افزودن به سبد
+                        خرید</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Card Grid -->
+
+<!-- Review Section -->
+<div id="reviewSection" class="container content-space-b-2 content-space-b-lg-3">
+    <div class="row">
+        <div class="col-md-4 mb-7 mb-md-0">
+            <div class="border-bottom pb-4 mb-4">
+                <!-- Card -->
+                <div class="card bg-primary mb-3">
+                    <div class="card-body">
+                        <!-- Media -->
+                        <div class="d-flex justify-content-center">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <span class="display-4 text-white">4.7</span>
+                                </div>
+
+                                <div class="flex-grow-1 ms-3">
+                                    <!-- Rating -->
+                                    <div class="d-flex gap-1 small">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                                    </div>
+                                    <!-- End Rating -->
+                                    <span class="text-white">287 نظر</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+                    </div>
+                </div>
+                <!-- End Card -->
+
+                <h3>تجزیه رتبه</h3>
+
+                <!-- Ratings -->
+                <div class="d-grid gap-1">
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">5 ستاره</span>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-2 text-end">
+                            <span>205</span>
+                        </div>
+                        <!-- End Col -->
+                    </a>
+                    <!-- End Row -->
+
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">4 ستاره</span>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 53%;" aria-valuenow="53"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-2 text-end">
+                            <span>55</span>
+                        </div>
+                        <!-- End Col -->
+                    </a>
+                    <!-- End Row -->
+
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">3 ستاره</span>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-2 text-end">
+                            <span>23</span>
+                        </div>
+                        <!-- End Col -->
+                    </a>
+                    <!-- End Row -->
+
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">2 ستاره</span>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-2 text-end">
+                            <span>0</span>
+                        </div>
+                        <!-- End Col -->
+                    </a>
+                    <!-- End Row -->
+
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">1 ستاره</span>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 1%;" aria-valuenow="1"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-2 text-end">
+                            <span>4</span>
+                        </div>
+                        <!-- End Col -->
+                    </a>
+                    <!-- End Row -->
+                </div>
+                <!-- End Ratings -->
+            </div>
+
+            <h4 class="display-4 text-primary">77%</h4>
+            <p class="small">مشتریان این محصول را توصیه می کنند</p>
+        </div>
+        <!-- End Col -->
+
+        <div class="col-md-8">
+            <div class="ps-md-4">
+                <!-- Heading -->
+                <div class="border-bottom pb-4 mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-sm mb-2 mb-sm-0">
+                            <h4 class="mb-0">مرتب سازی کنید</h4>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="col-sm-auto">
+                            <!-- Select -->
+                            <select class="form-select form-select-sm">
+                                <option value="mostRecent" selected>اخیرا</option>
+                                <option value="relevant">مربوط</option>
+                                <option value="helpful">مفید است</option>
+                                <option value="newest">جدیدترین</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <!-- End Col -->
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Heading -->
+
+                <!-- Comment -->
+                <ul class="list-comment list-comment-divider mb-5">
+                    <!-- Item -->
+                    <li class="list-comment-item">
+                        <div class="d-flex gap-1 mb-3">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                        </div>
+
+                        <!-- Media -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <img class="avatar avatar-sm avatar-circle" src="{% static '/img/160x160/img9.jpg' %}"
+                                    alt="Image Description">
+                            </div>
+
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">کریستینا کری</h5>
+                                    <span class="d-block small text-muted">آوریل 3, 2019</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+
+                        <div class="mb-5">
+                            <p>من این کلاه را برای دوست پسرم خریدم، اما بعد متوجه شدم که او به من خیانت کرده است،
+                                بنابراین آن را نگه داشتم و دوستش دارم! من همیشه آن را می پوشم و هیچ مشکلی از نظر تناسب
+                                وجود ندارد، حتی اگر کلاه "مردانه" است.</p>
+                        </div>
+
+                        <div class="mb-2">
+                            <span class="text-dark fw-semibold">کریستینا</span>
+                            <span>- خرید تایید شده</span>
+                        </div>
+
+                        <!-- Media -->
+                        <div class="d-flex align-items-center">
+                            <span class="small me-2">آیا این مفید بود؟</span>
+
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-white btn-xs" href="javascript:;">
+                                    <i class="bi-hand-thumbs-up me-1"></i> Yes <span>(45)</span>
+                                </a>
+                                <a class="btn btn-white btn-xs" href="javascript:;">
+                                    <i class="bi-hand-thumbs-down me-1"></i> نه <span>(21)</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+                    </li>
+                    <!-- End Item -->
+
+                    <!-- Item -->
+                    <li class="list-comment-item">
+                        <div class="d-flex gap-1 mb-3">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                        </div>
+
+                        <!-- Media -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <img class="avatar avatar-sm avatar-circle" src="{% static '/img/160x160/img1.jpg' %}"
+                                    alt="Image Description">
+                            </div>
+
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">هایلی</h5>
+                                    <span class="d-block small text-muted">ژانویه 19, 2019</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+
+                        <div class="mb-5">
+                            <p>جنس آن عالی است و کلاه راحت و شیک است.</p>
+                        </div>
+
+                        <div class="mb-2">
+                            <span class="text-dark fw-semibold">هایلی</span>
+                            <span>- خرید تایید شده</span>
+                        </div>
+
+                        <!-- Media -->
+                        <div class="d-flex align-items-center">
+                            <span class="small me-2">آیا این مفید بود؟</span>
+
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-white btn-xs" href="javascript:;">
+                                    <i class="bi-hand-thumbs-up me-1"></i> بله <span>(2)</span>
+                                </a>
+                                <a class="btn btn-white btn-xs" href="javascript:;">
+                                    <i class="bi-hand-thumbs-down me-1"></i> نه <span>(0)</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+                    </li>
+                    <!-- End Item -->
+
+                    <!-- Item -->
+                    <li class="list-comment-item">
+                        <div class="d-flex gap-1 mb-3">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                        </div>
+
+                        <!-- Media -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <img class="avatar avatar-sm avatar-circle" src="{% static '/img/160x160/img8.jpg' %}"
+                                    alt="Image Description">
+                            </div>
+
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">کریزل</h5>
+                                    <span class="d-block small text-muted">دسامبر 21, 2018</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+
+                        <div class="mb-5">
+                            <p>کلاهی واقعا خوش ساخت به نظر عالی می رسد و به همان خوبی می پوشد. یک پایه عالی در کلاه های
+                                توپ.</p>
+                        </div>
+
+                        <div class="mb-2">
+                            <span class="text-dark fw-semibold">کریزل</span>
+                            <span>- خرید تایید شده</span>
+                        </div>
+
+                        <!-- Media -->
+                        <div class="d-flex align-items-center">
+                            <span class="small me-2">آیا این مفید بود؟</span>
+
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-white btn-xs" href="javascript:;">
+                                    <i class="bi-hand-thumbs-up me-1"></i> بله <span>(0)</span>
+                                </a>
+                                <a class="btn btn-white btn-xs" href="javascript:;">
+                                    <i class="bi-hand-thumbs-down me-1"></i> نه <span>(0)</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+                    </li>
+                    <!-- End Item -->
+                </ul>
+                <!-- End Comment -->
+
+                <div class="d-sm-flex justify-content-sm-end gap-2">
+                    <a class="btn btn-link" href="#">ادامه مطلب <i class="bi-chevron-left small me-1"></i></a>
+                    <button type="button" class="btn btn-primary btn-transition rounded-pill">یک بررسی بنویسید</button>
+                </div>
+            </div>
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Review Section -->
+
+<!-- Subscribe -->
+<div class="bg-light">
+    <div class="container content-space-2">
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto">
+            <div class="row justify-content-lg-between">
+                <!-- Heading -->
+                <div class="mb-5">
+                    <span class="text-cap">ثبت نام</span>
+                    <h2>اخبار جدید را دریافت کنید</h2>
+                </div>
+                <!-- End Heading -->
+
+                <form>
+                    <!-- Input Card -->
+                    <div class="input-card input-card-pill input-card-sm border mb-3">
+                        <div class="input-card-form">
+                            <label for="subscribeForm" class="form-label visually-hidden">ایمیل را وارد کنید</label>
+                            <input type="text" class="form-control form-control-lg" id="subscribeForm"
+                                placeholder="ایمیل خود را وارد کنید" aria-label="ایمیل خود را وارد کنید">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg rounded-pill">ثبت نام</button>
+                    </div>
+                    <!-- End Input Card -->
+                </form>
+
+                <p class="small">می توانید در هر زمانی اشتراک خود را لغو کنید <a href="#">سیاست حفظ حریم خصوصی</a> ما را
+                    بخوانید</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Subscribe -->
+
+{% endblock content %}

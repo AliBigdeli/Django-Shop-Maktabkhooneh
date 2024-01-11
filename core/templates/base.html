@@ -32,7 +32,7 @@
 <body>
     <!-- ========== HEADER ========== -->
     <header id="header" class="navbar navbar-expand-lg navbar-end navbar-absolute-top navbar-light navbar-show-hide" data-hs-header-options='{
-        "fixMoment": 1000,
+        "fixMoment": 500,
         "fixEffect": "slide"
       }'>
         <div class="container">
@@ -63,80 +63,18 @@
                             <a class="nav-link active" href="{% url 'website:index' %}">صفحه اصلی</a>
                         </li>
 
-                        <!-- Dropdown -->
-                        <li class="hs-has-sub-menu nav-item">
-                            <a id="listingsDropdown" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">لیست محصولات</a>
-                            <div class="hs-sub-menu dropdown-menu" aria-labelledby="listingsDropdown"
-                                style="min-width: 14rem;">
-                                <a class="dropdown-item " href="/products-list.html">فهرست</a>
-                                <a class="dropdown-item " href="/products-grid.html">فهرست (شبکه)</a>
-                            </div>
-                        </li>
-                        <!-- End Dropdown -->
-
+                       
                         <li class="nav-item">
-                            <a class="nav-link " href="/product-overview.html">بررسی اجمالی محصولات</a>
+                            <a class="nav-link " href="{% url 'shop:product-grid' %}">لیست محصولات</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'website:about' %}">درباره ما</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'website:contact' %}">ارتباط با ما</a>
                         </li>
 
-                        <!-- Pages -->
-                        <li class="hs-has-mega-menu nav-item" data-hs-mega-menu-item-options='{
-                    "desktop": {
-                      "position": "right",
-                      "maxWidth": "27rem"
-                    }
-                  }'>
-                            <a id="pagesMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle "
-                                aria-current="page" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">صفحات</a>
-
-                            <!-- Mega Menu -->
-                            <div class="hs-mega-menu dropdown-menu" aria-labelledby="pagesMegaMenu"
-                                style="min-width: 27rem;">
-                                <div class="navbar-dropdown-menu-inner">
-                                    <span class="dropdown-header">عناصر</span>
-
-                                    <div class="row">
-                                        <div class="col-sm mb-3 mb-sm-0">
-                                            <a class="dropdown-item " href="/categories.html">دسته بندی ها</a>
-                                            <a class="dropdown-item " href="/categories-sidebar.html">نوار کناری دسته
-                                                ها</a>
-                                            <a class="dropdown-item " href="/empty-cart.html">سبد خالی</a>
-                                        </div>
-                                        <!-- End Col -->
-
-                                        <div class="col-sm">
-                                            <a class="dropdown-item " href="/cart.html">سبد خرید</a>
-                                            <a class="dropdown-item " href="/checkout.html">بررسی</a>
-                                            <a class="dropdown-item " href="/order-completed.html">سفارش تکمیل شد</a>
-                                        </div>
-                                        <!-- End Col -->
-                                    </div>
-                                    <!-- End Row -->
-                                </div>
-
-                                <!-- Mega Menu Banner -->
-                                <div class="navbar-dropdown-menu-shop-banner">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img class="navbar-dropdown-menu-shop-banner-img"
-                                                src="{% static 'img/mockups/img4.png' %}" alt="Image Description">
-                                        </div>
-
-                                        <div class="flex-grow-1 p-4">
-                                            <span class="h4 d-block text-primary">برنده تی شرت</span>
-                                            <p>یکی از تی شرت های برند Front ما را برنده شوید.</p>
-                                            <a class="btn btn-sm btn-soft-primary btn-transition"
-                                                href="/index.html">بیشتر بدانید <i
-                                                    class="bi-chevron-left small"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Mega Menu Banner -->
-                            </div>
-                            <!-- End Mega Menu -->
-                        </li>
-                        <!-- End Pages -->
+                       
 
                         <li class="nav-item">
                             <!-- Search -->
