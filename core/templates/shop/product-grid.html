@@ -107,8 +107,10 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال فیلتر</button>
-                            <a href="{% url 'shop:product-grid' %}" class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
+                            <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال
+                                فیلتر</button>
+                            <a href="{% url 'shop:product-grid' %}"
+                                class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
                         </div>
                     </form>
                 </div>
@@ -228,7 +230,7 @@
                             <!-- End Rating -->
 
                             <button type="button"
-                                class="btn btn-outline-primary btn-sm btn-transition rounded-pill">افزودن به سبد
+                                class="btn btn-outline-primary btn-sm btn-transition rounded-pill" onclick="addToCart('{{object.id}}')">افزودن به سبد
                                 خرید</button>
                         </div>
                     </div>
@@ -250,7 +252,8 @@
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)"  aria-label="Previous">
+                        <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)"
+                            aria-label="Previous">
                             <span aria-hidden="true">
                                 <i class="bi-chevron-double-right small"></i>
                             </span>
@@ -261,8 +264,8 @@
                     {% for i in page_obj.paginator.page_range %}
                     {% if page_obj.number == i %}
                     <li class="page-item active"><a class="page-link">{{ i }}</a></li>
-                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item"><button
-                            class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
+                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item">
+                        <button class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
 
                         {% endif %}
 
@@ -271,7 +274,8 @@
 
                         {% if page_obj.has_next %}
                         <li class="page-item">
-                            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"  aria-label="Previous">
+                            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"
+                                aria-label="Previous">
                                 <span aria-hidden="true">
                                     <i class="bi-chevron-double-left small"></i>
                                 </span>
@@ -392,11 +396,33 @@
 
 </script>
 <script>
-    function changePage(page_number){
+    function changePage(page_number) {
         let current_url_params = new URLSearchParams(window.location.search)
         current_url_params.set("page", page_number)
         let new_url = window.location.pathname + "?" + current_url_params.toString()
         window.location.href = new_url
+    }
+</script>
+<script>
+    function addToCart(product_id) {
+        console.log(product_id)
+        $.ajax({
+            url: "{%  url 'cart:session-add-product' %}",
+            method: 'POST',
+            data: {
+                product_id: product_id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+
+            },
+            success: function (response) {
+                console.log(response);
+                // do something with the response data
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                // handle the error case
+            }
+        });
     }
 </script>
 
