@@ -70,9 +70,9 @@
                             <h5>جستو جوی کالا</h5>
                             <div class="d-grid gap-2">
                                 <div class="form-group">
-                                    <label class="form-label d-flex" for="searchQuery">جستو جوی</label>
+                                    <label class="form-label d-flex" for="search-query-filter">جستو جوی</label>
                                     <input class="form-control" placeholder="واژه مورد نظر را وارد نمایید" type="text"
-                                        name="q" id="searchQuery">
+                                        name="q" id="search-query-filter">
                                 </div>
                             </div>
                         </div>
@@ -81,14 +81,14 @@
                             <div class="d-grid gap-2">
 
                                 <div class="form-group">
-                                    <label class="form-label d-flex" for="minPrice">کمترین قیمت</label>
+                                    <label class="form-label d-flex" for="min-price-filter">کمترین قیمت</label>
                                     <input class="form-control" type="number" name="min_price"
-                                        placeholder="کمترین قیمت مد نظر" id="minPrice">
+                                        placeholder="کمترین قیمت مد نظر" id="min-price-filter">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label d-flex" for="maxPrice">بیشترین قیمت</label>
+                                    <label class="form-label d-flex" for="max-price-filter">بیشترین قیمت</label>
                                     <input class="form-control" type="number" name="max_price"
-                                        placeholder="بیشترین قیمت مد نظر" id="maxPrice">
+                                        placeholder="بیشترین قیمت مد نظر" id="max-price-filter">
                                 </div>
                             </div>
                         </div>
@@ -96,26 +96,11 @@
                             <h5>دسته بندی</h5>
                             <div class="d-grid gap-2">
                                 <div class="mb-2 mb-sm-0 me-sm-2">
-                                    <select class="form-select form-select-sm" name="category_id">
+                                    <select class="form-select form-select-sm" name="category_id" id="category-id-filter">
                                         <option value="" selected>انتخاب دسته بندی</option>
                                         {% for category in categories %}
                                         <option value="{{category.id}}">{{category.title}}</option>
                                         {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-bottom pb-4 mb-4">
-                            <h5>تعداد در صفحه</h5>
-                            <div class="d-grid gap-2">
-                                <div class="mb-2 mb-sm-0 me-sm-2">
-                                    <select class="form-select form-select-sm" name="page_size">
-                                        <option value="" selected>تعداد در صفحه</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="50">50</option>
                                     </select>
                                 </div>
                             </div>
@@ -141,7 +126,7 @@
                     <div class="d-sm-flex justify-content-sm-end align-items-center">
                         <!-- Select -->
                         <div class="mb-2 mb-sm-0 me-sm-2">
-                            <select class="form-select form-select-sm">
+                            <select class="form-select form-select-sm" id="order-by-filter">
                                 <option value="" selected>مرتب سازی</option>
                                 <option value="">جدیدترین</option>
                                 <option value="">قدیمی ترین</option>
@@ -152,11 +137,13 @@
                         <!-- End Select -->
                         <!-- Select -->
                         <div class="mb-2 mb-sm-0 me-sm-2">
-                            <select class="form-select form-select-sm">
+                            <select class="form-select form-select-sm" id="page-size-filter">
                                 <option value="" selected>تعداد در صفحه</option>
-                                <option value="">20</option>
-                                <option value="">30</option>
-                                <option value="">50</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
                             </select>
                         </div>
                         <!-- End Select -->
@@ -372,3 +359,20 @@
 <!-- End Clients -->
 
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+
+$( document ).ready(function() {
+    let current_url_params = new URLSearchParams(window.location.search)
+    $("#page-size-filter").val(current_url_params.get("page_size") || "")
+    $("#order-by-filter").val(current_url_params.get("order_by") || "")
+    $("#search-query-filter").val(current_url_params.get("q") || "")
+    $("#min-price-filter").val(current_url_params.get("min_price") || "")
+    $("#max-price-filter").val(current_url_params.get("max_price") || "")
+    $("#category-id-filter").val(current_url_params.get("category_id") || "")
+
+});
+</script>
+
+{% endblock %}
