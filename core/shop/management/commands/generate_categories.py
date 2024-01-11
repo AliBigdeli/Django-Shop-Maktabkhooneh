@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Generate fake categories'
 
     def handle(self, *args, **options):
-        fake = Faker()
+        fake = Faker(locale="fa_IR")
 
         for _ in range(10):
             title = fake.word()

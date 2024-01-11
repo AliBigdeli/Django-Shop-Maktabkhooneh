@@ -76,7 +76,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label d-flex" for="maxPrice">بیشترین قیمت</label>
-                                    <input class="form-control" type="number" name="max_price"  id="maxPrice">
+                                    <input class="form-control" type="number" name="max_price" id="maxPrice">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom pb-4 mb-4">
+                            <h5>دسته بندی</h5>
+                            <div class="d-grid gap-2">
+                                <div class="mb-2 mb-sm-0 me-sm-2">
+                                    <select class="form-select form-select-sm" name="category">
+                                        <option value="" selected>انتخاب دسته بندی</option>
+                                        <option value="" selected>دیجیتال</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +184,9 @@
                                     href="{% url 'shop:product-detail' slug=object.slug %}">{{object.title}}</a>
                             </h4>
                             {% if object.is_discounted %}
-                            <p class="card-text text-dark fs-4">{{object.get_show_price}} تومان<span class="text-body me-1 fs-6"><del>{{object.get_show_raw_price}} تومان</del></span></p>
+                            <p class="card-text text-dark fs-4">{{object.get_show_price}} تومان<span
+                                    class="text-body me-1 fs-6"><del>{{object.get_show_raw_price}} تومان</del></span>
+                            </p>
                             {% else %}
                             <p class="card-text text-dark fs-4"> {{object.get_show_raw_price}} تومان</p>
                             {% endif %}
@@ -204,6 +217,10 @@
                         </div>
                     </div>
                     <!-- End Card -->
+                </div>
+                {% empty %}
+                <div class="row text-center w-100 py-5">
+                    <p class="text-center">هیچ کالایی برای نمایش وجود ندارد</p>
                 </div>
                 <!-- End Col -->
                 {% endfor %}
