@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load shop_tags %}
 
 
 {% block content %}
@@ -21,7 +22,7 @@
                             </div>
                             <!-- End Slide -->
 
-                    
+
                         </div>
 
                         <!-- Arrows -->
@@ -37,13 +38,12 @@
                                 <!-- Slide -->
                                 <div class="swiper-slide">
                                     <a class="avatar avatar-circle" href="javascript:;">
-                                        <img class="avatar-img" src="{{object.image.url}}"
-                                            alt="Image Description">
+                                        <img class="avatar-img" src="{{object.image.url}}" alt="Image Description">
                                     </a>
                                 </div>
                                 <!-- End Slide -->
 
-                              
+
                                 <!-- End Slide -->
                             </div>
                         </div>
@@ -69,7 +69,9 @@
             <!-- Heading -->
             <div class="mb-5">
                 <h1 class="h2">{{object.title}}</h1>
-                <p>{{object.brief_description}}</p>
+                <p>{% for category in object.category.all %} <a href="#">{{category.title}} </a>{% if not forloop.last %} ,{% endif %}
+                        {% endfor %}</p>
+                        <p>{{object.brief_description}}</p>
             </div>
             <!-- End Heading -->
 
@@ -230,207 +232,13 @@
 <!-- Content -->
 <div class="container content-space-t-2 content-space-md-3">
     <div class="row">
-       {{object.description|safe}}
+        {{object.description|safe}}
     </div>
     <!-- End Row -->
 </div>
 <!-- End Content -->
 
-<!-- Card Grid -->
-<div class="container content-space-2 content-space-lg-3">
-    <!-- Title -->
-    <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
-        <h2>فقط برای شما</h2>
-    </div>
-    <!-- End Title -->
-
-    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-        <div class="col mb-4">
-            <!-- Card -->
-            <div class="card card-bordered shadow-none text-center h-100">
-                <div class="card-pinned">
-                    <img class="card-img-top" src="{% static '/img/300x180/img3.jpg' %}" alt="Image Description">
-
-                    <div class="card-pinned-top-start">
-                        <span class="badge bg-success rounded-pill">جدید</span>
-                    </div>
-
-                    <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
-                            <i class="bi-heart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="mb-1">
-                        <a class="link-sm link-secondary" href="#">تجهیزات جانبی</a>
-                    </div>
-                    <a class="text-body" href="/product-overview.html">کوله پشتی هرشل به رنگ آبی تیره</a>
-                    <p class="card-text text-dark">$56.99</p>
-                </div>
-
-                <div class="card-footer pt-0">
-                    <!-- Rating -->
-                    <a class="d-inline-flex align-items-center mb-3" href="#">
-                        <div class="d-flex gap-1 ms-2">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                        </div>
-                        <span class="small">0</span>
-                    </a>
-                    <!-- End Rating -->
-
-                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">افزودن به سبد
-                        خرید</button>
-                </div>
-            </div>
-            <!-- End Card -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col mb-4">
-            <!-- Card -->
-            <div class="card card-bordered shadow-none text-center h-100">
-                <div class="card-pinned">
-                    <img class="card-img-top" src="{% static '/img/300x180/img1.jpg' %}" alt="Image Description">
-
-                    <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
-                            <i class="bi-heart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="mb-1">
-                        <a class="link-sm link-secondary" href="#">تن پوش</a>
-                    </div>
-                    <a class="text-body" href="/product-overview.html">Front hoodie</a>
-                    <p class="card-text text-dark">$91.88</p>
-                </div>
-
-                <div class="card-footer pt-0">
-                    <!-- Rating -->
-                    <a class="d-inline-flex align-items-center mb-3" href="#">
-                        <div class="d-flex gap-1 ms-2">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                        </div>
-                        <span class="small">40</span>
-                    </a>
-                    <!-- End Rating -->
-
-                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">Add to cart</button>
-                </div>
-            </div>
-            <!-- End Card -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col mb-4">
-            <!-- Card -->
-            <div class="card card-bordered shadow-none text-center h-100">
-                <div class="card-pinned">
-                    <img class="card-img-top" src="{% static '/img/300x180/img4.jpg' %}" alt="Image Description">
-
-                    <div class="card-pinned-top-start">
-                        <span class="badge bg-danger rounded-pill">اتمام موجودی</span>
-                    </div>
-
-                    <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
-                            <i class="bi-heart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="mb-1">
-                        <a class="link-sm link-secondary" href="#">تجهیزات جانبی</a>
-                    </div>
-                    <a class="text-body" href="/product-overview.html">کوله پشتی هرشل به رنگ خاکستری</a>
-                    <p class="card-text text-dark">$29.99 <span class="text-body ms-1"><del>$33.99</del></span></p>
-                </div>
-
-                <div class="card-footer pt-0">
-                    <!-- Rating -->
-                    <a class="d-inline-flex align-items-center mb-3" href="#">
-                        <div class="d-flex gap-1 ms-2">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
-                        </div>
-                        <span class="small">125</span>
-                    </a>
-                    <!-- End Rating -->
-
-                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">افزودن به سبد
-                        خرید</button>
-                </div>
-            </div>
-            <!-- End Card -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col mb-4">
-            <!-- Card -->
-            <div class="card card-bordered shadow-none text-center h-100">
-                <div class="card-pinned">
-                    <img class="card-img-top" src="{% static '/img/300x180/img6.jpg' %}" alt="Image Description">
-
-                    <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
-                            <i class="bi-heart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="mb-1">
-                        <a class="link-sm link-secondary" href="#">تن پوش</a>
-                    </div>
-                    <a class="text-body" href="/product-overview.html">تیشرت آدیکالر جلوی اورجینال با لوگوی سه تایی</a>
-                    <p class="card-text text-dark">$38.00</p>
-                </div>
-
-                <div class="card-footer pt-0">
-                    <!-- Rating -->
-                    <a class="d-inline-flex align-items-center mb-3" href="#">
-                        <div class="d-flex gap-1 ms-2">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                        </div>
-                        <span class="small">9</span>
-                    </a>
-                    <!-- End Rating -->
-
-                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill">افزودن به سبد
-                        خرید</button>
-                </div>
-            </div>
-            <!-- End Card -->
-        </div>
-        <!-- End Col -->
-    </div>
-    <!-- End Row -->
-</div>
-<!-- End Card Grid -->
+{% show_similar_products object %}
 
 <!-- Review Section -->
 <div id="reviewSection" class="container content-space-b-2 content-space-b-lg-3">
@@ -450,11 +258,16 @@
                                 <div class="flex-grow-1 ms-3">
                                     <!-- Rating -->
                                     <div class="d-flex gap-1 small">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
+                                            width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
+                                            width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
+                                            width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
+                                            width="16">
+                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
+                                            width="16">
                                     </div>
                                     <!-- End Rating -->
                                     <span class="text-white">287 نظر</span>

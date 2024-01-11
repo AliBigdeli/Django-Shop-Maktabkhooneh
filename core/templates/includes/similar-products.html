@@ -1,0 +1,79 @@
+{% load static %}
+<!-- Card Grid -->
+<div class="container content-space-2 content-space-lg-3">
+    <!-- Title -->
+    <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+        <h2>فقط برای شما</h2>
+    </div>
+    <!-- End Title -->
+
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        {% for similar_prodcut in similar_prodcuts %}
+        <div class="col mb-4">
+            <!-- Card -->
+            <div class="card card-bordered shadow-none text-center h-100">
+                <div class="card-pinned">
+                    <img class="card-img-top" src="{{similar_prodcut.image.url}}" alt="Image Description">
+
+                    <div class="card-pinned-top-end">
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                            <i class="bi-heart"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="mb-2">
+                        {% for category in similar_prodcut.category.all %}
+                        <a class="link-sm link-secondary" href="#"> {{category.title}} </a>
+                        {% if not forloop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <h4 class="card-title">
+                        <a class="text-dark"
+                            href="{% url 'shop:product-detail' slug=similar_prodcut.slug %}">{{similar_prodcut.title}}</a>
+                    </h4>
+                    {% if similar_prodcut.is_discounted %}
+                    <p class="card-text text-dark fs-4">{{similar_prodcut.get_show_price}} تومان<span
+                            class="text-body me-1 fs-6"><del>{{similar_prodcut.get_show_raw_price}} تومان</del></span>
+                    </p>
+                    {% else %}
+                    <p class="card-text text-dark fs-4"> {{similar_prodcut.get_show_raw_price}} تومان</p>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer pt-0">
+                    <!-- Rating -->
+                    <a class="d-inline-flex align-items-center mb-3" href="#">
+                        <div class="d-flex gap-1 ms-2">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                        </div>
+                        <span class="small">40</span>
+                    </a>
+                    <!-- End Rating -->
+
+                    <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill">افزودن به
+                        سبد
+                        خرید</button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        {% empty %}
+        <div class="row text-center w-100 py-5">
+            <p class="text-center">هیچ کالایی برای نمایش وجود ندارد</p>
+        </div>
+        <!-- End Col -->
+        {% endfor %}
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Card Grid -->

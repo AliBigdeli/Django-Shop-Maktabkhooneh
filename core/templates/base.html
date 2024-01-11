@@ -31,14 +31,15 @@
 
 <body>
     <!-- ========== HEADER ========== -->
-    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-absolute-top navbar-light navbar-show-hide" data-hs-header-options='{
+    <header id="header" class="navbar navbar-expand-lg navbar-end navbar-absolute-top navbar-light navbar-show-hide"
+        data-hs-header-options='{
         "fixMoment": 500,
         "fixEffect": "slide"
       }'>
         <div class="container">
             <nav class="js-mega-menu navbar-nav-wrap">
                 <!-- Default Logo -->
-                <a class="navbar-brand" href="/index.html" aria-label="Front">
+                <a class="navbar-brand" href="{% url 'website:index' %}" aria-label="Front">
                     <img class="navbar-brand-logo" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
                 </a>
                 <!-- End Default Logo -->
@@ -63,7 +64,7 @@
                             <a class="nav-link active" href="{% url 'website:index' %}">صفحه اصلی</a>
                         </li>
 
-                       
+
                         <li class="nav-item">
                             <a class="nav-link " href="{% url 'shop:product-grid' %}">لیست محصولات</a>
                         </li>
@@ -74,7 +75,7 @@
                             <a class="nav-link " href="{% url 'website:contact' %}">ارتباط با ما</a>
                         </li>
 
-                       
+
 
                         <li class="nav-item">
                             <!-- Search -->
@@ -82,6 +83,7 @@
                                 data-bs-target="#offcanvasNavbarSearch" aria-controls="offcanvasNavbarSearch">
                                 <i class="bi-search"></i>
                             </button>
+
                             <!-- End Search -->
 
                             <!-- Shopping Cart -->
@@ -131,7 +133,7 @@
                 <div class="col-lg-3 mb-5">
                     <div class="d-flex align-items-start flex-column h-100">
                         <!-- Logo -->
-                        <a class="w-100 mb-3 mb-lg-auto" href="/index.html" aria-label="Front">
+                        <a class="w-100 mb-3 mb-lg-auto" href="{% url 'website:index' %}" aria-label="Front">
                             <img class="brand" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
                         </a>
                         <!-- End Logo -->
@@ -310,14 +312,14 @@
 
                     <div class="mb-7">
                         <!-- Form -->
-                        <form>
+                        <form action="{% url 'shop:product-grid' %}">
                             <!-- Input Card -->
                             <div class="input-card">
                                 <div class="input-card-form">
-                                    <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات"
+                                    <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات" name="q"
                                         aria-label="جستجو محصولات">
                                 </div>
-                                <button type="button" class="btn btn-primary btn-lg">جستجو کردن</button>
+                                <button type="submit" class="btn btn-primary btn-lg">جستجو کردن</button>
                             </div>
                             <!-- End Input Card -->
                         </form>

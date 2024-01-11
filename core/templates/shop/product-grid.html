@@ -70,7 +70,7 @@
                             <h5>جستو جوی کالا</h5>
                             <div class="d-grid gap-2">
                                 <div class="form-group">
-                                    <label class="form-label d-flex" for="search-query-filter">جستو جوی</label>
+                                    <label class="form-label d-flex" for="search-query-filter">جستو جو</label>
                                     <input class="form-control" placeholder="واژه مورد نظر را وارد نمایید" type="text"
                                         name="q" id="search-query-filter">
                                 </div>
@@ -96,7 +96,8 @@
                             <h5>دسته بندی</h5>
                             <div class="d-grid gap-2">
                                 <div class="mb-2 mb-sm-0 me-sm-2">
-                                    <select class="form-select form-select-sm" name="category_id" id="category-id-filter">
+                                    <select class="form-select form-select-sm" name="category_id"
+                                        id="category-id-filter">
                                         <option value="" selected>انتخاب دسته بندی</option>
                                         {% for category in categories %}
                                         <option value="{{category.id}}">{{category.title}}</option>
@@ -106,7 +107,8 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-white btn-transition">اعمال فیلتر</button>
+                            <button type="submit" class="btn btn-white btn-transition mb-3">اعمال فیلتر</button>
+                            <a href="{% url 'shop:product-grid' %}" class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
                         </div>
                     </form>
                 </div>
@@ -128,10 +130,10 @@
                         <div class="mb-2 mb-sm-0 me-sm-2">
                             <select class="form-select form-select-sm" id="order-by-filter">
                                 <option value="" selected>مرتب سازی</option>
-                                <option value="">جدیدترین</option>
-                                <option value="">قدیمی ترین</option>
-                                <option value="">بیشترین قیمت</option>
-                                <option value="">کمترین قیمت</option>
+                                <option value="-created_date">جدیدترین</option>
+                                <option value="created_date">قدیمی ترین</option>
+                                <option value="-price">بیشترین قیمت</option>
+                                <option value="price">کمترین قیمت</option>
                             </select>
                         </div>
                         <!-- End Select -->
@@ -151,12 +153,12 @@
                         <!-- Nav -->
                         <ul class="nav nav-segment">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/products-grid.html">
+                                <a class="nav-link active" href="{% url 'shop:product-grid' %}">
                                     <i class="bi-grid-fill"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/products-list.html">
+                                <a class="nav-link" href="#">
                                     <i class="bi-list"></i>
                                 </a>
                             </li>
@@ -248,19 +250,19 @@
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)"  aria-label="Previous">
                             <span aria-hidden="true">
                                 <i class="bi-chevron-double-right small"></i>
                             </span>
-                        </a>
+                        </button>
                     </li>
                     {% endif %}
                     {{page_obj.page_range}}
                     {% for i in page_obj.paginator.page_range %}
                     {% if page_obj.number == i %}
                     <li class="page-item active"><a class="page-link">{{ i }}</a></li>
-                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item"><a
-                            class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item"><button
+                            class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
 
                         {% endif %}
 
@@ -269,11 +271,11 @@
 
                         {% if page_obj.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Previous">
+                            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"  aria-label="Previous">
                                 <span aria-hidden="true">
                                     <i class="bi-chevron-double-left small"></i>
                                 </span>
-                            </a>
+                            </button>
                         </li>
                         {% endif %}
 
@@ -363,16 +365,39 @@
 {% block extra_js %}
 <script>
 
-$( document ).ready(function() {
-    let current_url_params = new URLSearchParams(window.location.search)
-    $("#page-size-filter").val(current_url_params.get("page_size") || "")
-    $("#order-by-filter").val(current_url_params.get("order_by") || "")
-    $("#search-query-filter").val(current_url_params.get("q") || "")
-    $("#min-price-filter").val(current_url_params.get("min_price") || "")
-    $("#max-price-filter").val(current_url_params.get("max_price") || "")
-    $("#category-id-filter").val(current_url_params.get("category_id") || "")
+    $(document).ready(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        $("#page-size-filter").val(current_url_params.get("page_size") || "")
+        $("#order-by-filter").val(current_url_params.get("order_by") || "")
+        $("#search-query-filter").val(current_url_params.get("q") || "")
+        $("#min-price-filter").val(current_url_params.get("min_price") || "")
+        $("#max-price-filter").val(current_url_params.get("max_price") || "")
+        $("#category-id-filter").val(current_url_params.get("category_id") || "")
 
-});
+    });
+    $('#page-size-filter').change(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("page_size", selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+    $('#order-by-filter').change(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("order_by", selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+
+</script>
+<script>
+    function changePage(page_number){
+        let current_url_params = new URLSearchParams(window.location.search)
+        current_url_params.set("page", page_number)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    }
 </script>
 
 {% endblock %}
