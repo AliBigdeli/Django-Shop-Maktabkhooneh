@@ -16,101 +16,100 @@
                 </div>
                 <!-- End Heading -->
 
-                <!-- Form -->
-                <form>
-                    <!-- List Group -->
-                    <ul class="list-group list-group-flush list-group-no-gutters mb-5">
-                        {% for item in cart.get_cart_dict.items %}
-                        <!-- Item -->
-                        <li class="list-group-item">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <img class="avatar avatar-xl avatar-4x3" src="/assets/img/320x320/img2.jpg"
-                                        alt="Image Description">
-                                </div>
 
-                                <div class="flex-grow-1 ms-3">
-                                    <div class="row">
-                                        <div class="col-sm-5 mb-3 mb-sm-0">
-                                            <h5><a class="text-dark" href="#">کوله پشتی ملی اصل</a></h5>
-
-                                            <div class="d-block d-sm-none">
-                                                <h5 class="mb-1">$29.99</h5>
-                                            </div>
-
-                                            <div class="d-grid gap-1">
-                                                <div class="text-body">
-                                                    <span class="small">دسته بندی:</span>
-                                                    <span class="fw-semibold small">کیف</span>
-                                                </div>
-
-                                                <div class="text-body">
-                                                    <span class="small">رنگ:</span>
-                                                    <span class="fw-semibold small">خاکستری</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Col -->
-
-                                        <div class="col-sm-5">
-                                            <div class="row">
-                                                <div class="col-auto">
-                                                    <div class="d-flex justify-content-start align-items-center">
-                                                        <!-- Select -->
-                                                        <span class="h6">تعداد:</span>
-                                                        <div class="quantity">
-                                                            <div
-                                                                class="input-group input-group-sm quantity-selector px-5">
-                                                                <button type="button"
-                                                                    class="btn btn-sm btn-icon btn-outline-primary">
-                                                                    <i class="bi-plus"></i>
-                                                                </button>
-                                                                <input type="number" class="form-control" value="2"
-                                                                    min="1" max="10">
-                                                                <button type="button"
-                                                                    class="btn btn-sm btn-icon btn-outline-danger">
-                                                                    <i class="bi-dash"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End Select -->
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-auto">
-                                                    <div class="d-grid gap-2">
-                                                        <a class="link-sm link-danger small" href="javascript:;">
-                                                            <i class="bi-trash me-1"></i> حذف
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- End Col -->
-                                            </div>
-                                            <!-- End Row -->
-                                        </div>
-                                        <!-- End Col -->
-
-                                        <div class="col-4 col-sm-2 d-none d-sm-inline-block text-right">
-                                            <span class="h5 d-block mb-1">$29.99</span>
-                                        </div>
-                                        <!-- End Col -->
-                                    </div>
-                                    <!-- End Row -->
-                                </div>
+                <!-- List Group -->
+                <ul class="list-group list-group-flush list-group-no-gutters mb-5">
+                    {% for item in cart.get_cart_dict.items %}
+                    <!-- Item -->
+                    <li class="list-group-item">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <img class="avatar avatar-xl avatar-4x3" src="/assets/img/320x320/img2.jpg"
+                                    alt="Image Description">
                             </div>
-                        </li>
-                        <!-- End Item -->
-                        {% endfor %}
 
-                    </ul>
-                    <!-- End List Group -->
+                            <div class="flex-grow-1 ms-3">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <h5><a class="text-dark" href="#">کوله پشتی ملی اصل</a></h5>
 
-                    <div class="d-sm-flex justify-content-end">
-                        <a class="link" href="/products-grid.html">
-                            به خرید ادامه دهید <i class="bi-chevron-left small ms-1"></i>
-                        </a>
-                    </div>
-                </form>
+                                        <div class="d-block d-sm-none">
+                                            <h5 class="mb-1">$29.99</h5>
+                                        </div>
+
+                                        <div class="d-grid gap-1">
+                                            <div class="text-body">
+                                                <span class="small">دسته بندی:</span>
+                                                <span class="fw-semibold small">کیف</span>
+                                            </div>
+
+                                            <div class="text-body">
+                                                <span class="small">رنگ:</span>
+                                                <span class="fw-semibold small">خاکستری</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Col -->
+
+                                    <div class="col-sm-4">
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="d-flex align-items-center">
+                                                    <span class="h6 ms-3">تعداد:</span>
+                                                    <!-- Select -->
+                                                    <select class="form-select form-select-sm mb-3">
+                                                        <option value="quantity1">1</option>
+                                                        <option value="quantity2">2</option>
+                                                        <option value="quantity3">3</option>
+                                                        <option value="quantity4">4</option>
+                                                        <option value="quantity5">5</option>
+                                                        <option value="quantity6">6</option>
+                                                        <option value="quantity7">7</option>
+                                                        <option value="quantity8">8</option>
+                                                        <option value="quantity9">9</option>
+                                                        <option value="quantity10">10</option>
+                                                    </select>
+                                                </div>
+                                                <!-- End Select -->
+                                            </div>
+
+                                            <div class="col-auto ">
+                                                <div class="d-grid gap-2 d-flex justify-content-between">
+                                                    <a class="link-sm link-danger small" href="javascript:;">
+                                                        <i class="bi-trash me-1"></i> حذف
+                                                    </a>
+                                                    <a class="link-sm link-secondary small" href="javascript:;">
+                                                        <i class="bi-heart-fill ms-1 "></i> علایق
+                                                      </a>
+                                                </div>
+                                            </div>
+                                            <!-- End Col -->
+                                        </div>
+                                        <!-- End Row -->
+                                    </div>
+                                    <!-- End Col -->
+
+                                    <div class="col-4 col-sm-2 d-none d-sm-inline-block text-right">
+                                        <span class="h5 d-block mb-1">$29.99</span>
+                                    </div>
+                                    <!-- End Col -->
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End Item -->
+                    {% endfor %}
+
+                </ul>
+                <!-- End List Group -->
+
+                <div class="d-sm-flex justify-content-end">
+                    <a class="link" href="/products-grid.html">
+                        به خرید ادامه دهید <i class="bi-chevron-left small ms-1"></i>
+                    </a>
+                </div>
+
                 <!-- End Form -->
             </div>
             <!-- End Col -->
@@ -140,7 +139,7 @@
                                 </div>
 
                                 <div class="d-grid">
-                                    <a class="btn btn-primary btn-lg mb-2" href="/checkout.html">ثبت سفارش</a>                                    
+                                    <a class="btn btn-primary btn-lg" href="/checkout.html">ثبت سفارش</a>
                                 </div>
                             </form>
                         </div>
