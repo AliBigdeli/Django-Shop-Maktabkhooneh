@@ -84,9 +84,11 @@
                                                 <button class=" btn btn-sm btn-icon text-danger border-0 mx-1" onclick="removeProduct('{{item.product_id}}')">
                                                     <i class="bi-trash ms-1"></i> حذف
                                                 </button>
+                                                {% if request.user.is_authenticated %}
                                                 <button class=" btn btn-sm btn-icon text-secondary border-0 mx-1" >
                                                     <i class="bi-heart-fill ms-1 "></i> علایق
                                                 </button>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <!-- End Col -->
