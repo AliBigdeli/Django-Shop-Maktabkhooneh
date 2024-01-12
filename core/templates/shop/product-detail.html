@@ -80,12 +80,12 @@
                 <span class="d-block mb-2">قیمت کل:</span>
                 {% if object.is_discounted %}
                 <div class="d-flex align-items-center">
-                    <h3 class="mb-0">{{object.get_show_price}} تومان</h3>
-                    <span class="ms-2"><del>{{object.get_show_raw_price}} تومان</del></span>
+                    <h3 class="mb-0 formatted-price">{{object.get_price}} </h3>
+                    <span class="me-2 formatted-price text-decoration-line-through">{{object.price}}</span>
                 </div>
                 {% else %}
                 <div class="d-flex align-items-center">
-                    <h3 class="mb-0">{{object.get_show_price}} تومان</h3>
+                    <h3 class="mb-0 formatted-price">{{object.price}} </h3>
                 </div>
                 {% endif %}
             </div>

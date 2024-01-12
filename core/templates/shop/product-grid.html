@@ -202,11 +202,12 @@
                                     href="{% url 'shop:product-detail' slug=object.slug %}">{{object.title}}</a>
                             </h4>
                             {% if object.is_discounted %}
-                            <p class="card-text text-dark fs-4">{{object.get_show_price}} تومان<span
-                                    class="text-body me-1 fs-6"><del>{{object.get_show_raw_price}} تومان</del></span>
+                            <p class="card-text text-dark fs-4">
+                                <span class="formatted-price">{{object.get_price}}</span>
+                                <span class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{object.price}}</span>
                             </p>
                             {% else %}
-                            <p class="card-text text-dark fs-4"> {{object.get_show_raw_price}} تومان</p>
+                            <p class="card-text text-dark fs-4 formatted-price"> {{object.price}}</p>
                             {% endif %}
                         </div>
 

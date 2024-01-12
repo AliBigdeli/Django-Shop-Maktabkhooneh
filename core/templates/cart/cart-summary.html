@@ -12,40 +12,36 @@
                 <!-- Heading -->
                 <div class="d-flex justify-content-between align-items-end border-bottom pb-3 mb-7">
                     <h1 class="h3 mb-0">سبد خرید</h1>
-                    <span>2 مورد</span>
+                    <span>{{total_quantity}}مورد</span>
                 </div>
                 <!-- End Heading -->
 
 
                 <!-- List Group -->
                 <ul class="list-group list-group-flush list-group-no-gutters mb-5">
-                    {% for item in cart.get_cart_dict.items %}
+                    {% for item in cart_items %}
                     <!-- Item -->
                     <li class="list-group-item">
                         <div class="d-flex">
                             <div class="flex-shrink-0">
-                                <img class="avatar avatar-xl avatar-4x3" src="/assets/img/320x320/img2.jpg"
+                                <img class="avatar avatar-xl avatar-4x3" src="{{item.product_obj.image.url}}"
                                     alt="Image Description">
                             </div>
 
                             <div class="flex-grow-1 ms-3">
                                 <div class="row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <h5><a class="text-dark" href="#">کوله پشتی ملی اصل</a></h5>
+                                        <h5><a class="text-dark" href="{% url 'shop:product-detail' slug=item.product_obj.slug %}">{{item.product_obj.title}}</a></h5>
 
                                         <div class="d-block d-sm-none">
-                                            <h5 class="mb-1">$29.99</h5>
+                                            <h5 class="mb-1 formatted-price">{{item.total_price}}</h5>
                                         </div>
 
                                         <div class="d-grid gap-1">
                                             <div class="text-body">
                                                 <span class="small">دسته بندی:</span>
-                                                <span class="fw-semibold small">کیف</span>
-                                            </div>
-
-                                            <div class="text-body">
-                                                <span class="small">رنگ:</span>
-                                                <span class="fw-semibold small">خاکستری</span>
+                                                <span class="fw-semibold small">{% for category in item.product_obj.category.all %} <a href="#">{{category.title}} </a>{% if not forloop.last %} ,{% endif %}
+                                                    {% endfor %}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -58,16 +54,13 @@
                                                     <span class="h6 ms-3">تعداد:</span>
                                                     <!-- Select -->
                                                     <select class="form-select form-select-sm mb-3">
-                                                        <option value="quantity1">1</option>
-                                                        <option value="quantity2">2</option>
-                                                        <option value="quantity3">3</option>
-                                                        <option value="quantity4">4</option>
-                                                        <option value="quantity5">5</option>
-                                                        <option value="quantity6">6</option>
-                                                        <option value="quantity7">7</option>
-                                                        <option value="quantity8">8</option>
-                                                        <option value="quantity9">9</option>
-                                                        <option value="quantity10">10</option>
+                                                        {% with ''|center:item.product_obj.stock as range %}
+                                                        {% for _ in range %}
+                                                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                                                        {% endfor %}
+                                                        {% endwith %}
+                                                 
+                                                        
                                                     </select>
                                                 </div>
                                                 <!-- End Select -->
@@ -90,7 +83,7 @@
                                     <!-- End Col -->
 
                                     <div class="col-4 col-sm-2 d-none d-sm-inline-block text-right">
-                                        <span class="h5 d-block mb-1">$29.99</span>
+                                        <span class="h5 d-block mb-1 formatted-price">{{item.total_price}}</span>
                                     </div>
                                     <!-- End Col -->
                                 </div>
@@ -105,7 +98,7 @@
                 <!-- End List Group -->
 
                 <div class="d-sm-flex justify-content-end">
-                    <a class="link" href="/products-grid.html">
+                    <a class="link" href="{% url 'shop:product-grid' %}">
                         به خرید ادامه دهید <i class="bi-chevron-left small ms-1"></i>
                     </a>
                 </div>
@@ -133,7 +126,7 @@
 
                                     <dl class="row">
                                         <dt class="col-sm-6">جمع</dt>
-                                        <dd class="col-sm-12 text-sm-end mb-0">350000 تومان</dd>
+                                        <dd class="col-sm-12 text-sm-end mb-0 formatted-price">{{total_payment_price}}</dd>
                                     </dl>
                                     <!-- End Row -->
                                 </div>
