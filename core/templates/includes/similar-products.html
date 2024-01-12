@@ -14,13 +14,14 @@
             <div class="card card-bordered shadow-none text-center h-100">
                 <div class="card-pinned">
                     <img class="card-img-top" src="{{similar_prodcut.image.url}}" alt="Image Description">
-
+                    {% if request.user.is_authenticated %}
                     <div class="card-pinned-top-end">
                         <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
                             data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
                             <i class="bi-heart"></i>
                         </button>
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="card-body">
