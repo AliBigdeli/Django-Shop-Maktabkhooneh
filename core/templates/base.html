@@ -316,8 +316,8 @@
                             <!-- Input Card -->
                             <div class="input-card">
                                 <div class="input-card-form">
-                                    <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات" name="q"
-                                        aria-label="جستجو محصولات">
+                                    <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات"
+                                        name="q" aria-label="جستجو محصولات">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-lg">جستجو کردن</button>
                             </div>
@@ -551,6 +551,29 @@
                 )
             })
         })()
+
+        var swiper = new Swiper('.js-swiper-shop-product', {
+            effect: 'fade',
+            autoplay: true,
+            loop: true,
+            navigation: {
+                nextEl: '.js-swiper-shop-product-button-next',
+                prevEl: '.js-swiper-shop-product-button-prev',
+            },
+            thumbs: {
+                swiper: sliderThumbs
+            }
+        });
+
+        var sliderThumbs = new Swiper('.js-swiper-shop-product-thumb', {
+            slidesPerView: 3,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+            history: false,
+        });
+        // INITIALIZATION OF  QUANTITY COUNTER
+        // =======================================================
+        new HSQuantityCounter('.js-quantity-counter')
     </script>
     <!-- JS Custom-->
     <script src="{% static 'js/custom.js' %}"></script>
