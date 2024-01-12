@@ -87,12 +87,16 @@
                             <!-- End Search -->
 
                             <!-- Shopping Cart -->
-                            <button type="button" class="btn btn-ghost-secondary btn-icon" type="button"
+                            <!-- <button type="button" class="btn btn-ghost-secondary btn-icon" type="button"
                                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarShoppingCart"
                                 aria-controls="offcanvasNavbarShoppingCart">
                                 <i class="bi-basket"></i>
                                 <span class="cart-item-count ">3</span>
-                            </button>
+                            </button> -->
+                            <a href="{% url 'cart:session-cart-summary' %}" class="btn btn-ghost-secondary btn-icon">
+                                <i class="bi-basket"></i>
+                                <span class="cart-item-count" id="total-cart-item-count">{{cart.get_total_quantity}}</span>
+                            </a>
                             <!-- End Shopping Cart -->
                             {% if request.user.is_authenticated %}
 
@@ -578,7 +582,30 @@
     <!-- JS Custom-->
     <script src="{% static 'js/custom.js' %}"></script>
     <!-- JS Cart-->
-    <script src="{% static 'js/cart.js' %}"></script>
+    <script>
+        function addToCart(product_id) {
+            console.log(product_id)
+            $.ajax({
+                url: "{%  url 'cart:session-add-product' %}",
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+        
+                },
+                success: function (response) {
+                    $("#total-cart-item-count").html(response.total_quantity)
+                    console.log(response);
+                    // do something with the response data
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    // handle the error case
+                }
+            });
+        }
+    </script>
+
     {% block extra_js %} {% endblock extra_js %}
 
     {% block extra_js_no_compress %} {% endblock extra_js_no_compress %}
