@@ -1,0 +1,124 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item"> داشبورد ادمین</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            ویرایش پروفایل
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card mb-3">
+    <div class="card-header border-bottom">
+        <h4 class="card-header-title">ویرایش تصویر</h4>
+    </div>
+    <!-- Body -->
+    <div class="card-body">
+        <div class="row mb-4">
+            <label class="col-sm-3 col-form-label form-label">عکس پروفایل</label>
+
+            <div class="col-sm-9">
+                <!-- Media -->
+                <div class="d-flex align-items-center">
+                    <!-- Avatar -->
+                    <label class="avatar avatar-xl avatar-circle" for="avatarUploader">
+                        <img id="avatarImg" class="avatar-img" src="{% static '/img/160x160/img9.jpg' %}"
+                            alt="Image Description">
+                    </label>
+
+                    <div class="d-grid d-sm-flex gap-2 me-4">
+                        <div class="form-attachment-btn btn btn-primary btn-sm">آپلود عکس
+                            <input type="file" class="js-file-attach form-attachment-btn-label" id="avatarUploader"
+                                data-hs-file-attach-options='{
+                                  "textTarget": "#avatarImg",
+                                  "mode": "image",
+                                  "targetAttr": "src",
+                                  "resetTarget": ".js-file-attach-reset-img",
+                                  "resetImg": "./assets/img/160x160/img1.jpg",
+                                  "allowTypes": [".png", ".jpeg", ".jpg"]
+                               }'>
+                        </div>
+                        <!-- End Avatar -->
+
+                        <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">حذف کردن</button>
+                    </div>
+                </div>
+                <!-- End Media -->
+            </div>
+        </div>
+        <!-- End Form -->
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header border-bottom">
+        <h4 class="card-header-title">اطلاعات پایه</h4>
+    </div>
+
+    <form action="." method="post">
+        <!-- Body -->
+        <div class="card-body">
+            <!-- Form -->
+
+            {% csrf_token %}
+
+
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="firstNameLabel" class="col-sm-3 col-form-label form-label">نام و نام خانوادگی</label>
+
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        {{form.first_name}}
+                        {{form.last_name}}
+                    </div>
+                </div>
+            </div>
+            <!-- End Form -->
+
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">ایمیل</label>
+
+                <div class="col-sm-9">
+                    <input type="email" class="form-control text-center" value="{{request.user.email}}" disabled>
+                </div>
+            </div>
+            <!-- End Form -->
+
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="phoneLabel" class="col-sm-3 col-form-label form-label">تلفن</label>
+
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        {{form.phone_number}}
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- End Form -->
+        </div>
+        <!-- End Body -->
+
+        <!-- Footer -->
+        <div class="card-footer pt-0">
+            <div class="d-flex justify-content-end gap-3">
+                <a class="btn btn-danger" href="{% url 'dashboard:admin:profile-edit' %}">لغو</a>
+                <button class="btn btn-primary" type="submit">ذخیره تغییرات</button>
+            </div>
+        </div>
+    </form>
+    <!-- End Footer -->
+</div>
+<!-- End Card -->
+{% endblock %}
