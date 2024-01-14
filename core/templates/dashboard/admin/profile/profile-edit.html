@@ -29,25 +29,18 @@
                 <div class="d-flex align-items-center">
                     <!-- Avatar -->
                     <label class="avatar avatar-xl avatar-circle" for="avatarUploader">
-                        <img id="avatarImg" class="avatar-img" src="{% static '/img/160x160/img9.jpg' %}"
+                        <img id="avatarImg" class="avatar-img" src="{{request.user.user_profile.image.url}}"
                             alt="Image Description">
                     </label>
 
                     <div class="d-grid d-sm-flex gap-2 me-4">
                         <div class="form-attachment-btn btn btn-primary btn-sm">آپلود عکس
-                            <input type="file" class="js-file-attach form-attachment-btn-label" id="avatarUploader"
-                                data-hs-file-attach-options='{
-                                  "textTarget": "#avatarImg",
-                                  "mode": "image",
-                                  "targetAttr": "src",
-                                  "resetTarget": ".js-file-attach-reset-img",
-                                  "resetImg": "./assets/img/160x160/img1.jpg",
-                                  "allowTypes": [".png", ".jpeg", ".jpg"]
-                               }'>
+                            <input type="file" class="form-attachment-btn-label" id="avatarUploader"
+                           >
                         </div>
                         <!-- End Avatar -->
 
-                        <button type="button" class="js-file-attach-reset-img btn btn-white btn-sm">حذف کردن</button>
+                        <button type="button" class="btn btn-white btn-sm">حذف کردن</button>
                     </div>
                 </div>
                 <!-- End Media -->

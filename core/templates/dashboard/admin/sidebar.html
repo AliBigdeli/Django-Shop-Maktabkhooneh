@@ -8,12 +8,12 @@
           <!-- Avatar -->
           <div class="d-none d-lg-block text-center mb-5">
             <div class="avatar avatar-xxl avatar-circle mb-3">
-              <img class="avatar-img" src="{% static '/img/160x160/img9.jpg' %}" alt="Image Description" />
+              <img class="avatar-img" src="{{request.user.user_profile.image.url}}" alt="Image Description" />
 
             </div>
 
-            <h4 class="card-title mb-0">ناتالی کورتیس</h4>
-            <p class="card-text small">natalie@example.com</p>
+            <h4 class="card-title mb-0">{{request.user.user_profile.get_fullname}}</h4>
+            <p class="card-text small">{{request.user.email}}</p>
           </div>
           <!-- End Avatar -->
 

@@ -109,7 +109,7 @@
                             <button class="btn btn-ghost-secondary btn-icon" id="dropdownMenuLink"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="avatar avatar-sm avatar-circle">
-                                    <img class="avatar-img" src="{% static 'img/160x160/img10.jpg' %}"
+                                    <img class="avatar-img" src="{{request.user.user_profile.image.url}}"
                                         alt="Image Description">
                                 </span>
                             </button>

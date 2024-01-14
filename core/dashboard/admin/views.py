@@ -1,11 +1,13 @@
 from typing import Any
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.views.generic import View, TemplateView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dashboard.permissions import HasAdminAccessPermission
 from django.contrib.auth import views as auth_views
-from dashboard.admin.forms import AdminPasswordChangeForm,AdminProfileEditForm
+from dashboard.admin.forms import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from accounts.models import Profile
@@ -29,3 +31,5 @@ class AdminProfileEditView(LoginRequiredMixin, HasAdminAccessPermission,SuccessM
     
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user)
+
+    
