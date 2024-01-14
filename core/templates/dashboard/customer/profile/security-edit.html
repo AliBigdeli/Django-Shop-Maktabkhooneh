@@ -1,0 +1,138 @@
+{% extends 'dashboard/customer/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item"> داشبورد</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            تنظیمات امنیتی
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card mb-3">
+    <div class="card-header border-bottom">
+        <h5 class="card-header-title">رمزعبور</h5>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+        <!-- Form -->
+        <form action="." method="post">
+            {% csrf_token %}
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="currentPasswordLabel" class="col-sm-3 col-form-label form-label">رمز عبور فعلی</label>
+
+                <div class="col-sm-9">
+                    {{form.old_password}}
+                </div>
+            </div>
+            <!-- End Form -->
+
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="newPassword" class="col-sm-3 col-form-label form-label">رمز عبور جدید</label>
+
+                <div class="col-sm-9">
+                    {{form.new_password1}}
+                </div>
+                
+            </div>
+            <!-- End Form -->
+
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="confirmNewPasswordLabel" class="col-sm-3 col-form-label form-label">رمز عبور جدید را
+                    تایید کنید</label>
+
+                <div class="col-sm-9">
+                    <div class="mb-3">
+                        {{form.new_password2}}
+                    </div>
+
+                    <h5>الزامات رمز عبور:</h5>
+
+                    <p class="card-text small">اطمینان حاصل کنید که این الزامات برآورده شده است:</p>
+
+                    <ul class="small">
+                        <li>حداقل 8 کاراکتر - هر چه بیشتر باشد، بهتر است</li>
+                        <li>حداقل یک نویسه کوچک</li>
+                        <li>حداقل یک کاراکتر بزرگ</li>
+                        <li>حداقل یک عدد، نماد یا نویسه فضای خالی</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Form -->
+
+            <div class="d-flex justify-content-end gap-3">
+                <button type="submit" class="btn btn-primary">بروزرسانی</button>
+            </div>
+        </form>
+        <!-- End Form -->
+    </div>
+    <!-- End Body -->
+</div>
+<!-- End Card -->
+
+<!-- Card -->
+<div class="card mb-3">
+    <div class="card-header border-bottom">
+        <h5 class="card-header-title">حساب های متصل</h5>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+        <p class="card-text">ویژگی‌های یکپارچه این حساب‌ها، همکاری با افرادی را که در Front می‌شناسید آسان‌تر
+            می‌کند.</p>
+
+        <!-- Form -->
+        <form>
+            <!-- List Group -->
+            <div class="list-group list-group-flush list-group-no-gutters">
+                <!-- Item -->
+                <div class="list-group-item">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <img class="avatar avatar-xs avatar-4x3" src="{% static '/svg/brands/google-icon.svg' %}"
+                                alt="Image Description">
+                        </div>
+
+                        <div class="flex-grow-1 me-3">
+                            <div class="row align-items-center">
+                                <div class="col ">
+                                    <h6 class="mb-1 ">گوگل</h6>
+                                    <span class="d-block small text-body">تقویم و مخاطبین</span>
+                                </div>
+                                <!-- End Col -->
+
+                                <div class="col-auto">
+                                    <!-- Form Switch -->
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="connectedAccounts1" disabled>
+                                        <label class="form-check-label" for="connectedAccounts1"></label>
+                                    </div>
+                                    <!-- End Form Switch -->
+                                </div>
+                                <!-- End Col -->
+                            </div>
+                            <!-- End Row -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Item -->
+
+            </div>
+            <!-- End List Group -->
+        </form>
+        <!-- End Form -->
+    </div>
+    <!-- End Body -->
+</div>
+<!-- End Card -->
+{% endblock %}

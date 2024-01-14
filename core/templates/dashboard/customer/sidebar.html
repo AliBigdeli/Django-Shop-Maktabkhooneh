@@ -23,18 +23,18 @@
           <!-- List -->
           <ul class="nav nav-sm nav-tabs nav-vertical mb-4">
             <li class="nav-item">
-              <a class="nav-link" href="./account-home.html">
+              <a class="nav-link" href="{% url 'dashboard:customer:home' %}">
                 <i class="bi-person-badge nav-icon"></i>داشبورد
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./account-security.html">
+              <a class="nav-link" href="{% url 'dashboard:customer:security-edit' %}">
                 <i class="bi-shield-shaded nav-icon"></i> امنیت
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="./account-overview.html">
+              <a class="nav-link" href="{% url 'dashboard:customer:profile-edit' %}">
                 <i class="bi-sliders nav-icon"></i> تنظیمات پروفایل
               </a>
             </li>
