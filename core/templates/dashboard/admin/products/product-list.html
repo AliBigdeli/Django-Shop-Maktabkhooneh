@@ -104,10 +104,10 @@
                                 {% else %}
                                 <span class="badge bg-danger">ذخیره</span> {% endif %}
                             </td>
-                            <td>{{ object.discount_percent}}</td>
+                            <td>%{{ object.discount_percent}}</td>
                             <td class="d-flex">
                                 <a class="btn btn-sm btn-icon btn-ghost-secondary"
-                                    href="./admin-account-products-single.html"><i class="bi-pencil-square"></i></a>
+                                    href="{% url 'dashboard:admin:product-edit' pk=object.pk %}"><i class="bi-pencil-square"></i></a>
 
                                 {% if object.is_published %}
                                 <a class="btn btn-sm btn-icon btn-ghost-primary" target="_blank"

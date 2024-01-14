@@ -1,0 +1,131 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<style>
+    .small-primary-button {
+        padding: 3px 10px;
+        background-color: #007bff; 
+        color: white; 
+        border: none; 
+        cursor: pointer; 
+        font-size: 10px;
+        border-radius: 5px; 
+    }
+    
+    .small-primary-button:hover,
+    .small-primary-button:focus {
+        background-color: #0056b3;
+    }
+</style>
+
+{% endblock %}
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item">داشبورد ادمین</li>
+        <li class="breadcrumb-item">محصولات</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            ویرایش محصول
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+        <h5 class="card-header-title">ویرایش محصول</h5>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-body">
+            <div class="row d-flex ">
+                <div class="col-md-6 mb-3">
+                    <label>نام محصول</label>
+                    {{form.title}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>slug محصول - <button class="small-primary-button" type="button"
+                        onclick="generateSlug()">ساخت slug</button> </label>
+                    {{form.slug}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>تعداد</label>
+                    {{form.stock}}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>وضعیت</label>
+                    {{form.status}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>دسته بندی</label>
+                    {{form.category}}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>قیمت</label>
+                    {{form.price}}
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label>درصد تخفیف</label>
+                    {{form.discount_percent}}
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label>توضیح کوتاه</label>
+                    {{form.brief_description}}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>توضیحات</label>
+                    {{form.description}}
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label for="validationValidFileInput1">تصویر محصول</label>
+                    {{form.image}}
+                </div>
+
+
+            </div>
+            <div class="card-footer">
+                <div class=" d-flex pt-5 justify-content-end">
+                    <a class="btn btn-danger ms-3">حذف</a>
+                    <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:product-list' %}">بازگشت</a>
+                    <button class="btn btn-primary ms-3" type="ubmit">ثبت تغییرات</button>
+                </div>
+            </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    function generateSlug() {
+        const title = $("#id_title").val();
+        const slug = slugify(title);
+        $("#id_slug").val(slug)
+    }
+
+    function slugify(titleStr) {
+        titleStr = titleStr.replace(/^\s+|\s+$/g, '');
+        titleStr = titleStr.toLowerCase();
+        //persian support
+        titleStr = titleStr.replace(/[^a-z0-9_\s-ءاأإآؤئبتثجحخدذرزسشصضطظعغفقكلمنهويةى]#u/, '')
+            // Collapse whitespace and replace by -
+            .replace(/\s+/g, '-')
+            // Collapse dashes
+            .replace(/-+/g, '-');
+        slugStr = titleStr;
+        return slugStr;
+    }
+</script>
+{% endblock %}

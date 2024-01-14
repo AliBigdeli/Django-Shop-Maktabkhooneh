@@ -40,3 +40,12 @@ class AdminProductListView(LoginRequiredMixin, HasAdminAccessPermission,ListView
         context["total_items"] = self.get_queryset().count()
         context["categories"] = ProductCategoryModel.objects.all()        
         return context
+    
+class AdminProductEditView(LoginRequiredMixin, HasAdminAccessPermission,SuccessMessageMixin,UpdateView):
+    template_name = "dashboard/admin/products/product-edit.html"
+    queryset = ProductModel.objects.all()
+    form_class = ProductForm
+    success_message = "ویرایش محصول با موفقیت انجام شد"
+    
+    def get_success_url(self):
+        return reverse_lazy("dashboard:admin:product-edit",kwargs={"pk":self.get_object().pk})
