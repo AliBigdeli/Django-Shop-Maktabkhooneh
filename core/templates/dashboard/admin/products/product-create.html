@@ -6,14 +6,14 @@
 <style>
     .small-primary-button {
         padding: 3px 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
+        background-color: #007bff; 
+        color: white; 
+        border: none; 
+        cursor: pointer; 
         font-size: 10px;
-        border-radius: 5px;
+        border-radius: 5px; 
     }
-
+    
     .small-primary-button:hover,
     .small-primary-button:focus {
         background-color: #0056b3;
@@ -28,7 +28,7 @@
         <li class="breadcrumb-item">داشبورد ادمین</li>
         <li class="breadcrumb-item">محصولات</li>
         <li class="breadcrumb-item active" aria-current="page">
-            ویرایش محصول
+            ایجاد محصول
         </li>
     </ol>
 </nav>
@@ -37,12 +37,8 @@
 {% block content %}
 <div class="card">
     <!-- Header -->
-    <div class="card-header border-bottom d-flex justify-content-between align-items-center">
-        <h5 class="card-header-title">ویرایش محصول</h5>
-        {% if object.is_published %}
-        <a class="btn btn-sm btn-primary" target="_blank"
-            href="{% url 'shop:product-detail' slug=object.slug %}">نمایش محصول</a>
-            {% endif %}
+    <div class="card-header border-bottom">
+        <h5 class="card-header-title">ایجاد محصول</h5>
     </div>
     <!-- End Header -->
 
@@ -56,8 +52,8 @@
                     {{form.title}}
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label>slug محصول - <button class="small-primary-button" type="button" onclick="generateSlug()">ساخت
-                            slug</button> </label>
+                    <label>slug محصول - <button class="small-primary-button" type="button"
+                        onclick="generateSlug()">ساخت slug</button> </label>
                     {{form.slug}}
                 </div>
                 <div class="col-md-6 mb-3">
@@ -100,10 +96,8 @@
             </div>
             <div class="card-footer">
                 <div class=" d-flex pt-5 justify-content-end">
-                    <a class="btn btn-danger ms-3"
-                        href="{% url 'dashboard:admin:product-delete' pk=object.pk %}">حذف</a>
                     <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:product-list' %}">بازگشت</a>
-                    <button class="btn btn-primary ms-3" type="submit">ثبت تغییرات</button>
+                    <button class="btn btn-primary ms-3" type="submit">ایجاد محصول</button>
                 </div>
             </div>
     </form>
