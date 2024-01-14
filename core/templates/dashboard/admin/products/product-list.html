@@ -1,0 +1,222 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item">داشبورد ادمین</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            محصولات
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="">لیست محصولات</h5>
+            <a class="btn btn-primary" href="./admin-account-add-product.html">اضافه کردن</a>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+
+        <div class="container pb-5">
+            <form action="." class="row">
+
+                <!-- Input Card -->
+                <div class="col-md-3 py-1">
+                    <input type="text" class="form-control form-control-sm" placeholder="جستو جوی کالا" name="q"
+                        id="search-query-filter">
+
+                </div>
+                <!-- End Input Card -->
+                <div class="col-md-3 py-1">
+                    <select class="form-select form-select-sm" name="category_id" id="category-id-filter">
+                        <option value="" selected>دسته بندی</option>
+                        {% for category in categories %}
+                        <option value="{{category.id}}">{{category.title}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3 py-1">
+                    <select class="form-select form-select-sm" id="order-by-filter">
+                        <option value="" selected>مرتب سازی</option>
+                        <option value="-created_date">جدیدترین</option>
+                        <option value="created_date">قدیمی ترین</option>
+                        <option value="-price">بیشترین قیمت</option>
+                        <option value="price">کمترین قیمت</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 py-1">
+                    <select class="form-select form-select-sm" id="page-size-filter">
+                        <option value="" selected>تعداد</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
+                <div class="col-md-1 py-1">
+                    <button type="submit" class="btn btn-sm btn-icon btn-primary btn-search"><i class="bi-search"></i></button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="row">
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">نام محصول</th>
+                            <th scope="col">دسته بندی</th>
+                            <th scope="col">قیمت</th>
+                            <th scope="col">تعداد</th>
+                            <th scope="col">وضعیت</th>
+                            <th scope="col">تخفیف</th>
+                            <th scope="col">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                        <tr>
+                            <th scope="row">{{object.id}}</th>
+                            <td>{{object.title}}</td>
+                            <td>{% for category in object.category.all %} {{category.title}}
+                                {% if not forloop.last %},{% endif %} {% endfor %}</td>
+                            <td>{{object.price}}</td>
+                            <td>{{object.stock}}</td>
+                            <td> {% if object.is_published %}<span class="badge bg-success">نشر شده</span>
+                                {% else %}
+                                <span class="badge bg-danger">ذخیره</span> {% endif %}
+                            </td>
+                            <td>{{ object.discount_percent}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-icon btn-ghost-secondary"
+                                    href="./admin-account-products-single.html"><i class="bi-pencil-square"></i></a>
+
+                                {% if object.is_published %}
+                                <a class="btn btn-sm btn-icon btn-ghost-primary" target="_blank"
+                                    href="{% url 'shop:product-detail' slug=object.slug %}"><i class="bi-eye"></i></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Table -->
+            <div class="row m-1 py-0 ">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        {{total_items}} محصول
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- Pagination -->
+
+            <div class="row pt-5 mt-3">
+                {% if page_obj.has_other_pages %}
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)"
+                                aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <i class="bi-chevron-double-right small"></i>
+                                </span>
+                            </button>
+                        </li>
+                        {% endif %}
+                        {{page_obj.page_range}}
+                        {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item">
+                            <button class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
+
+                            {% endif %}
+
+                            {% endfor %}
+
+
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">
+                                        <i class="bi-chevron-double-left small"></i>
+                                    </span>
+                                </button>
+                            </li>
+                            {% endif %}
+
+                    </ul>
+                </nav>
+                {% endif %}
+                <!-- End Pagination -->
+            </div>
+            <!-- End Pagination -->
+
+
+
+        </div>
+        <!-- End Row -->
+
+    </div>
+    <!-- End Body -->
+</div>
+<!-- End Card -->
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        $("#page-size-filter").val(current_url_params.get("page_size") || "")
+        $("#order-by-filter").val(current_url_params.get("order_by") || "")
+        $("#search-query-filter").val(current_url_params.get("q") || "")
+        $("#min-price-filter").val(current_url_params.get("min_price") || "")
+        $("#max-price-filter").val(current_url_params.get("max_price") || "")
+        $("#category-id-filter").val(current_url_params.get("category_id") || "")
+
+    });
+    $('#page-size-filter').change(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("page_size", selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+    $('#order-by-filter').change(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("order_by", selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+
+</script>
+{% endblock %}
