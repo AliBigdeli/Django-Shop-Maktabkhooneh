@@ -105,7 +105,7 @@
                                 <span class="badge bg-danger">ذخیره</span> {% endif %}
                             </td>
                             <td>{{ object.discount_percent}}</td>
-                            <td>
+                            <td class="d-flex">
                                 <a class="btn btn-sm btn-icon btn-ghost-secondary"
                                     href="./admin-account-products-single.html"><i class="bi-pencil-square"></i></a>
 
@@ -195,7 +195,7 @@
 
     $(document).ready(function () {
         let current_url_params = new URLSearchParams(window.location.search)
-        $("#page-size-filter").val(current_url_params.get("page_size") || "")
+        $("#page-size-filter").val(current_url_params.get("page_size") || "10")
         $("#order-by-filter").val(current_url_params.get("order_by") || "")
         $("#search-query-filter").val(current_url_params.get("q") || "")
         $("#min-price-filter").val(current_url_params.get("min_price") || "")
