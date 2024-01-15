@@ -14,6 +14,8 @@ class SessionAddProductView(View):
         if product_id and ProductModel.objects.filter(id=product_id, status=ProductStatusType.publish.value).exists():
 
             cart.add_product(product_id)
+        if request.user.is_authenticated:
+            cart.merge_session_cart_in_db(request.user)
         return JsonResponse({"cart": cart.get_cart_dict(), "total_quantity": cart.get_total_quantity()})
 
 
@@ -24,6 +26,8 @@ class SessionRemoveProductView(View):
         product_id = request.POST.get("product_id")
         if product_id:
             cart.remove_product(product_id)
+        if request.user.is_authenticated:
+            cart.merge_session_cart_in_db(request.user)
         return JsonResponse({"cart": cart.get_cart_dict(), "total_quantity": cart.get_total_quantity()})
 
 
@@ -35,6 +39,8 @@ class SessionUpdateProductQuantityView(View):
         quantity = request.POST.get("quantity")
         if product_id and quantity:
             cart.update_product_quantity(product_id, quantity)
+        if request.user.is_authenticated:
+            cart.merge_session_cart_in_db(request.user)
         return JsonResponse({"cart": cart.get_cart_dict(), "total_quantity": cart.get_total_quantity()})
 
 
