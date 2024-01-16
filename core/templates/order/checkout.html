@@ -63,8 +63,8 @@
 
                         <div class="input-group border-bottom pb-4 mb-3 ">
                             <input type="text" class="form-control text-center" name="coupon" placeholder="کد تخفیف"
-                                aria-label="کد تخفیف" form="checkout-form">
-                            <button class="btn btn-primary"> بررسی</button>
+                                aria-label="کد تخفیف" form="checkout-form" id="coupon-input">
+                            <button class="btn btn-primary" type="button" onclick="validateCoupon()"> بررسی</button>
                         </div>
 
                         <div class="border-bottom pb-4 mb-4">
@@ -86,7 +86,7 @@
                                 <dt class="col-sm-6">مالیات تخمینی</dt>
                                 <dd class="col-sm-12 text-sm-end mb-0">
                                     9% مالیات - 
-                                    <span class="formatted-price"> {{total_tax}}</span>
+                                    <span class="formatted-price" id="total-tax"> {{total_tax}}</span>
                                 </dd>
 
                             </dl>
@@ -94,7 +94,7 @@
 
                             <dl class="row">
                                 <dt class="col-sm-6">جمع کل</dt>
-                                <dd class="col-sm-6 text-sm-end mb-0 formatted-price">{{total_price}}</dd>
+                                <dd class="col-sm-6 text-sm-end mb-0 formatted-price" id="total-price">{{total_price}}</dd>
                             </dl>
                             <!-- End Row -->
                         </div>
@@ -137,3 +137,48 @@
 </div>
 <!-- End Content -->
 {% endblock content %}
+
+{% block extra_js %}
+<script>
+    function applyDiscount(total_price,total_tax){
+        $('#total-price').html(total_price)
+        $('#total-tax').html(total_tax)
+        formatPriceInToman(document.getElementById('total-price'))
+        formatPriceInToman(document.getElementById('total-tax'))
+    }   
+
+    function validateCoupon(){
+        $.ajax({
+            url: "{%  url 'order:validate-coupon' %}",
+            method: 'POST',
+            data: {
+                code: $('#coupon-input').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+    
+            },
+            success: function (response) {
+                Toastify({
+                    text:response.message,
+                    className: `info`,
+                    style: {
+                      background: "blue",
+                    }
+                  }).showToast();
+                  applyDiscount(response.total_price,response.total_tax)
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Toastify({
+                    text:jqXHR.responseJSON.message,
+                    className: `error`,
+                    style: {
+                      background: "red",
+                    }
+                  }).showToast();
+            }
+        });
+    }
+
+</script>
+
+{% endblock %}
