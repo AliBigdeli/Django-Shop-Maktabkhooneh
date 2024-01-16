@@ -104,30 +104,29 @@ class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
         code = request.POST.get("code")
         user = self.request.user
 
-       
-        message = "کد تخفیف با موفقیت ثبت شد"
         status_code = 200
-        total_price= 0
-        total_tax= 0
+        message = "کد تخفیف با موفقیت ثبت شد"
+        total_price = 0
+        total_tax = 0
+        
         try:
             coupon = CouponModel.objects.get(code=code)
         except CouponModel.DoesNotExist:
-            return JsonResponse({"message": "کد تخفیف یافت نشد"},status=404)
+            return JsonResponse({ "message": "کد تخفیف یافت نشد"},status=404)
         else:
             if coupon.used_by.count() >= coupon.max_limit_usage:
-                message =  "محدودیت در تعداد استفاده"
-                status_code = 403
+                status_code, message = 403, "محدودیت در تعداد استفاده"
 
             elif coupon.expiration_date and coupon.expiration_date < timezone.now():
-                message = "کد تخفیف منقضی شده است"
-                status_code = 403
+                status_code, message = 403, "کد تخفیف منقضی شده است"
 
             elif user in coupon.used_by.all():
-                message ="این کد تخفیف قبلا توسط شما استفاده شده است"
-                status_code = 403
+                status_code, message = 403, "این کد تخفیف قبلا توسط شما استفاده شده است"
+            
             else:
                 cart = CartModel.objects.get(user=self.request.user)
+
                 total_price = cart.calculate_total_price()
-                total_price = round(total_price - total_price * (coupon.discount_percent/100))
+                total_price = round(total_price - (total_price * (coupon.discount_percent/100)))
                 total_tax = round((total_price * 9)/100)
-        return JsonResponse({"message": message,"total_price":total_price,"total_tax":total_tax},status=status_code)
+        return JsonResponse({"message": message,"total_tax":total_tax,"total_price":total_price},status=status_code)

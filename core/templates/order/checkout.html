@@ -141,11 +141,12 @@
 {% block extra_js %}
 <script>
     function applyDiscount(total_price,total_tax){
-        $('#total-price').html(total_price)
-        $('#total-tax').html(total_tax)
-        formatPriceInToman(document.getElementById('total-price'))
-        formatPriceInToman(document.getElementById('total-tax'))
-    }   
+        $("#total-price").html(total_price)
+        $("#total-tax").html(total_tax)
+
+        formatPriceInToman(document.getElementById("total-price"))
+        formatPriceInToman(document.getElementById("total-tax"))
+    }
 
     function validateCoupon(){
         $.ajax({
@@ -157,6 +158,7 @@
     
             },
             success: function (response) {
+                console.log("success",response);
                 Toastify({
                     text:response.message,
                     className: `info`,
@@ -165,9 +167,10 @@
                     }
                   }).showToast();
                   applyDiscount(response.total_price,response.total_tax)
-
+                // do something with the response data
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
                 Toastify({
                     text:jqXHR.responseJSON.message,
                     className: `error`,
@@ -175,6 +178,8 @@
                       background: "red",
                     }
                   }).showToast();
+                
+                // handle the error case
             }
         });
     }
