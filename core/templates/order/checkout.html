@@ -11,7 +11,7 @@
 
             <!-- Form -->
             <form action="." method="post" id="checkout-form">
-
+                {% csrf_token %}
 
                 <hr class="my-4">
 
@@ -20,8 +20,8 @@
                     <!-- Check -->
                     {% for address in addresses %}
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="address">
-                        <label class="form-check-label" for="address" value="{{address.id}}">
+                        <input type="radio" class="form-check-input" name="address_id" value="{{address.id}}" required>
+                        <label class="form-check-label" for="address">
                             {{address.state}},{{address.city}},{{address.address}} ,{{address.zip_code}}</label>
                     </div>
                     {% endfor %}
@@ -84,14 +84,17 @@
                         <div class="d-grid gap-3 mb-4">
                             <dl class="row">
                                 <dt class="col-sm-6">مالیات تخمینی</dt>
-                                <dd class="col-sm-12 text-sm-end mb-0">با ضریب 9% - 35000 تومان</dd>
+                                <dd class="col-sm-12 text-sm-end mb-0">
+                                    9% مالیات - 
+                                    <span class="formatted-price"> {{total_tax}}</span>
+                                </dd>
 
                             </dl>
                             <!-- End Row -->
 
                             <dl class="row">
                                 <dt class="col-sm-6">جمع کل</dt>
-                                <dd class="col-sm-6 text-sm-end mb-0">450000 تومان</dd>
+                                <dd class="col-sm-6 text-sm-end mb-0 formatted-price">{{total_price}}</dd>
                             </dl>
                             <!-- End Row -->
                         </div>
