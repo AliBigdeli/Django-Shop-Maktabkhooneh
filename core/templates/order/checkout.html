@@ -10,7 +10,7 @@
             <h4 class="mb-3">انتخاب آدرس </h4>
 
             <!-- Form -->
-            <form class="needs-validation" novalidate>
+            <form action="." method="post" id="checkout-form">
 
 
                 <hr class="my-4">
@@ -18,46 +18,21 @@
                 <div class="d-grid gap-2">
 
                     <!-- Check -->
+                    {% for address in addresses %}
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="address" id="address-1" checked required>
-                        <label class="form-check-label" for="address"> کرج، xxxx ، بلوار xxx ، خیابان xxx ، بلوک
-                            xxx</label>
+                        <input type="radio" class="form-check-input" name="address">
+                        <label class="form-check-label" for="address" value="{{address.id}}">
+                            {{address.state}},{{address.city}},{{address.address}} ,{{address.zip_code}}</label>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" name="address" id="address-2" required>
-                        <label class="form-check-label" for="address-2"> کرج، xxxx ، بلوار xxx ، خیابان xxx ، بلوک
-                            xxx</label>
-                    </div>
-                    <!-- End Check -->
-                    <div>
-                        <a class="" href="./account-address.html">مدیریت آدرس ها</a>
+                    {% endfor %}
+
+                    <div class="mt-3">
+                        <a class="" href="{% url 'dashboard:customer:address-list' %}">مدیریت آدرس ها</a>
                     </div>
                 </div>
 
                 <hr class="my-4">
 
-                <h4 class="mb-3">روش پرداخت</h4>
-
-                <div class="my-3">
-                    <!-- Check -->
-                    <div class="form-check">
-                        <input id="creditShopCheckout" name="paymentMethod" type="radio" class="form-check-input"
-                            checked required>
-                        <label class="form-check-label" for="creditShopCheckout">پرداخت آنلاین</label>
-                    </div>
-                    <!-- End Check -->
-
-                    <!-- Check -->
-                    <div class="form-check">
-                        <input id="debitShopCheckout" name="paymentMethod" type="radio" class="form-check-input"
-                            required>
-                        <label class="form-check-label" for="debitShopCheckout">کارت به کارت</label>
-                    </div>
-                    <!-- End Check -->
-                </div>
-
-
-                <hr class="my-4">
 
                 <div class="row align-items-center">
 
@@ -65,7 +40,7 @@
 
                     <div class="col-sm text-center text-sm-start">
                         <a class="link" href="{% url 'cart:cart-summary' %}">
-                            <i class="bi-chevron-left small ms-1"></i> بازگشت به سبد خرید
+                            بازگشت به سبد خرید<i class="bi-chevron-left small me-1"></i>
                         </a>
                     </div>
                     <!-- End Col -->
@@ -85,47 +60,46 @@
                             <h3 class="card-header-title">خلاصه سفارش</h3>
                         </div>
 
-                        <form>
 
-                            <div class="input-group border-bottom pb-4 mb-3 ">
-                                <input type="text" class="form-control text-center" name="name" placeholder="کد تخفیف"
-                                    aria-label="کد تخفیف">
-                                <button class="btn btn-primary"> بررسی</button>
-                            </div>
+                        <div class="input-group border-bottom pb-4 mb-3 ">
+                            <input type="text" class="form-control text-center" name="coupon" placeholder="کد تخفیف"
+                                aria-label="کد تخفیف" form="checkout-form">
+                            <button class="btn btn-primary"> بررسی</button>
+                        </div>
 
-                            <div class="border-bottom pb-4 mb-4">
-                                <div class="d-grid gap-3">
+                        <div class="border-bottom pb-4 mb-4">
+                            <div class="d-grid gap-3">
 
-                                    <!-- End Row -->
-
-                                    <dl class="row">
-                                        <dt class="col-sm-6">هزینه ارسال</dt>
-                                        <dd class="col-sm-12 text-sm-end mb-0">برای تهران و حومه 35000 تومان</dd>
-                                        <dd class="col-sm-12 text-sm-end mb-0">برای شهرستان ها 50000 تومان</dd>
-                                    </dl>
-                                    <!-- End Row -->
-                                </div>
-                            </div>
-
-                            <div class="d-grid gap-3 mb-4">
-                                <dl class="row">
-                                    <dt class="col-sm-6">مالیات تخمینی</dt>
-                                    <dd class="col-sm-12 text-sm-end mb-0">با ضریب 9% - 35000 تومان</dd>
-
-                                </dl>
                                 <!-- End Row -->
 
                                 <dl class="row">
-                                    <dt class="col-sm-6">جمع کل</dt>
-                                    <dd class="col-sm-6 text-sm-end mb-0">450000 تومان</dd>
+                                    <dt class="col-sm-6">هزینه ارسال</dt>
+                                    <dd class="col-sm-12 text-sm-end mb-0">برای تهران و حومه 35000 تومان</dd>
+                                    <dd class="col-sm-12 text-sm-end mb-0">برای شهرستان ها 50000 تومان</dd>
                                 </dl>
                                 <!-- End Row -->
                             </div>
+                        </div>
 
-                            <div class="d-grid">
-                                <a class="btn btn-primary btn-lg" href="/order-completed.html">ثبت نهایی</a>
-                            </div>
-                        </form>
+                        <div class="d-grid gap-3 mb-4">
+                            <dl class="row">
+                                <dt class="col-sm-6">مالیات تخمینی</dt>
+                                <dd class="col-sm-12 text-sm-end mb-0">با ضریب 9% - 35000 تومان</dd>
+
+                            </dl>
+                            <!-- End Row -->
+
+                            <dl class="row">
+                                <dt class="col-sm-6">جمع کل</dt>
+                                <dd class="col-sm-6 text-sm-end mb-0">450000 تومان</dd>
+                            </dl>
+                            <!-- End Row -->
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-lg" type="submit" form="checkout-form" >ثبت نهایی</button>
+                        </div>
+
                     </div>
                     <!-- End Card -->
                 </div>
