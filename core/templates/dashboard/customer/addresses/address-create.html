@@ -1,0 +1,73 @@
+{% extends 'dashboard/customer/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item"> داشبورد</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            ایجاد نشانی
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card mb-3">
+    <div class="card-header border-bottom">
+        <h4 class="card-header-title">ایجاد نشانی جدید</h4>
+    </div>
+
+    <form action="." method="post">
+        <!-- Body -->
+        <div class="card-body">
+            <!-- Form -->
+
+            {% csrf_token %}
+
+
+            <!-- Form -->
+            <div class="row">
+                <div class="col-md-4  mb-4">
+                    <label class="col-form-label form-label">استان</label>
+                    {{form.state}}
+                </div>
+                <!-- End Form -->
+                <!-- Form -->
+                <div class="col-md-4  mb-4">
+                    <label class=" col-form-label form-label">شهر</label>
+                    {{form.city}}
+                </div>
+                <!-- End Form -->
+                <!-- Form -->
+                <div class="col-md-4  mb-4">
+                    <label class=" col-form-label form-label">کد پستی</label>
+                    {{form.zip_code}}
+                </div>
+                <!-- End Form -->
+            </div>
+            <!-- Form -->
+            <div class="row mb-4">
+                <label class="col-form-label form-label">آدرس</label>
+                {{form.address}}
+            </div>
+            <!-- End Form -->
+
+
+        </div>
+        <!-- End Body -->
+
+        <!-- Footer -->
+        <div class="card-footer pt-0">
+            <div class="d-flex justify-content-end gap-3">
+                <a class="btn btn-danger" href="{% url 'dashboard:customer:address-list' %}">لغو</a>
+                <button class="btn btn-primary" type="submit">ذخیره تغییرات</button>
+            </div>
+        </div>
+    </form>
+    <!-- End Footer -->
+</div>
+<!-- End Card -->
+{% endblock %}

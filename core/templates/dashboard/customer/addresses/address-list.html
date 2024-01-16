@@ -1,0 +1,69 @@
+{% extends 'dashboard/customer/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item"> داشبورد</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            آدرس ها
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+      <h5 class="card-header-title">آدرس های من</h5>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+      <div class="row">
+        {% for object in object_list %}
+        <div class="col-sm-12 mb-5 mb-sm-7">
+          <!-- Radio Check -->
+          <div class=" w-100 h-100">
+            <label class="" for="billingRadio1">
+              <span class="h5 d-block">آدرس شماره {{ object.id}}</span>
+
+              <span class="d-block mb-2">{{object.state}},{{object.city}},{{object.address}} ,{{object.zip_code}}</span>
+              <a class="btn btn-white btn-xs" href="{% url 'dashboard:customer:address-edit' pk=object.pk %}">
+                <i class="bi-pencil-fill me-1"></i> آدرس را ویرایش
+                کنید
+              </a>
+            </label>
+          </div>
+          <!-- End Radio Check -->
+        </div>
+        {% endfor %}
+        <!-- End Col -->
+
+
+
+        <div class="col-sm-12 mb-5 mb-sm-7">
+          <!-- Card -->
+          <a class="card card-dashed card-centered" href="{% url 'dashboard:customer:address-create' %}">
+            <div class="card-body card-dashed-body py-8">
+              <img class="avatar avatar-lg avatar-4x3 mb-2" src="{% static '/svg/illustrations/oc-address.svg' %}"
+                alt="Image Description" />
+              <span class="d-block"><i class="bi-plus"></i> یک آدرس جدید اضافه کنید</span>
+            </div>
+          </a>
+          <!-- End Card -->
+        </div>
+        <!-- End Col -->
+      </div>
+      <!-- End Row -->
+
+
+    </div>
+    <!-- End Body -->
+  </div>
+  <!-- End Card -->
+{% endblock %}
