@@ -21,6 +21,7 @@ from django.shortcuts import redirect
 from payment.zarinpal_client import ZarinPalSandbox
 from payment.models import PaymentModel
 
+
 class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormView):
     template_name = "order/checkout.html"
     form_class = CheckOutForm
@@ -45,20 +46,20 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
         total_price = order.calculate_total_price()
         self.apply_coupon(coupon, order, user, total_price)
-        order.save()        
+        order.save()
         return redirect(self.create_payment_url(order))
 
-    def create_payment_url(self,order):
+    def create_payment_url(self, order):
         zarinpal = ZarinPalSandbox()
         response = zarinpal.payment_request(order.total_price)
         payment_obj = PaymentModel.objects.create(
-            authority_id = response.get("Authority"),
-            amount = order.total_price,
+            authority_id=response.get("Authority"),
+            amount=order.total_price,
         )
         order.payment = payment_obj
         order.save()
         return zarinpal.generate_payment_url(response.get("Authority"))
-    
+
     def create_order(self, address):
         return OrderModel.objects.create(
             user=self.request.user,
@@ -109,6 +110,9 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
 class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
     template_name = "order/completed.html"
+    
+class OrderFailedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
+    template_name = "order/failed.html"
 
 
 class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
@@ -121,11 +125,11 @@ class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
         message = "کد تخفیف با موفقیت ثبت شد"
         total_price = 0
         total_tax = 0
-        
+
         try:
             coupon = CouponModel.objects.get(code=code)
         except CouponModel.DoesNotExist:
-            return JsonResponse({ "message": "کد تخفیف یافت نشد"},status=404)
+            return JsonResponse({"message": "کد تخفیف یافت نشد"}, status=404)
         else:
             if coupon.used_by.count() >= coupon.max_limit_usage:
                 status_code, message = 403, "محدودیت در تعداد استفاده"
@@ -135,11 +139,12 @@ class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
 
             elif user in coupon.used_by.all():
                 status_code, message = 403, "این کد تخفیف قبلا توسط شما استفاده شده است"
-            
+
             else:
                 cart = CartModel.objects.get(user=self.request.user)
 
                 total_price = cart.calculate_total_price()
-                total_price = round(total_price - (total_price * (coupon.discount_percent/100)))
+                total_price = round(
+                    total_price - (total_price * (coupon.discount_percent/100)))
                 total_tax = round((total_price * 9)/100)
-        return JsonResponse({"message": message,"total_tax":total_tax,"total_price":total_price},status=status_code)
+        return JsonResponse({"message": message, "total_tax": total_tax, "total_price": total_price}, status=status_code)
