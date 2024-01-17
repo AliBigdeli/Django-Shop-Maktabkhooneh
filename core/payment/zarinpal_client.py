@@ -6,7 +6,7 @@ class ZarinPalSandbox:
     _payment_request_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
     _payment_verify_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
     _payment_page_url = "https://sandbox.zarinpal.com/pg/StartPay/"
-    _callback_url = settings.CALLBACK_URL
+    _callback_url = "http://redreseller.com/verify"
 
     def __init__(self, merchant_id=settings.MERCHANT_ID):
         self.merchant_id = merchant_id
@@ -41,4 +41,4 @@ class ZarinPalSandbox:
         return response.json()
 
     def generate_payment_url(self,authority):
-        return self._payment_page_url + authority
+        return f"{self._payment_page_url}{authority}"

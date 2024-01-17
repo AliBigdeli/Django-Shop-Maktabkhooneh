@@ -16,8 +16,10 @@ from decimal import Decimal
 from order.models import CouponModel
 from django.http import JsonResponse
 from django.utils import timezone
+from django.shortcuts import redirect
 # Create your views here.
-
+from payment.zarinpal_client import ZarinPalSandbox
+from payment.models import PaymentModel
 
 class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormView):
     template_name = "order/checkout.html"
@@ -43,9 +45,20 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
         total_price = order.calculate_total_price()
         self.apply_coupon(coupon, order, user, total_price)
-        order.save()
-        return super().form_valid(form)
+        order.save()        
+        return redirect(self.create_payment_url(order))
 
+    def create_payment_url(self,order):
+        zarinpal = ZarinPalSandbox()
+        response = zarinpal.payment_request(order.total_price)
+        payment_obj = PaymentModel.objects.create(
+            authority_id = response.get("Authority"),
+            amount = order.total_price,
+        )
+        order.payment = payment_obj
+        order.save()
+        return zarinpal.generate_payment_url(response.get("Authority"))
+    
     def create_order(self, address):
         return OrderModel.objects.create(
             user=self.request.user,
