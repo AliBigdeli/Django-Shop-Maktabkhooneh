@@ -21,10 +21,18 @@
         <form action="." class="row">
 
             <!-- Input Card -->
-            <div class="col-md-6 py-1">
+            <div class="col-md-3 py-1">
                 <input type="text" class="form-control form-control-sm" placeholder="جستو جوی سفارش" name="q"
                     id="search-query-filter">
 
+            </div>
+            <div class="col-md-3 py-1">
+                <select class="form-select form-select-sm" id="status-type-filter" name="status">
+                    <option value="" selected>وضعیت</option>
+                    {% for status_type in status_types %}
+                    <option value="{{status_type.0}}">{{status_type.1}}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <div class="col-md-3 py-1">
@@ -87,7 +95,7 @@
                             <div class="row">
                                 <div class="col-6 col-md mb-3 mb-md-0">
                                     <small class="card-subtitle mb-0">مبلغ سفارش</small>
-                                    <small class="text-dark fw-semibold formatted-price">{{object.total_price}}</small>
+                                    <small class="text-dark fw-semibold formatted-price">{{object.get_price}}</small>
                                 </div>
                                 <!-- End Col -->
 
@@ -131,12 +139,13 @@
 
                                 <div class="col-md-4">
                                     <div class="d-grid gap-2">
-
+                                        {% if object.is_successful %}
                                         <a class="btn btn-white btn-sm"
                                             href="{% url 'dashboard:customer:order-invoice' pk=object.pk %}"
                                             target="_blank">
                                             <i class="bi-receipt small me-2"></i> مشاهده فاکتور
                                         </a>
+                                        {% endif %}
                                         <a class="btn btn-primary btn-sm"
                                             href="{% url 'dashboard:customer:order-detail' pk=object.pk %}">مشاهده
                                             سفارش</a>
@@ -214,12 +223,10 @@
 
     $(document).ready(function () {
         let current_url_params = new URLSearchParams(window.location.search)
-        $("#page-size-filter").val(current_url_params.get("page_size") || "10")
+        $("#page-size-filter").val(current_url_params.get("page_size") || "5")
         $("#order-by-filter").val(current_url_params.get("order_by") || "")
         $("#search-query-filter").val(current_url_params.get("q") || "")
-        $("#min-price-filter").val(current_url_params.get("min_price") || "")
-        $("#max-price-filter").val(current_url_params.get("max_price") || "")
-        $("#category-id-filter").val(current_url_params.get("category_id") || "")
+        $("#status-type-filter").val(current_url_params.get("status") || "")
 
     });
     $('#page-size-filter').change(function () {

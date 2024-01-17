@@ -1,11 +1,11 @@
-{% extends 'dashboard/customer/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 {% block breadcrumb %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-light mb-0">
         <li class="breadcrumb-item">حساب</li>
-        <li class="breadcrumb-item"> داشبورد</li>
+        <li class="breadcrumb-item">داشبورد ادمین</li>
         <li class="breadcrumb-item"> سفارشات</li>
         <li class="breadcrumb-item active" aria-current="page">
             جزئیات سفارش
@@ -22,9 +22,8 @@
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="">سفارش شماره {{object.id}}</h5>
         {% if object.is_successful %}
-        <a class="btn btn-primary" href="{% url 'dashboard:customer:order-invoice' pk=object.pk %}" target="_blank">مشاهده فاکتور</a>
+        <a class="btn btn-primary" href="{% url 'dashboard:admin:order-invoice' pk=object.pk %}" target="_blank">مشاهده فاکتور</a>
         {% endif %}
-        
       </div>
     </div>
     <!-- End Header -->
@@ -75,7 +74,7 @@
       <form>
         <div class="row mb-3 align-items-center">
           <dt class="col-md-3">سفارش دهنده:</dt>
-          <dl class="col-md-3">{{object.user.user_profile.get_fullname}}</dl>
+          <dl class="col-md-3">{{request.user.user_profile.get_fullname}}</dl>
           <dt class="col-md-3">وضعیت سفارش:</dt>
           <dl class="col-md-3 ">{{object.get_status.label}}</dl>
         </div>
@@ -84,7 +83,6 @@
           <dl class="col-md-3">{{object.created_date|date:"Y-m-d h:i"}}</dl>
           <dt class="col-md-3">قیمت نهایی</dt>
           <dl class="col-md-3 formatted-price">{{object.total_price}}</dl>
- 
         </div>
         {% if object.coupon %}
         <div class="row mb-3">
@@ -102,7 +100,7 @@
           <dl class="col-md-3">{{object.zip_code}}</dl>
         </div>
         <div class=" d-flex pt-5 justify-content-end">
-          <a class="btn btn-secondary ms-3" href="{% url 'dashboard:customer:order-list' %}">بازگشت</a>
+          <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:order-list' %}">بازگشت</a>
 
         </div>
       </form>
