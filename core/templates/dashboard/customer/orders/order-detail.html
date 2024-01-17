@@ -1,0 +1,101 @@
+{% extends 'dashboard/customer/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item"> داشبورد</li>
+        <li class="breadcrumb-item"> سفارشات</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            جزئیات سفارش
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="">سفارش شماره {{object.id}}</h5>
+        <a class="btn btn-primary" href="#" target="_blank">مشاهده فاکتور</a>
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <div class="card-body">
+
+      <div class="row">
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">تصویر</th>
+                <th scope="col">کد محصول</th>
+                <th scope="col">نام محصول</th>
+                <th scope="col">تعداد سفارش</th>
+                <th scope="col">قیمت واحد محصول</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for order_item in object.order_items.all %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>
+                  <span class="avatar ">
+                    <img class="avatar-img" src="{{order_item.product.image.url}}" alt="Image Description">
+                  </span>
+                </td>
+                <td>{{order_item.product.pk}}</td>
+                <td>{{order_item.product.title}}</td>
+                <td>{{order_item.quantity}}</td>
+                <td class="formatted-price">{{order_item.price}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- End Table -->
+
+      </div>
+      <!-- End Row -->
+
+
+    </div>
+    <div class="card-footer row pt-5 mt-5">
+      <form>
+        <div class="row mb-3 align-items-center">
+          <dt class="col-md-3">سفارش دهنده:</dt>
+          <dl class="col-md-3">{{request.user.user_profile.get_fullname}}</dl>
+          <dt class="col-md-3">وضعیت سفارش:</dt>
+          <dl class="col-md-3 ">{{object.get_status.label}}</dl>
+        </div>
+        <div class="row mb-3">
+          <dt class="col-md-3"> تاریخ سفارش:</dt>
+          <dl class="col-md-3">{{object.created_date|date:"Y-m-d h:i"}}</dl>
+          <dt class="col-md-3">قیمت نهایی</dt>
+          <dl class="col-md-3 formatted-price">{{object.total_price}}</dl>
+        </div>
+        <!-- End Row -->
+        <div class="row mb-3">
+          <dt class="col-md-3"> آدرس:</dt>
+          <dl class="col-md-3">{{object.get_full_address}}</dl>
+          <dt class="col-md-3"> کد پستی:</dt>
+          <dl class="col-md-3">{{object.zip_code}}</dl>
+        </div>
+        <div class=" d-flex pt-5 justify-content-end">
+          <a class="btn btn-secondary ms-3" href="{% url 'dashboard:customer:order-list' %}">بازگشت</a>
+
+        </div>
+      </form>
+    </div>
+    <!-- End Body -->
+  </div>
+  <!-- End Card -->
+{% endblock %}

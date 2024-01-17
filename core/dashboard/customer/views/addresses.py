@@ -15,8 +15,6 @@ class CustomerAddressListView(LoginRequiredMixin, HasCustomerAccessPermission, L
 
     def get_queryset(self):
         queryset = UserAddressModel.objects.filter(user=self.request.user)
-        if search_q := self.request.GET.get("q"):
-            queryset = queryset.filter(title__icontains=search_q)
         if order_by := self.request.GET.get("order_by"):
             try:
                 queryset = queryset.order_by(order_by)

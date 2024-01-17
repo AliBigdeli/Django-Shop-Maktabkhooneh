@@ -17,8 +17,7 @@ class PaymentVerifyView(View):
         payment_obj = get_object_or_404(
             PaymentModel, authority_id=authority_id)
         order = OrderModel.objects.get(payment=payment_obj)
-        zarin_pal = ZarinPalSandbox()  # Instantiate ZarinPalSandbox
-
+        zarin_pal = ZarinPalSandbox() 
         response = zarin_pal.payment_verify(
             int(payment_obj.amount), payment_obj.authority_id)
         ref_id = response["RefID"]
