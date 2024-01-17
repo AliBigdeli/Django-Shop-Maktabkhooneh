@@ -21,7 +21,7 @@
     <div class="card-header border-bottom">
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="">سفارش شماره {{object.id}}</h5>
-        <a class="btn btn-primary" href="#" target="_blank">مشاهده فاکتور</a>
+        <a class="btn btn-primary" href="{% url 'dashboard:customer:order-invoice' pk=object.pk %}" target="_blank">مشاهده فاکتور</a>
       </div>
     </div>
     <!-- End Header -->

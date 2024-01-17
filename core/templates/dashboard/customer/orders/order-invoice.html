@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>فاکتور سفارش</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="{% static 'css/vendor.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/font/bootstrap-icons.css' %}">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Content -->
+        <div class="container content-space-2">
+            <div class="w-lg-85 mx-lg-auto">
+                <!-- Card -->
+                <div class="card card-lg mb-5">
+                    <div class="card-body">
+                        <div class="row justify-content-lg-between">
+
+
+                            <div class="col-sm-auto  text-right mb-3">
+                                <div class="mb-3">
+                                    <h2> فاکتور شماره</h2>
+                                    <span class="d-block">{{order.id}}</span>
+                                </div>
+
+                            </div>
+                            <!-- End Col -->
+
+                            <div class="col-sm-auto  mb-3">
+                                <div class="mb-2">
+                                    <img class="avatar" src="{% static '/svg/logos/logo-short.svg' %}" alt="Logo">
+                                </div>
+
+                                <h1 class="h2 text-primary">Front Inc.</h1>
+                            </div>
+                            <!-- End Col -->
+
+                        </div>
+                        <!-- End Row -->
+
+                        <div class="row justify-content-md-between mb-3">
+                            <div class="col-md">
+                                <dl class="row">
+                                    <dt class="col-sm-8">نام سفارش دهنده:</dt>
+                                    <dd class="col-sm-4">{{request.user.user_profile.get_fullname}}</dd>
+                                </dl>
+                                <dl>
+                                    <dt class="col-sm-4">آدرس:</dt>
+                                    <dd class="col-sm-8">{{object.get_full_address}}</dd>
+
+                                </dl>
+                            </div>
+                            <!-- End Col -->
+
+                            <div class="col-md text-md-end">
+                                <dl class="row">
+                                    <dt class="col-sm-8">زمان سفارش:</dt>
+                                    <dd class="col-sm-4">{{object.created_date|date:"Y-m-d h:i"}}</dd>
+                             
+                                </dl>
+                            </div>
+                            <!-- End Col -->
+                        </div>
+                        <!-- End Row -->
+
+                        <!-- Table -->
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-nowrap table-align-middle">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>کد کالا</th>
+                                        <th>کالا</th>
+                                        <th>تعداد</th>
+                                        <th class="table-text-end">قیمت هر واحد</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for order_item in object.order_items.all  %}
+                                    <tr>
+                                        <th>{{forloop.counter}}</th>
+                                        <th>{{order_item.product.id}}</th>
+                                        <th>{{order_item.product.title}}</th>
+                                        <td>{{order_item.quantity}}</td>
+
+                                        <td class="table-text-end formatted-price">{{order_item.price}}</td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table -->
+
+                        <hr class="my-5">
+
+                        <div class="row mb-3">
+                            <div class="row mb-3">
+                                <dt class="col-md-3">مبلغ نهایی:</dt>
+                                <dl class="col-md-3 formatted-price">{{object.total_price}}</dl>
+
+                            </div>
+                            <!-- End Row -->
+
+                        </div>
+                        <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- End Card -->
+
+                <!-- Footer -->
+                <div class="d-flex justify-content-end d-print-none gap-3">
+                    <a class="btn btn-primary" href="javascript:;" onclick="window.print(); return false;">
+                        <i class="bi-printer me-1"></i>چاپ فاکتور 
+                    </a>
+                </div>
+                <!-- End Footer -->
+            </div>
+        </div>
+        <!-- End Content -->
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+
+    <!-- JS Front -->
+      <script src="{% static 'js/theme.min.js' %}"></script>
+</body>
+
+</html>
