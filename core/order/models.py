@@ -3,10 +3,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class OrderStatusType(models.IntegerChoices):
     pending = 1 , "در انتظار پرداخت"
-    processing = 2, "در حال پردازش"
-    shipped = 3, "ارسال شده"
-    delivered = 4,"تحویل شده"
-    canceled = 5,"لغو شده"
+    success = 2, "موفقیت آمیز"
+    failed = 3,"لغو شده"
 
 class UserAddressModel(models.Model):
     user = models.ForeignKey('accounts.User',on_delete=models.CASCADE)
