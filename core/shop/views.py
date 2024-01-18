@@ -3,7 +3,7 @@ from django.views.generic import (
     ListView,
     DetailView,
 )
-from .models import ProductModel, ProductStatusType,ProductCategoryModel
+from .models import ProductModel, ProductStatusType,ProductCategoryModel,WishlistProductModel
 from django.core.exceptions import FieldError
 # Create your views here.
 
@@ -36,6 +36,7 @@ class ShopProductGridView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["total_items"] = self.get_queryset().count()
+        context["wishlist_items"] = WishlistProductModel.objects.filter(user=self.request.user).values_list("product__id",flat=True)
         context["categories"] = ProductCategoryModel.objects.all()        
         return context
 
@@ -44,3 +45,8 @@ class ShopProductDetailView(DetailView):
     template_name = "shop/product-detail.html"
     queryset = ProductModel.objects.filter(
         status=ProductStatusType.publish.value)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["is_wished"] = WishlistProductModel.objects.filter(user=self.request.user,product__id=self.get_object().id).exists()
+        return context

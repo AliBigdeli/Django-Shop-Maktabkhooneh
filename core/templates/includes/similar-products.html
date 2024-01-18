@@ -6,7 +6,6 @@
         <h2>محصولات مشابه</h2>
     </div>
     <!-- End Title -->
-
     <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
         {% for similar_prodcut in similar_prodcuts %}
         <div class="col mb-4">
@@ -16,7 +15,7 @@
                     <img class="card-img-top" src="{{similar_prodcut.image.url}}" alt="Image Description">
                     {% if request.user.is_authenticated %}
                     <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if similar_prodcut.id in wishlist_items %} active {% endif %}"
                             data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
                             <i class="bi-heart"></i>
                         </button>

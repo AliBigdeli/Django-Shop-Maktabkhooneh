@@ -181,7 +181,7 @@
 
                             <div class="card-pinned-top-end">
                                 {% if request.user.is_authenticated %}
-                                <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                                <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if object.id in wishlist_items %} active {% endif %} "
                                     data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
                                     <i class="bi-heart"></i>
                                 </button>
@@ -206,7 +206,8 @@
                             {% if object.is_discounted %}
                             <p class="card-text text-dark fs-4">
                                 <span class="formatted-price">{{object.get_price}}</span>
-                                <span class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{object.price}}</span>
+                                <span
+                                    class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{object.price}}</span>
                             </p>
                             {% else %}
                             <p class="card-text text-dark fs-4 formatted-price"> {{object.price}}</p>
@@ -232,8 +233,8 @@
                             </a>
                             <!-- End Rating -->
 
-                            <button type="button"
-                                class="btn btn-outline-primary btn-sm btn-transition rounded-pill" onclick="addToCart('{{object.id}}')">افزودن به سبد
+                            <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill"
+                                onclick="addToCart('{{object.id}}')">افزودن به سبد
                                 خرید</button>
                         </div>
                     </div>

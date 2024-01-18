@@ -7,7 +7,7 @@
         <h2>جدیدترین محصولات</h2>
     </div>
     <!-- End Title -->
-
+  
     <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-3">
         {% for latest_product in latest_products %}
         <div class="col mb-4">
@@ -17,7 +17,7 @@
                     <img class="card-img-top" src="{{latest_product.image.url}}" alt="Image Description">
                     {% if request.user.is_authenticated %}
                     <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if latest_product.id in wishlist_items %} active {% endif %}"
                             data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
                             <i class="bi-heart"></i>
                         </button>
