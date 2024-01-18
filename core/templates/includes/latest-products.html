@@ -18,7 +18,7 @@
                     {% if request.user.is_authenticated %}
                     <div class="card-pinned-top-end">
                         <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if latest_product.id in wishlist_items %} active {% endif %}"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{latest_product.id}}`)">
                             <i class="bi-heart"></i>
                         </button>
                     </div>

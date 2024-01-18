@@ -71,7 +71,7 @@
                 <!-- End Rating -->
                 <button type="button"
                     class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if is_wished %} active {% endif %}"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق">
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{object.id}}`)">
                     <i class="bi-heart"></i>
                 </button>
                 {% endif %}

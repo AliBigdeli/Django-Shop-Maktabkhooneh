@@ -585,6 +585,7 @@
     <!-- JS Cart-->
     <script>
         function addToCart(product_id) {
+     
             //console.log(product_id)
             $.ajax({
                 url: "{%  url 'cart:session-add-product' %}",
@@ -605,6 +606,37 @@
                 }
             });
         }
+        function addToWishlist(element,product_id) {
+     
+            //console.log(product_id)
+            $.ajax({
+                url: "{%  url 'shop:add-or-remove-wishlist' %}",
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+        
+                },
+                success: function (response) {
+
+                    Toastify({
+                        text:response.message,
+                        className: `info`,
+                        style: {
+                          background: "blue",
+                        }
+                      }).showToast();
+                    $(element).toggleClass('active');
+
+                    // do something with the response data
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    // handle the error case
+                }
+            });
+        }
+        
     </script>
 
     {% block extra_js %} {% endblock extra_js %}
