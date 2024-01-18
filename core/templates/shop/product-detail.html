@@ -58,7 +58,7 @@
 
         <div class="col-md-5">
             <div class="d-flex justify-content-between">
-                
+
                 <!-- Rating -->
                 <a class="d-flex gap-1 mb-4" href="#reviewSection">
                     <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
@@ -72,7 +72,8 @@
                 {% if request.user.is_authenticated %}
                 <button type="button"
                     class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if is_wished %} active {% endif %}"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{object.id}}`)">
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق"
+                    onclick="addToWishlist(this,`{{object.id}}`)">
                     <i class="bi-heart"></i>
                 </button>
                 {% endif %}
@@ -425,7 +426,8 @@
                         </div>
                         <!-- End Col -->
 
-                        <div class="col-sm-auto">
+                        <div class="col-sm-auto mb-2">
+
                             <!-- Select -->
                             <select class="form-select form-select-sm">
                                 <option value="mostRecent" selected>اخیرا</option>
@@ -434,6 +436,11 @@
                                 <option value="newest">جدیدترین</option>
                             </select>
                             <!-- End Select -->
+                        </div>
+                        <div class="col-sm-auto mb-2 text-center">
+                            <button type="button" class="btn btn-primary btn-transition rounded-pill"
+                                data-bs-toggle="modal" data-bs-target="#submitReviewModal">
+                                ثبت دیدگاه</button>
                         </div>
                         <!-- End Col -->
                     </div>
@@ -604,10 +611,7 @@
                 </ul>
                 <!-- End Comment -->
 
-                <div class="d-sm-flex justify-content-sm-end gap-2">
-                    <a class="btn btn-link" href="#">ادامه مطلب <i class="bi-chevron-left small me-1"></i></a>
-                    <button type="button" class="btn btn-primary btn-transition rounded-pill">یک بررسی بنویسید</button>
-                </div>
+
             </div>
         </div>
         <!-- End Col -->
@@ -649,4 +653,47 @@
 </div>
 <!-- End Subscribe -->
 
+<!-- Modal -->
+<div class="modal fade" id="submitReviewModal" tabindex="-1" aria-labelledby="submitReviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitReviewModalLabel">فرم ارسال دیدگاه</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
+                    {% csrf_token %}
+                    <input hidden name="product" value="{{object.id}}">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label" for="rateModalInput">امتیاز</label>
+                            <select class="form-select form-select-sm" name="rate" required>
+                                <option value="1">1 ستاره</option>
+                                <option value="2">2 ستاره</option>
+                                <option value="3">3 ستاره</option>
+                                <option value="4">4 ستاره</option>
+                                <option value="5" selected>5 ستاره</option>
+                                
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="descriptionModalInput">توضیحات</label>
+                            <textarea type="email" class="form-control form-control-lg" name="email"
+                                id="descriptionModalInput"
+                                required> </textarea>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button class="btn btn-primary" type="submit" form="review-form">ثبت دیدگاه</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
