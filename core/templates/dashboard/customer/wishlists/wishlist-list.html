@@ -1,0 +1,130 @@
+{% extends 'dashboard/customer/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-light mb-0">
+    <li class="breadcrumb-item">حساب</li>
+    <li class="breadcrumb-item"> داشبورد</li>
+    <li class="breadcrumb-item active" aria-current="page">
+      لیست علایق
+    </li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card">
+  <div class="card-header d-sm-flex justify-content-sm-between align-items-sm-center border-bottom ">
+    <h5 class="card-header-title">لیست علاقه مندی ها</h5>
+    <span>{{total_items}} مورد</span>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+
+    <!-- List Group -->
+    <ul class="list-group list-group-flush list-group-no-gutters">
+      <!-- Item -->
+      {% for object in object_list %}
+      <li class="list-group-item">
+        <div class="d-flex">
+          <div class="flex-shrink-0">
+            <img class="avatar avatar-xl avatar-4x3" src="{{object.product.image.url}}" alt="Image Description">
+          </div>
+
+          <div class="flex-grow-1 ms-3">
+            <div class="row">
+              <div class="col-sm-7 mb-3 mb-sm-0">
+                <h5><a class="text-dark"
+                    href="{% url 'shop:product-detail' slug=object.product.slug %}">{{object.product.title}}</a></h5>
+
+                <div class="d-grid gap-1">
+
+                  <div class="text-body">
+                    <span class="small">دسته بندی:</span>
+                    <span class="fw-semibold small">
+                      {% for category in object.product.category.all %}
+                      <a class="link-sm link-secondary" href="#"> {{category.title}} </a>
+                      {% if not forloop.last %}
+                      ,
+                      {% endif %}
+                      {% endfor %}
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- End Col -->
+              <div class="col-sm-3">
+                <div class="col-auto">
+                  <div class="d-grid gap-2">
+                    <form action="{% url 'dashboard:customer:wishlist-delete' pk=object.pk %}" method="post">
+                      {% csrf_token %}
+                      <button class="btn btn-outline-danger btn-sm"  type="submit">
+                        <i class="bi-trash me-1"></i> حذف
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+            </div>
+          </div>
+          <!-- End Row -->
+        </div>
+      </li>
+      <!-- End Item -->
+      {% endfor %}
+    </ul>
+    <!-- End List Group -->
+
+  </div>
+  <!-- End Body -->
+  <div class="row">
+    {% if page_obj.has_other_pages %}
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)" aria-label="Previous">
+            <span aria-hidden="true">
+              <i class="bi-chevron-double-right small"></i>
+            </span>
+          </button>
+        </li>
+        {% endif %}
+        {{page_obj.page_range}}
+        {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item">
+          <button class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
+
+          {% endif %}
+
+          {% endfor %}
+
+
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)" aria-label="Previous">
+              <span aria-hidden="true">
+                <i class="bi-chevron-double-left small"></i>
+              </span>
+            </button>
+          </li>
+          {% endif %}
+
+      </ul>
+    </nav>
+    {% endif %}
+    <!-- End Pagination -->
+  </div>
+  <a class="card-footer card-link text-center border-top" href="#">به خرید ادامه دهید</a>
+</div>
+<!-- End Card -->
+{% endblock %}

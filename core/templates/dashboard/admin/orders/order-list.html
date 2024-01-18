@@ -1,6 +1,20 @@
 {% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<style>
+    .bg-pending{
+        background-color: #495057;
+    }
+    .bg-success{
+        background-color:  #198754;
+    }
+    .bg-failed{
+        background-color:  #dc3545;
+    }
+</style>
+{% endblock %}
+
 {% block breadcrumb %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-light mb-0">
@@ -99,7 +113,7 @@
                                     <td>{{object.user.user_profile.get_fullname}}</td>
                                     <td class="formatted-price" >{{object.get_price}}</td>
                                     <td>{{object.created_date|date:"Y-m-d h:i"}}</td>
-                                    <td>{{object.get_status.label}}</td>
+                                    <td><span class="badge bg-{{object.get_status.title}}">{{object.get_status.label}}</span></td>
 
                                 </tr>
                                 {% endfor %}
