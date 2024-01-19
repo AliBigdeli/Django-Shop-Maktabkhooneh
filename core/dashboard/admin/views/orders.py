@@ -46,4 +46,4 @@ class AdminOrderInvoiceView(LoginRequiredMixin, HasAdminAccessPermission, Detail
     template_name = "dashboard/admin/orders/order-invoice.html"
 
     def get_queryset(self):
-        return OrderModel.objects.all(status=OrderStatusType.success.value)
+        return OrderModel.objects.filter(status=OrderStatusType.success.value)
