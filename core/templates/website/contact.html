@@ -127,29 +127,21 @@
                 <!-- End Heading -->
 
                 <!-- Form -->
-                <form>
+                <form action="{% url 'website:submit-ticket' %}" method="post">
+                    {% csrf_token %}
                     <div class="row gx-3">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <!-- Form -->
                             <div class="mb-3">
-                                <label class="form-label" for="hireUsFormFirstName">نام</label>
-                                <input type="text" class="form-control form-control-lg" name="hireUsFormNameFirstName"
-                                    id="hireUsFormFirstName" placeholder="نام" aria-label="First name">
+                                <label class="form-label" for="formFirstName">نام و نام خانوادگی</label>
+                                <input type="text" class="form-control form-control-lg" name="full_name"
+                                    id="formFirstName" placeholder="نام و نام خانوادگی" required>
                             </div>
                             <!-- End Form -->
                         </div>
                         <!-- End Col -->
 
-                        <div class="col-sm-6">
-                            <!-- Form -->
-                            <div class="mb-3">
-                                <label class="form-label" for="hireUsFormLasttName">نام خانوادگی</label>
-                                <input type="text" class="form-control form-control-lg" name="hireUsFormNameLastName"
-                                    id="hireUsFormLasttName" placeholder="نام خانوادگی" aria-label="Last name">
-                            </div>
-                            <!-- End Form -->
-                        </div>
-                        <!-- End Col -->
+                   
                     </div>
                     <!-- End Row -->
 
@@ -157,9 +149,9 @@
                         <div class="col-sm-6">
                             <!-- Form -->
                             <div class="mb-3">
-                                <label class="form-label" for="hireUsFormWorkEmail">آدرس ایمیل</label>
-                                <input type="email" class="form-control form-control-lg" name="hireUsFormNameWorkEmail"
-                                    id="hireUsFormWorkEmail" placeholder="email@site.com" aria-label="email@site.com">
+                                <label class="form-label" for="formEmail">آدرس ایمیل</label>
+                                <input type="email" class="form-control form-control-lg " name="email" dir="ltr"
+                                    id="formEmail" placeholder="email@site.com" aria-label="email@site.com" required>
                             </div>
                             <!-- End Form -->
                         </div>
@@ -168,23 +160,35 @@
                         <div class="col-sm-6">
                             <!-- Form -->
                             <div class="mb-3">
-                                <label class="form-label" for="hireUsFormPhone">شماره همراه <span
-                                        class="form-label-secondary">(اختیاری)</span></label>
-                                <input type="text" class="form-control form-control-lg" name="hireUsFormNamePhone"
-                                    id="hireUsFormPhone" placeholder="+9891200000">
+                                <label class="form-label" for="formPhoneNumber">شماره همراه </label>
+                                <input type="text" class="form-control form-control-lg " name="phone_number" dir="ltr"
+                                    id="formPhoneNumber" placeholder="+9891200000" required>
                             </div>
                             <!-- End Form -->
                         </div>
                         <!-- End Col -->
                     </div>
                     <!-- End Row -->
+                    <div class="row gx-3">
+                        <div class="col-sm-12">
+                            <!-- Form -->
+                            <div class="mb-3">
+                                <label class="form-label" for="formSubject">موضوع</label>
+                                <input type="text" class="form-control form-control-lg" name="subject"
+                                    id="formSubject" placeholder="موضوع مورد نظر را وارد نمایید" aria-label="First name" required>
+                            </div>
+                            <!-- End Form -->
+                        </div>
+                        <!-- End Col -->
 
+                   
+                    </div>
                     <!-- Form -->
                     <div class="mb-3">
-                        <label class="form-label" for="hireUsFormDetails">توضیحات</label>
-                        <textarea class="form-control form-control-lg" name="hireUsFormNameDetails"
-                            id="hireUsFormDetails" placeholder="توضیحات خود را وارد نمایید"
-                            aria-label="Tell us about your ..." rows="4"></textarea>
+                        <label class="form-label" for="formDescription">توضیحات</label>
+                        <textarea class="form-control form-control-lg" name="content"
+                            id="formDescription" placeholder="توضیحات خود را وارد نمایید"
+                            aria-label="Tell us about your ..." rows="4" required></textarea>
                     </div>
                     <!-- End Form -->
 
