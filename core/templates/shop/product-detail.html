@@ -61,12 +61,15 @@
 
                 <!-- Rating -->
                 <a class="d-flex gap-1 mb-4" href="#reviewSection">
-                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                    <span class="ms-1">4.5/5</span>
+                    {% for i in "12345" %}
+                        {% if i|add:0 <= object.avg_rate %}
+                        <span><i class="bi bi-star-fill star-rate"></i></span>
+                        {% else %}
+                        <span><i class="bi bi-star star-rate"></i></span>
+                        {% endif %}
+
+                    {% endfor %}
+                    <span class="ms-1">{{object.avg_rate}}/5</span>
                 </a>
                 <!-- End Rating -->
                 {% if request.user.is_authenticated %}
@@ -272,22 +275,20 @@
                         <div class="d-flex justify-content-center">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <span class="display-4 text-white">4.7</span>
+                                    <span class="display-4 text-white">{{object.avg_rate}}</span>
                                 </div>
 
-                                <div class="flex-grow-1 ms-3">
+                                <div class="flex-grow-1 me-3">
                                     <!-- Rating -->
                                     <div class="d-flex gap-1 small">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                            width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                            width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                            width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                            width="16">
-                                        <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                            width="16">
+                                        {% for i in "12345" %}
+                                            {% if i|add:0 <= object.avg_rate %}
+                                            <span><i class="bi bi-star-fill star-rate"></i></span>
+                                            {% else %}
+                                            <span><i class="bi bi-star star-rate"></i></span>
+                                            {% endif %}
+
+                                        {% endfor %}
                                     </div>
                                     <!-- End Rating -->
                                     <span class="text-white">{{reviews.count}} نظر</span>
@@ -439,11 +440,15 @@
                     {% for review in reviews %}
                     <li class="list-comment-item">
                         <div class="d-flex gap-1 mb-3">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
+                            {% for i in "12345" %}
+                                {% if i|add:0 <= review.rate %}
+                                <span><i class="bi bi-star-fill star-rate"></i></span>
+                                {% else %}
+                                <span><i class="bi bi-star star-rate"></i></span>
+                                {% endif %}
+
+                            {% endfor %}
+        
                         </div>
 
                         <!-- Media -->
@@ -456,7 +461,8 @@
                             <div class="flex-grow-1 me-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0">{{review.user.user_profile.get_fullname}}</h5>
-                                    <span class="d-block small text-muted">{{review.created_date|date:"Y-m-d h:i"}}</span>
+                                    <span class="d-block small text-muted">
+                                        {{review.created_date|date:"Y-m-d h:i"}}</span>
                                 </div>
                             </div>
                         </div>
@@ -466,7 +472,7 @@
                             <p>{{review.description}}</p>
                         </div>
 
-                        
+
                         <!-- End Media -->
                     </li>
                     <!-- End Item -->
@@ -540,14 +546,13 @@
                                 <option value="3">3 ستاره</option>
                                 <option value="4">4 ستاره</option>
                                 <option value="5" selected>5 ستاره</option>
-                                
+
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="descriptionModalInput">توضیحات</label>
-                            <textarea type="email" class="form-control form-control-lg" 
-                                id="descriptionModalInput" name="description"
-                                required> </textarea>
+                            <textarea type="email" class="form-control form-control-lg" id="descriptionModalInput"
+                                name="description" required> </textarea>
                         </div>
                     </div>
                 </form>

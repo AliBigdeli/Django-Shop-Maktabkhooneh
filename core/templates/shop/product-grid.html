@@ -181,8 +181,10 @@
 
                             <div class="card-pinned-top-end">
                                 {% if request.user.is_authenticated %}
-                                <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if object.id in wishlist_items %} active {% endif %} "
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{object.id}}`)">
+                                <button type="button"
+                                    class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if object.id in wishlist_items %} active {% endif %} "
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق"
+                                    onclick="addToWishlist(this,`{{object.id}}`)">
                                     <i class="bi-heart"></i>
                                 </button>
                                 {% endif %}
@@ -217,19 +219,15 @@
                         <div class="card-footer pt-0">
                             <!-- Rating -->
                             <a class="d-inline-flex align-items-center mb-3" href="#">
-                                <div class="d-flex gap-1 ms-2">
-                                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                        width="16">
-                                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                        width="16">
-                                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                        width="16">
-                                    <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating"
-                                        width="16">
-                                    <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating"
-                                        width="16">
-                                </div>
-                                <span class="small">40</span>
+                                {% for i in "12345" %}
+                                {% if i|add:0 <= object.avg_rate %} <span><i
+                                        class="bi bi-star-fill star-rate"></i></span>
+                                    {% else %}
+                                    <span><i class="bi bi-star star-rate"></i></span>
+                                    {% endif %}
+
+                                    {% endfor %}
+                                    <span class="ms-1">{{object.avg_rate}}/5</span>
                             </a>
                             <!-- End Rating -->
 

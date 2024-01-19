@@ -7,7 +7,7 @@
         <h2>جدیدترین محصولات</h2>
     </div>
     <!-- End Title -->
-  
+
     <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-3">
         {% for latest_product in latest_products %}
         <div class="col mb-4">
@@ -17,8 +17,10 @@
                     <img class="card-img-top" src="{{latest_product.image.url}}" alt="Image Description">
                     {% if request.user.is_authenticated %}
                     <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if latest_product.id in wishlist_items %} active {% endif %}"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{latest_product.id}}`)">
+                        <button type="button"
+                            class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if latest_product.id in wishlist_items %} active {% endif %}"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق"
+                            onclick="addToWishlist(this,`{{latest_product.id}}`)">
                             <i class="bi-heart"></i>
                         </button>
                     </div>
@@ -41,8 +43,9 @@
                     </h4>
                     {% if latest_product.is_discounted %}
                     <p class="card-text text-dark fs-4">
-                        <span class="formatted-price">{{latest_product.get_price}}</span> 
-                        <span class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{latest_product.price}}</span>
+                        <span class="formatted-price">{{latest_product.get_price}}</span>
+                        <span
+                            class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{latest_product.price}}</span>
                     </p>
                     {% else %}
                     <p class="card-text text-dark fs-4 formatted-price"> {{latest_product.price}} </p>
@@ -53,17 +56,22 @@
                     <!-- Rating -->
                     <a class="d-inline-flex align-items-center mb-3" href="#">
                         <div class="d-flex gap-1 ms-2">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            {% for i in "12345" %}
+                            {% if i|add:0 <= latest_product.avg_rate %} <span><i
+                                    class="bi bi-star-fill star-rate"></i></span>
+                                {% else %}
+                                <span><i class="bi bi-star star-rate"></i></span>
+                                {% endif %}
+
+                                {% endfor %}
+                                <span class="ms-1">{{latest_product.avg_rate}}/5</span>
                         </div>
-                        <span class="small">40</span>
+
                     </a>
                     <!-- End Rating -->
 
-                    <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill" onclick="addToCart('{{latest_product.id}}')">افزودن به
+                    <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill"
+                        onclick="addToCart('{{latest_product.id}}')">افزودن به
                         سبد
                         خرید</button>
                 </div>
@@ -80,7 +88,8 @@
     <!-- End Row -->
 
     <div class="text-center">
-        <a class="btn btn-outline-primary btn-transition rounded-pill" href="{% url 'shop:product-grid' %}">مشاهده تمامی محصولات</a>
+        <a class="btn btn-outline-primary btn-transition rounded-pill" href="{% url 'shop:product-grid' %}">مشاهده تمامی
+            محصولات</a>
     </div>
 </div>
 <!-- End Card Grid -->

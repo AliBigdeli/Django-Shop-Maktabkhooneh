@@ -15,8 +15,10 @@
                     <img class="card-img-top" src="{{similar_prodcut.image.url}}" alt="Image Description">
                     {% if request.user.is_authenticated %}
                     <div class="card-pinned-top-end">
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if similar_prodcut.id in wishlist_items %} active {% endif %}"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{similar_prodcut.id}}`)">
+                        <button type="button"
+                            class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if similar_prodcut.id in wishlist_items %} active {% endif %}"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق"
+                            onclick="addToWishlist(this,`{{similar_prodcut.id}}`)">
                             <i class="bi-heart"></i>
                         </button>
                     </div>
@@ -39,8 +41,10 @@
                     </h4>
                     {% if similar_prodcut.is_discounted %}
                     <p class="card-text text-dark fs-4">
-                        <span class="formatted-price">{{similar_prodcut.get_price}}</span> 
-                        <span class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{similar_prodcut.price}} </span>
+                        <span class="formatted-price">{{similar_prodcut.get_price}}</span>
+                        <span
+                            class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{similar_prodcut.price}}
+                        </span>
                     </p>
                     {% else %}
                     <p class="card-text text-dark fs-4 formatted-price"> {{similar_prodcut.price}} </p>
@@ -51,17 +55,21 @@
                     <!-- Rating -->
                     <a class="d-inline-flex align-items-center mb-3" href="#">
                         <div class="d-flex gap-1 ms-2">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star-muted.svg' %}" alt="Review rating" width="16">
+                            {% for i in "12345" %}
+                            {% if i|add:0 <= similar_prodcut.avg_rate %} <span><i class="bi bi-star-fill star-rate"></i></span>
+                                {% else %}
+                                <span><i class="bi bi-star star-rate"></i></span>
+                                {% endif %}
+
+                                {% endfor %}
                         </div>
-                        <span class="small">40</span>
+                        <span class="ms-1">{{similar_prodcut.avg_rate}}/5</span>
+
                     </a>
                     <!-- End Rating -->
 
-                    <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill" onclick="addToCart('{{similar_prodcut.id}}')">افزودن به
+                    <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill"
+                        onclick="addToCart('{{similar_prodcut.id}}')">افزودن به
                         سبد
                         خرید</button>
                 </div>
