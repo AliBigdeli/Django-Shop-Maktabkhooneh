@@ -66,7 +66,7 @@
                     <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
                     <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
                     <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                    <span class="ms-1">287 نظر</span>
+                    <span class="ms-1">4.5/5</span>
                 </a>
                 <!-- End Rating -->
                 {% if request.user.is_authenticated %}
@@ -290,7 +290,7 @@
                                             width="16">
                                     </div>
                                     <!-- End Rating -->
-                                    <span class="text-white">287 نظر</span>
+                                    <span class="text-white">{{reviews.count}} نظر</span>
                                 </div>
                             </div>
                         </div>
@@ -410,9 +410,6 @@
                 </div>
                 <!-- End Ratings -->
             </div>
-
-            <h4 class="display-4 text-primary">77%</h4>
-            <p class="small">مشتریان این محصول را توصیه می کنند</p>
         </div>
         <!-- End Col -->
 
@@ -422,21 +419,9 @@
                 <div class="border-bottom pb-4 mb-4">
                     <div class="row align-items-center">
                         <div class="col-sm mb-2 mb-sm-0">
-                            <h4 class="mb-0">مرتب سازی کنید</h4>
+                            <h4 class="mb-0">دیدگاه ها</h4>
                         </div>
-                        <!-- End Col -->
 
-                        <div class="col-sm-auto mb-2">
-
-                            <!-- Select -->
-                            <select class="form-select form-select-sm">
-                                <option value="mostRecent" selected>اخیرا</option>
-                                <option value="relevant">مربوط</option>
-                                <option value="helpful">مفید است</option>
-                                <option value="newest">جدیدترین</option>
-                            </select>
-                            <!-- End Select -->
-                        </div>
                         <div class="col-sm-auto mb-2 text-center">
                             <button type="button" class="btn btn-primary btn-transition rounded-pill"
                                 data-bs-toggle="modal" data-bs-target="#submitReviewModal">
@@ -451,6 +436,7 @@
                 <!-- Comment -->
                 <ul class="list-comment list-comment-divider mb-5">
                     <!-- Item -->
+                    {% for review in reviews %}
                     <li class="list-comment-item">
                         <div class="d-flex gap-1 mb-3">
                             <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
@@ -463,151 +449,29 @@
                         <!-- Media -->
                         <div class="d-flex align-items-center mb-3">
                             <div class="flex-shrink-0">
-                                <img class="avatar avatar-sm avatar-circle" src="{% static '/img/160x160/img9.jpg' %}"
+                                <img class="avatar avatar-sm avatar-circle" src="{{review.user.user_profile.image.url}}"
                                     alt="Image Description">
                             </div>
 
-                            <div class="flex-grow-1 ms-3">
+                            <div class="flex-grow-1 me-3">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">کریستینا کری</h5>
-                                    <span class="d-block small text-muted">آوریل 3, 2019</span>
+                                    <h5 class="mb-0">{{review.user.user_profile.get_fullname}}</h5>
+                                    <span class="d-block small text-muted">{{review.created_date|date:"Y-m-d h:i"}}</span>
                                 </div>
                             </div>
                         </div>
                         <!-- End Media -->
 
                         <div class="mb-5">
-                            <p>من این کلاه را برای دوست پسرم خریدم، اما بعد متوجه شدم که او به من خیانت کرده است،
-                                بنابراین آن را نگه داشتم و دوستش دارم! من همیشه آن را می پوشم و هیچ مشکلی از نظر تناسب
-                                وجود ندارد، حتی اگر کلاه "مردانه" است.</p>
+                            <p>{{review.description}}</p>
                         </div>
 
-                        <div class="mb-2">
-                            <span class="text-dark fw-semibold">کریستینا</span>
-                            <span>- خرید تایید شده</span>
-                        </div>
-
-                        <!-- Media -->
-                        <div class="d-flex align-items-center">
-                            <span class="small me-2">آیا این مفید بود؟</span>
-
-                            <div class="d-flex gap-2">
-                                <a class="btn btn-white btn-xs" href="javascript:;">
-                                    <i class="bi-hand-thumbs-up me-1"></i> Yes <span>(45)</span>
-                                </a>
-                                <a class="btn btn-white btn-xs" href="javascript:;">
-                                    <i class="bi-hand-thumbs-down me-1"></i> نه <span>(21)</span>
-                                </a>
-                            </div>
-                        </div>
+                        
                         <!-- End Media -->
                     </li>
                     <!-- End Item -->
+                    {% endfor %}
 
-                    <!-- Item -->
-                    <li class="list-comment-item">
-                        <div class="d-flex gap-1 mb-3">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                        </div>
-
-                        <!-- Media -->
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0">
-                                <img class="avatar avatar-sm avatar-circle" src="{% static '/img/160x160/img1.jpg' %}"
-                                    alt="Image Description">
-                            </div>
-
-                            <div class="flex-grow-1 ms-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">هایلی</h5>
-                                    <span class="d-block small text-muted">ژانویه 19, 2019</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Media -->
-
-                        <div class="mb-5">
-                            <p>جنس آن عالی است و کلاه راحت و شیک است.</p>
-                        </div>
-
-                        <div class="mb-2">
-                            <span class="text-dark fw-semibold">هایلی</span>
-                            <span>- خرید تایید شده</span>
-                        </div>
-
-                        <!-- Media -->
-                        <div class="d-flex align-items-center">
-                            <span class="small me-2">آیا این مفید بود؟</span>
-
-                            <div class="d-flex gap-2">
-                                <a class="btn btn-white btn-xs" href="javascript:;">
-                                    <i class="bi-hand-thumbs-up me-1"></i> بله <span>(2)</span>
-                                </a>
-                                <a class="btn btn-white btn-xs" href="javascript:;">
-                                    <i class="bi-hand-thumbs-down me-1"></i> نه <span>(0)</span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End Media -->
-                    </li>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <li class="list-comment-item">
-                        <div class="d-flex gap-1 mb-3">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                            <img src="{% static '/svg/illustrations/star.svg' %}" alt="Review rating" width="16">
-                        </div>
-
-                        <!-- Media -->
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0">
-                                <img class="avatar avatar-sm avatar-circle" src="{% static '/img/160x160/img8.jpg' %}"
-                                    alt="Image Description">
-                            </div>
-
-                            <div class="flex-grow-1 ms-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">کریزل</h5>
-                                    <span class="d-block small text-muted">دسامبر 21, 2018</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Media -->
-
-                        <div class="mb-5">
-                            <p>کلاهی واقعا خوش ساخت به نظر عالی می رسد و به همان خوبی می پوشد. یک پایه عالی در کلاه های
-                                توپ.</p>
-                        </div>
-
-                        <div class="mb-2">
-                            <span class="text-dark fw-semibold">کریزل</span>
-                            <span>- خرید تایید شده</span>
-                        </div>
-
-                        <!-- Media -->
-                        <div class="d-flex align-items-center">
-                            <span class="small me-2">آیا این مفید بود؟</span>
-
-                            <div class="d-flex gap-2">
-                                <a class="btn btn-white btn-xs" href="javascript:;">
-                                    <i class="bi-hand-thumbs-up me-1"></i> بله <span>(0)</span>
-                                </a>
-                                <a class="btn btn-white btn-xs" href="javascript:;">
-                                    <i class="bi-hand-thumbs-down me-1"></i> نه <span>(0)</span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End Media -->
-                    </li>
-                    <!-- End Item -->
                 </ul>
                 <!-- End Comment -->
 
@@ -681,8 +545,8 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="descriptionModalInput">توضیحات</label>
-                            <textarea type="email" class="form-control form-control-lg" name="email"
-                                id="descriptionModalInput"
+                            <textarea type="email" class="form-control form-control-lg" 
+                                id="descriptionModalInput" name="description"
                                 required> </textarea>
                         </div>
                     </div>
