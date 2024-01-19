@@ -1,0 +1,73 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item">داشبورد ادمین</li>
+        <li class="breadcrumb-item"> تیکت ها</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            جزئیات تیکت
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Card -->
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+        <h5 class="card-header-title"> تیکت شماره 12345</h5>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <form>
+        <div class="card-body">
+
+            <div class="row d-flex align-items-center">
+                <div class="col-md-6 mb-3">
+                    <dt>موضوع: </dt>
+                    <dl> {{object.subject}}</dl>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <dt>ایمیل: </dt>
+                    <dl>{{object.email}}</dl>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <dt>نام و نام خانوادگی: </dt>
+                    <dl>{{object.full_name}}</dl>
+                </div>
+                <dt class="col-md-3">وضعیت:</dt>
+                <dl class="col-md-3 mb-3">
+                    {% if object.is_seen %}
+                    <span class="badge bg-success">دیده شده</span>
+                    {% else %}
+                    <span class="badge bg-secondary">در انتظار دیدن</span>
+                    {% endif %}
+                </dl>
+                <div class="col-md-12 mb-3">
+                    <dt>متن:</dt>
+                    <dl>
+                        {{object.content}}
+                    </dl>
+                </div>
+            </div>
+            <!-- End Row -->
+
+        </div>
+        <div class="card-footer row pt-5 mt-5">
+
+            <div class=" d-flex pt-5 justify-content-end">
+                <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:contact-list' %}">بازگشت</a>
+            </div>
+
+        </div>
+    </form>
+    <!-- End Body -->
+
+</div>
+<!-- End Body -->
+{% endblock %}
