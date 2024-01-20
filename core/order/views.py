@@ -51,10 +51,10 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
     def create_payment_url(self, order):
         zarinpal = ZarinPalSandbox()
-        response = zarinpal.payment_request(order.total_price)
+        response = zarinpal.payment_request(order.get_price())
         payment_obj = PaymentModel.objects.create(
             authority_id=response.get("Authority"),
-            amount=order.total_price,
+            amount=order.get_price(),
         )
         order.payment = payment_obj
         order.save()
@@ -86,9 +86,10 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         if coupon:
             discount_amount = round(
                 (total_price * Decimal(coupon.discount_percent / 100)))
-            total_price -= discount_amount
+            discounted_price = total_price - discount_amount
 
             order.coupon = coupon
+            order.discounted_price = discounted_price
             coupon.used_by.add(user)
             coupon.save()
 

@@ -82,14 +82,14 @@
           <dt class="col-md-3"> تاریخ سفارش:</dt>
           <dl class="col-md-3">{{object.created_date|date:"Y-m-d h:i"}}</dl>
           <dt class="col-md-3">قیمت نهایی</dt>
-          <dl class="col-md-3 formatted-price">{{object.total_price}}</dl>
+          <dl class="col-md-3 formatted-price">{{object.calculate_total_price}}</dl>
         </div>
         {% if object.coupon %}
         <div class="row mb-3">
           <dt class="col-md-3">تخفیف</dt>
           <dl class="col-md-3">{{object.coupon.discount_percent}}%</dl>
           <dt class="col-md-3">قیمت با اعمال تخفیف</dt>
-          <dl class="col-md-3 formatted-price">{{object.get_price}}</dl>
+          <dl class="col-md-3 formatted-price">{{object.total_price}}</dl>
         </div>
         {% endif %}
         <!-- End Row -->

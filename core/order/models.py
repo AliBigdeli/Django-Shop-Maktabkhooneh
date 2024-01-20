@@ -45,6 +45,7 @@ class OrderModel(models.Model):
     
     
     total_price = models.DecimalField(default=0,max_digits=10,decimal_places=0)
+    discounted_price = models.DecimalField(default=0,max_digits=10,decimal_places=0)
     coupon = models.ForeignKey(CouponModel,on_delete=models.PROTECT,null=True,blank=True)
     status = models.IntegerField(choices=OrderStatusType.choices,default=OrderStatusType.pending.value)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -74,11 +75,12 @@ class OrderModel(models.Model):
         return self.status == OrderStatusType.success.value
     
     def get_price(self):
-        if self.coupon:
-            return round(self.total_price - (self.total_price * Decimal( self.coupon.discount_percent /100)))
+        
+        if self.coupon:            
+            return self.discounted_price
         else:
             return self.total_price
-
+    
     
 class OrderItemModel(models.Model):
     order = models.ForeignKey(OrderModel,on_delete=models.CASCADE,related_name="order_items") 
