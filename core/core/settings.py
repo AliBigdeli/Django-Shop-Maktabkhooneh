@@ -178,3 +178,5 @@ LOGOUT_REDIRECT_URL= '/'
 # payment gateway settings
 MERCHANT_ID = config("MERCHANT_ID",default="4ced0a1e-4ad8-4309-9668-3ea3ae8e8897")
 SANDBOX_MODE = config("SANDBOX_MODE", cast=bool, default=True)
+
+

@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from .models import ContactModel,NewsLetter
 
@@ -34,4 +35,8 @@ class NewsLetterForm(forms.ModelForm):
         if len(self.cleaned_data['first_name']) > 0:
             raise forms.ValidationError("Please leave this field blank.")
         return self.cleaned_data['first_name']
+    
+    def save(self, commit=True):
+        newsletter, created = NewsLetter.objects.get_or_create(email=self.cleaned_data.get("email"))
+        return newsletter
 

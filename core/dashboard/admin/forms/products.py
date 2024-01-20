@@ -1,8 +1,8 @@
 from django import forms
 from shop.models import ProductModel
-
-
 class ProductForm(forms.ModelForm):
+
+
     class Meta:
         model = ProductModel
         fields = [
@@ -23,8 +23,8 @@ class ProductForm(forms.ModelForm):
         self.fields['slug'].widget.attrs['class'] = 'form-control'
         self.fields['category'].widget.attrs['class'] = 'form-control'
         self.fields['image'].widget.attrs['class'] = 'form-control'
-        self.fields['description'].widget.attrs['class'] = 'form-control'
         self.fields['brief_description'].widget.attrs['class'] = 'form-control'
+        self.fields['description'].widget.attrs['id'] = 'ckeditor'
         self.fields['stock'].widget.attrs['class'] = 'form-control'
         self.fields['stock'].widget.attrs['type'] = 'number'
         self.fields['status'].widget.attrs['class'] = 'form-select'

@@ -19,7 +19,6 @@
         background-color: #0056b3;
     }
 </style>
-
 {% endblock %}
 {% block breadcrumb %}
 <nav aria-label="breadcrumb">
@@ -132,5 +131,13 @@
         slugStr = titleStr;
         return slugStr;
     }
+</script>
+{% endblock %}
+
+{% block extra_js_no_compress %}
+<script src="{% static 'vendor/ckeditor/ckeditor.js' %}"></script>
+<script>
+    // Replace 'editor' with the id of your textarea
+    CKEDITOR.replace('ckeditor');
 </script>
 {% endblock %}
