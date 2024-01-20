@@ -67,6 +67,10 @@ class ShopProductDetailView(DetailView):
         }
         return context
 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.product_images.prefetch_related()
+        return obj
 
 class AddOrRemoveWishlistView(LoginRequiredMixin, View):
 

@@ -22,6 +22,13 @@
                                     <img class="card-img" src="{{object.image.url}}" alt="Image Description">
                                 </div>
                             </div>
+                            {% for product_image in object.product_images.all %}
+                            <div class="swiper-slide">
+                                <div class="card card-bordered shadow-none">
+                                    <img class="card-img" src="{{product_image.file.url}}" alt="Image Description">
+                                </div>
+                            </div>
+                            {% endfor %}
                             <!-- End Slide -->
 
 
@@ -43,6 +50,14 @@
                                         <img class="avatar-img" src="{{object.image.url}}" alt="Image Description">
                                     </a>
                                 </div>
+                                {% for product_image in object.product_images.all %}
+                                <div class="swiper-slide">
+                                    <a class="avatar avatar-circle" href="javascript:;">
+                                        <img class="avatar-img" src="{{product_image.file.url}}"
+                                            alt="Image Description">
+                                    </a>
+                                </div>
+                                {% endfor %}
                                 <!-- End Slide -->
 
 
@@ -62,14 +77,13 @@
                 <!-- Rating -->
                 <a class="d-flex gap-1 mb-4" href="#reviewSection">
                     {% for i in "12345" %}
-                        {% if i|add:0 <= object.avg_rate %}
-                        <span><i class="bi bi-star-fill star-rate"></i></span>
+                    {% if i|add:0 <= object.avg_rate %} <span><i class="bi bi-star-fill star-rate"></i></span>
                         {% else %}
                         <span><i class="bi bi-star star-rate"></i></span>
                         {% endif %}
 
-                    {% endfor %}
-                    <span class="ms-1">{{object.avg_rate}}/5</span>
+                        {% endfor %}
+                        <span class="ms-1">{{object.avg_rate}}/5</span>
                 </a>
                 <!-- End Rating -->
                 {% if request.user.is_authenticated %}
@@ -282,13 +296,13 @@
                                     <!-- Rating -->
                                     <div class="d-flex gap-1 small">
                                         {% for i in "12345" %}
-                                            {% if i|add:0 <= object.avg_rate %}
-                                            <span><i class="bi bi-star-fill star-rate"></i></span>
+                                        {% if i|add:0 <= object.avg_rate %} <span><i
+                                                class="bi bi-star-fill star-rate"></i></span>
                                             {% else %}
                                             <span><i class="bi bi-star star-rate"></i></span>
                                             {% endif %}
 
-                                        {% endfor %}
+                                            {% endfor %}
                                     </div>
                                     <!-- End Rating -->
                                     <span class="text-white">{{reviews.count}} نظر</span>
@@ -312,8 +326,8 @@
 
                         <div class="col-7">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: {{reviews_avg.rate_5}}%;" aria-valuenow="100"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: {{reviews_avg.rate_5}}%;"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <!-- End Col -->
@@ -333,8 +347,8 @@
 
                         <div class="col-7">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_4}}%;" aria-valuenow="53"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_4}}%;"
+                                    aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <!-- End Col -->
@@ -354,8 +368,8 @@
 
                         <div class="col-7">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_3}}%;" aria-valuenow="20"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_3}}%;"
+                                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <!-- End Col -->
@@ -375,8 +389,8 @@
 
                         <div class="col-7">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_2}}%;" aria-valuenow="0"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_2}}%;"
+                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <!-- End Col -->
@@ -396,8 +410,8 @@
 
                         <div class="col-7">
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_1}}%;" aria-valuenow="1"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width:  {{reviews_avg.rate_1}}%;"
+                                    aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <!-- End Col -->
@@ -441,14 +455,13 @@
                     <li class="list-comment-item">
                         <div class="d-flex gap-1 mb-3">
                             {% for i in "12345" %}
-                                {% if i|add:0 <= review.rate %}
-                                <span><i class="bi bi-star-fill star-rate"></i></span>
+                            {% if i|add:0 <= review.rate %} <span><i class="bi bi-star-fill star-rate"></i></span>
                                 {% else %}
                                 <span><i class="bi bi-star star-rate"></i></span>
                                 {% endif %}
 
-                            {% endfor %}
-        
+                                {% endfor %}
+
                         </div>
 
                         <!-- Media -->
@@ -507,8 +520,8 @@
                     <!-- Input Card -->
                     <div class="input-card input-card-pill input-card-sm border mb-3">
                         <div class="input-card-form">
-                            <input class="form-control border-0 me-1" type="text" placeholder="نام"
-                                        name="first_name" hidden="">
+                            <input class="form-control border-0 me-1" type="text" placeholder="نام" name="first_name"
+                                hidden="">
                             <label for="subscribeForm" class="form-label visually-hidden">ایمیل را وارد کنید</label>
                             <input type="email" class="form-control form-control-lg" name="email"
                                 placeholder="ایمیل خود را وارد نمایید" aria-label="ایمیل خود را وارد کنید">
