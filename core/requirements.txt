@@ -1,10 +1,14 @@
-asgiref==3.7.2
 Django>4.2,<4,3
+asgiref==3.7.2
+certifi==2023.11.17
+charset-normalizer==3.3.2
 django-debug-toolbar==4.2.0
+idna==3.6
+pillow==10.2.0
 psycopg==3.1.12
 psycopg-binary==3.1.12
 python-decouple==3.8
+requests==2.31.0
 sqlparse==0.4.4
 typing_extensions==4.8.0
-pillow==10.2.0
-faker==22.1.0
+urllib3==2.1.0

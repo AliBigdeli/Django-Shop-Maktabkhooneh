@@ -27,7 +27,31 @@
         {% csrf_token %}
         <div class="card-body">
             <div class="row d-flex ">
-               {{form.as_p}}
+                
+                <div class="col-md-6 mb-3">
+                    <label>نام محصول</label>
+                    <input class="form-control" type="text"  value="{{object.product.title}}" disabled>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label>کاربر</label>
+                    <input class="form-control" type="text"  value="{{object.user.user_profile.get_fullname}}" disabled>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>امتیاز</label>
+                    {{form.rate}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>وضعیت</label>
+                    {{form.status}}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>توضیحات</label>
+                    {{form.description}}
+                </div>
+                
+                
+               
 
 
             </div>
