@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from .models import PaymentModel, PayemntStatusType
+from .models import PaymentModel, PaymentStatusType
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 from .zarinpal_client import ZarinPalSandbox
@@ -25,8 +25,8 @@ class PaymentVerifyView(View):
 
         payment_obj.ref_id = ref_id
         payment_obj.response_code = status_code
-        payment_obj.status = PayemntStatusType.success.value if status_code in {
-            100, 101} else PayemntStatusType.failed.value
+        payment_obj.status = PaymentStatusType.success.value if status_code in {
+            100, 101} else PaymentStatusType.failed.value
         payment_obj.response_json = response
         payment_obj.save()
 
