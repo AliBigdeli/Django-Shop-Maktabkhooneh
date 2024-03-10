@@ -179,7 +179,7 @@
         let current_url_params = new URLSearchParams(window.location.search)
         $("#page-size-filter").val(current_url_params.get("page_size") || "10")
         $("#order-by-filter").val(current_url_params.get("order_by") || "")
-       
+        $("#search-query-filter").val(current_url_params.get("q") || "")
 
     });
     $('#page-size-filter').change(function () {

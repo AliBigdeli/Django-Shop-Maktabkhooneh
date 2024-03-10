@@ -34,7 +34,7 @@ class AdminCouponListView(LoginRequiredMixin, HasAdminAccessPermission, ListView
     def get_queryset(self):
         queryset = CouponModel.objects.all()
         if search_q := self.request.GET.get("q"):
-            queryset = queryset.filter(title__icontains=search_q)
+            queryset = queryset.filter(code__icontains=search_q)
         if order_by := self.request.GET.get("order_by"):
             try:
                 queryset = queryset.order_by(order_by)
