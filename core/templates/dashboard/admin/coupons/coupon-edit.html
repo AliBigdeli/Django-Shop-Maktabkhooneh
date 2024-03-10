@@ -1,0 +1,109 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item">داشبورد ادمین</li>
+        <li class="breadcrumb-item">تخفیف ها</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            ویرایش کد تخفیف
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div>
+        <div class="card mb-5">
+            <!-- Header -->
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="card-header-title">ویرایش کد تخفیف</h5>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="row d-flex ">
+                        <div class="col-md-6 mb-3">
+                            <label>کد تخفیف</label>
+                            {{form.code}}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>درصد تخفیف</label>
+                            {{form.discount_percent}}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>محدودیت نفرات استفاده</label>
+                            {{form.max_limit_usage}}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>تاریخ انقضا</label>
+                            {{form.expiration_date}}
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class=" d-flex pt-5 justify-content-end">
+                            <a class="btn btn-danger ms-3"
+                                href="{% url 'dashboard:admin:coupon-delete' pk=object.pk %}">حذف</a>
+                            <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:coupon-list' %}">بازگشت</a>
+                            <button class="btn btn-primary ms-3" type="submit">ثبت تغییرات</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <div class="card mb-5">
+        <!-- Table -->
+        <div class="card-header border-bottom ">
+            <h5 class="card-header-title">لیست استفاده کنندگان</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">کاربر</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in object.used_by.all %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{user.email}}</td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>ّ
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+
+{% block extra_js_no_compress %}
+
+{% endblock %}

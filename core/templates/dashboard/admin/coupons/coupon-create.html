@@ -1,0 +1,76 @@
+{% extends 'dashboard/admin/base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item">داشبورد ادمین</li>
+        <li class="breadcrumb-item">تخفیف ها</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            ایجاد کد تخفیف
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+        <h5 class="card-header-title">ایجاد کد تخفیف</h5>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <form action="." method="post" >
+        {% csrf_token %}
+        <div class="card-body">
+            <div class="row d-flex ">
+                <div class="col-md-6 mb-3">
+                    <label>کد تخفیف</label>
+                    {{form.code}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>درصد تخفیف</label>
+                    {{form.discount_percent}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>محدودیت نفرات استفاده</label>
+                    {{form.max_limit_usage}}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>تاریخ انقضا</label>
+                    {{form.expiration_date}}
+                </div>
+
+            </div>
+
+
+            </div>
+            <div class="card-footer">
+                <div class=" d-flex pt-5 justify-content-end">
+                    <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:coupon-list' %}">بازگشت</a>
+                    <button class="btn btn-primary ms-3" type="submit">ایجاد کد تخفیف</button>
+                </div>
+            </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+
+{% block extra_js_no_compress %}
+
+{% endblock %}
