@@ -10,7 +10,7 @@ class ProductStatusType(models.IntegerChoices):
 
 class ProductCategoryModel(models.Model):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(allow_unicode=True)
+    slug = models.SlugField(allow_unicode=True,unique=True)
     
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -27,7 +27,7 @@ class ProductModel(models.Model):
     user = models.ForeignKey("accounts.User",on_delete=models.PROTECT)
     category = models.ManyToManyField(ProductCategoryModel)
     title = models.CharField(max_length=255)
-    slug = models.SlugField(allow_unicode=True)
+    slug = models.SlugField(allow_unicode=True,unique=True)
     image = models.ImageField(default="/default/product-image.png",upload_to="product/img/")
     description = models.TextField()
     brief_description = models.TextField(null=True,blank=True)
