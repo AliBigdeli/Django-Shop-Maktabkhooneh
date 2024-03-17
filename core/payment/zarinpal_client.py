@@ -1,12 +1,20 @@
 import requests
 import json
 from django.conf import settings
+from django.contrib.sites.models import Site
+
+def get_domain():
+    from django.contrib.sites.models import Site
+    return Site.objects.get_current().domain
+def get_protocol():
+    # Determine the protocol based on the SECURE_SSL_REDIRECT setting
+    return'https' if getattr(settings, 'SECURE_SSL_REDIRECT', False) else 'http'
 
 class ZarinPalSandbox:
     _payment_request_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
     _payment_verify_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
     _payment_page_url = "https://sandbox.zarinpal.com/pg/StartPay/"
-    _callback_url = "http://127.0.0.1:8000/payment/verify"
+    _callback_url = f"{get_protocol()}://{get_domain()}/payment/verify"
 
     def __init__(self, merchant_id=settings.MERCHANT_ID):
         self.merchant_id = merchant_id
