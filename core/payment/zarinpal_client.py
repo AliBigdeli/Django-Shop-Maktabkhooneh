@@ -1,14 +1,17 @@
 import requests
 import json
 from django.conf import settings
-from django.contrib.sites.models import Site
+
 
 def get_domain():
     from django.contrib.sites.models import Site
     return Site.objects.get_current().domain
+
+
 def get_protocol():
     # Determine the protocol based on the SECURE_SSL_REDIRECT setting
-    return'https' if getattr(settings, 'SECURE_SSL_REDIRECT', False) else 'http'
+    return 'https' if getattr(settings, 'SECURE_SSL_REDIRECT', False) else 'http'
+
 
 class ZarinPalSandbox:
     _payment_request_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
@@ -35,7 +38,7 @@ class ZarinPalSandbox:
 
         return response.json()
 
-    def payment_verify(self,amount,authority):
+    def payment_verify(self, amount, authority):
         payload = {
             "MerchantID": self.merchant_id,
             "Amount": amount,
@@ -45,8 +48,9 @@ class ZarinPalSandbox:
             'Content-Type': 'application/json'
         }
 
-        response = requests.post(self._payment_verify_url, headers=headers, data=json.dumps(payload))
+        response = requests.post(
+            self._payment_verify_url, headers=headers, data=json.dumps(payload))
         return response.json()
 
-    def generate_payment_url(self,authority):
+    def generate_payment_url(self, authority):
         return f"{self._payment_page_url}{authority}"
