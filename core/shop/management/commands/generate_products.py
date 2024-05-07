@@ -15,7 +15,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         fake = Faker(locale="fa_IR")
-        user = User.objects.get(type=UserType.admin.value)
+        user = User.objects.filter(type__in=[UserType.admin.value,
+                                             UserType.superuser.value]).first()
         # List of images
         image_list = [
             "./images/img1.jpg",
