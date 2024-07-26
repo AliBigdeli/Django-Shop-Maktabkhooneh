@@ -4,8 +4,12 @@ from django.conf import settings
 
 
 def get_domain():
-    from django.contrib.sites.models import Site
-    return Site.objects.get_current().domain
+    # for fixing issue with the sites model before migration
+    try:
+        from django.contrib.sites.models import Site
+        return Site.objects.get_current().domain
+    except:
+        return "example.com"
 
 
 def get_protocol():
