@@ -79,21 +79,25 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
     def create_order_items(self, order, cart, request):
         for item in cart.cart_items.all():
-            OrderItemModel.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                price=item.product.get_price(),
-            )
-        # کم کردن موجودی محصول به میزان خرید
-        product = item.product
-        if product.stock >= item.quantity:  # چک کردن اینکه موجودی کافی است
-            product.stock -= item.quantity
-            product.save()
-        else:
-            # اضافه کردن پیام خطا
-            messages.error(request, f"موجودی برای محصول {product.title} کافی نیست.")
-            return redirect('order:checkout')  # بازگشت به صفحه checkout
+            product = item.product
+
+            # چک کردن موجودی محصول
+            if product.stock >= item.quantity:
+                # ایجاد آیتم سفارش
+                OrderItemModel.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=item.quantity,
+                    price=product.get_price(),
+                )
+
+                # کم کردن موجودی محصول
+                product.stock -= item.quantity
+                product.save()
+            else:
+                # اضافه کردن پیام خطا
+                messages.error(request, f"موجودی برای محصول {product.title} کافی نیست.")
+                return redirect('order:checkout')  # بازگشت به صفحه checkout
 
     def clear_cart(self, cart):
         cart.cart_items.all().delete()
