@@ -19,7 +19,6 @@
 This is a sample project to show you how to create a ecommerce website, and how to interact with users and payment gateway and also how to manage orders and products.
 
 # Demo
-
 the video will show you a demo of the project and what are the capabilities and what features are included.
 
 <p align="center">
@@ -57,6 +56,8 @@ here are the course main curriculum
 # License
 MIT.
 
+# HTML Template
+ فایل مورد نظر برای پیاده سازی قالب فروشگاه در روت اصلی به صورت rar وجود دارد
 
 # Bugs
 Feel free to let me know if something needs to be fixed. or even any features seems to be needed in this repo.
