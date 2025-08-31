@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     container_name: db
@@ -21,14 +19,15 @@ services:
       dockerfile: ./dockerfiles/dev/django/Dockerfile
     volumes: 
       - ./core:/usr/src/app
+      - ./wait-for-it.sh:/usr/src/app/wait-for-it.sh
     working_dir: /usr/src/app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ./wait-for-it.sh db:5432 -- python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
     environment:
       - DEBUG=True
     env_file:
-      - ./envs/dev/django/.env
+      - ./envs/dev/django/.env.sample
     restart: always
     depends_on:
       - db
